@@ -9,7 +9,7 @@ import { useGLTF, Edges, shaderMaterial } from "@react-three/drei";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
 import { Color, ShaderMaterial } from "three";
 import { useControls, folder, Leva } from "leva";
-import { extend } from "@react-three/fiber";
+import { extend, useFrame } from "@react-three/fiber";
 
 const CustomCenterShaderMaterial = shaderMaterial(
   {
@@ -56,6 +56,7 @@ export default function RhinoModel0316({ ...props }) {
   const { nodes, materials, scene } = useGLTF("models/RhinoModel0316.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   const group = useRef();
+  useFrame(() => {});
 
   //leva GUI组件库 https://github.com/pmndrs/leva
 

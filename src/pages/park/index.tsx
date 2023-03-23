@@ -1,5 +1,5 @@
 import { Suspense, useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   Bounds,
   OrbitControls,
@@ -20,8 +20,9 @@ import { Tree } from "@/components/Tree";
 import RhinoModel0316 from "@/components/RhinoModel0316";
 import { Lights } from "./components/Lights";
 import { ParameterInputs } from "./components/ParameterInputs";
-import IndexTable from "./components/IndexTable";
 import { Leva } from "leva";
+import { ProfileTwoTone, SkinTwoTone } from "@ant-design/icons";
+import Solution from "./components/Solution";
 const levaTheme = {
   colors: {
     elevation1: "#ffeeff",
@@ -80,17 +81,34 @@ const levaTheme = {
 };
 
 const Park = () => {
+  const [showParameterInputs, setShowParameterInputs] = useState(false);
+  const [showLeva, setShowLeva] = useState(true);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   return (
     <div className="relative w-screen h-screen">
-      <div className="container absolute z-10 w-auto px-6 py-4 mx-auto">
-        <ParameterInputs />
+      <div className="container absolute z-10 flex flex-col w-auto px-2 py-4 mx-auto left-2">
+        <ProfileTwoTone
+          onClick={() => setShowParameterInputs(!showParameterInputs)}
+        />
+        <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
       </div>
+      <div className="container absolute z-10 w-auto px-2 py-4 mx-auto left-10">
+        <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
+        {showParameterInputs && <ParameterInputs />}
+      </div>
+
       <div className="container absolute z-10 w-auto px-6 py-4 mx-auto top-4 right-4">
-        <IndexTable />
-        <Leva theme={levaTheme} fill></Leva>;
+        {/* <div className="bg-white rounded-lg shadow-md">
+          <div className="px-1 py-2 text-xl font-bold">方案</div>
+          <Image src={image} alt={"save image"} width={200} height={200} />
+          <IndexTable />
+        </div> */}
+        <Solution canvasRef={canvasRef} />
       </div>
       <div className="absolute inset-0 h-full">
         <Canvas
+          gl={{ preserveDrawingBuffer: true }}
+          ref={canvasRef}
           shadows
           camera={{ position: [-150, 150, 0], fov: 60, far: 2000 }}
         >
