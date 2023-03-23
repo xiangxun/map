@@ -45,7 +45,7 @@ export const ParameterInputs: React.FC = () => {
   };
 
   return (
-    <div className="flex items-left justify-left">
+    <div className="flex opacity-90 items-left justify-left ">
       <div className="max-w-lg">
         <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded-lg shadow-md">
           <div>
