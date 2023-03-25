@@ -1,6 +1,6 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { Table, Divider, Button } from "antd";
+import { Table, Divider, Button ,Image} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { saveAs } from "file-saver";
 

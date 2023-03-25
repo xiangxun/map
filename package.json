@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@react-spring/three": "^9.7.1",
     "@react-three/drei": "^9.57.3",
     "@react-three/fiber": "^8.12.0",
     "@react-three/postprocessing": "^2.7.0",
@@ -28,6 +29,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "rhino3dm": "^8.0.0",
     "three": "^0.150.1",
     "typescript": "5.0.2"
   },

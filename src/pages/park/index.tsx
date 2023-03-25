@@ -23,6 +23,9 @@ import { ParameterInputs } from "./components/ParameterInputs";
 import { Leva } from "leva";
 import { ProfileTwoTone, SkinTwoTone } from "@ant-design/icons";
 import Solution from "./components/Solution";
+import { File3dm, Mesh } from "rhino3dm";
+// import { Rhino3dmExporter } from 'three-stdlib/jsm/exporters/Rhino3dmExporter';
+
 const levaTheme = {
   colors: {
     elevation1: "#ffeeff",
@@ -84,6 +87,11 @@ const Park = () => {
   const [showParameterInputs, setShowParameterInputs] = useState(false);
   const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const handleExport3dm = () => {
+  //   const doc = new File3dm();
+  //   const mesh = new Mesh()
+  // }
+
   return (
     <div className="relative w-screen h-screen">
       <div className="container absolute z-10 flex flex-col w-auto px-2 py-4 mx-auto left-2">
@@ -93,8 +101,11 @@ const Park = () => {
         <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
       </div>
       <div className="container absolute z-10 w-auto px-2 py-4 mx-auto left-10">
-        <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
+        {/* <Leva theme={levaTheme} fill hidden={showLeva}></Leva> */}
         {showParameterInputs && <ParameterInputs />}
+      </div>
+      <div className="container absolute z-10 w-auto px-2 py-4 mx-auto left-1/3">
+        <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
       </div>
 
       <div className="container absolute z-10 w-auto px-6 py-4 mx-auto top-4 right-4">

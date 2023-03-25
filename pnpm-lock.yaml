@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ant-design/icons': ^5.0.1
+  '@react-spring/three': ^9.7.1
   '@react-three/drei': ^9.57.3
   '@react-three/fiber': ^8.12.0
   '@react-three/postprocessing': ^2.7.0
@@ -24,12 +25,14 @@ specifiers:
   react-dom: 18.2.0
   react-redux: ^8.0.5
   redux: ^4.2.1
+  rhino3dm: ^8.0.0
   tailwindcss: ^3.2.7
   three: ^0.150.1
   typescript: 5.0.2
 
 dependencies:
   '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/5.0.1_biqbaboplfbrettd7655fr4n2y
+  '@react-spring/three': registry.npmmirror.com/@react-spring/three/9.7.1_lfvpzd3m5escehi2gx2mx2fjgy
   '@react-three/drei': registry.npmmirror.com/@react-three/drei/9.57.3_u3iila23zl7kxrjj2wxuc6ojr4
   '@react-three/fiber': registry.npmmirror.com/@react-three/fiber/8.12.0_73epb4osyabtjyiaeamriercbi
   '@react-three/postprocessing': registry.npmmirror.com/@react-three/postprocessing/2.7.0_lfvpzd3m5escehi2gx2mx2fjgy
@@ -48,6 +51,7 @@ dependencies:
   react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
   react-redux: registry.npmmirror.com/react-redux/8.0.5_ctrls2ti7t7iutxbwkm5ipogyy
   redux: registry.npmmirror.com/redux/4.2.1
+  rhino3dm: registry.npmmirror.com/rhino3dm/8.0.0
   three: registry.npmmirror.com/three/0.150.1
   typescript: registry.npmmirror.com/typescript/5.0.2
 
@@ -1218,6 +1222,19 @@ packages:
       react: registry.npmmirror.com/react/18.2.0
     dev: false
 
+  registry.npmmirror.com/@react-spring/animated/9.7.1_react@18.2.0:
+    resolution: {integrity: sha512-EX5KAD9y7sD43TnLeTNG1MgUVpuRO1YaSJRPawHNRgUWYfILge3s85anny4S4eTJGpdp5OoFV2kx9fsfeo0qsw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/animated/-/animated-9.7.1.tgz}
+    id: registry.npmmirror.com/@react-spring/animated/9.7.1
+    name: '@react-spring/animated'
+    version: 9.7.1
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@react-spring/shared': registry.npmmirror.com/@react-spring/shared/9.7.1_react@18.2.0
+      '@react-spring/types': registry.npmmirror.com/@react-spring/types/9.7.1
+      react: registry.npmmirror.com/react/18.2.0
+    dev: false
+
   registry.npmmirror.com/@react-spring/core/9.6.1_react@18.2.0:
     resolution: {integrity: sha512-3HAAinAyCPessyQNNXe5W0OHzRfa8Yo5P748paPcmMowZ/4sMfaZ2ZB6e5x5khQI8NusOHj8nquoutd6FRY5WQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/core/-/core-9.6.1.tgz}
     id: registry.npmmirror.com/@react-spring/core/9.6.1
@@ -1233,10 +1250,31 @@ packages:
       react: registry.npmmirror.com/react/18.2.0
     dev: false
 
+  registry.npmmirror.com/@react-spring/core/9.7.1_react@18.2.0:
+    resolution: {integrity: sha512-8K9/FaRn5VvMa24mbwYxwkALnAAyMRdmQXrARZLcBW2vxLJ6uw9Cy3d06Z8M12kEqF2bDlccaCSDsn2bSz+Q4A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/core/-/core-9.7.1.tgz}
+    id: registry.npmmirror.com/@react-spring/core/9.7.1
+    name: '@react-spring/core'
+    version: 9.7.1
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@react-spring/animated': registry.npmmirror.com/@react-spring/animated/9.7.1_react@18.2.0
+      '@react-spring/rafz': registry.npmmirror.com/@react-spring/rafz/9.7.1
+      '@react-spring/shared': registry.npmmirror.com/@react-spring/shared/9.7.1_react@18.2.0
+      '@react-spring/types': registry.npmmirror.com/@react-spring/types/9.7.1
+      react: registry.npmmirror.com/react/18.2.0
+    dev: false
+
   registry.npmmirror.com/@react-spring/rafz/9.6.1:
     resolution: {integrity: sha512-v6qbgNRpztJFFfSE3e2W1Uz+g8KnIBs6SmzCzcVVF61GdGfGOuBrbjIcp+nUz301awVmREKi4eMQb2Ab2gGgyQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/rafz/-/rafz-9.6.1.tgz}
     name: '@react-spring/rafz'
     version: 9.6.1
+    dev: false
+
+  registry.npmmirror.com/@react-spring/rafz/9.7.1:
+    resolution: {integrity: sha512-JSsrRfbEJvuE3w/uvU3mCTuWwpQcBXkwoW14lBgzK9XJhuxmscGo59AgJUpFkGOiGAVXFBGB+nEXtSinFsopgw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/rafz/-/rafz-9.7.1.tgz}
+    name: '@react-spring/rafz'
+    version: 9.7.1
     dev: false
 
   registry.npmmirror.com/@react-spring/shared/9.6.1_react@18.2.0:
@@ -1249,6 +1287,19 @@ packages:
     dependencies:
       '@react-spring/rafz': registry.npmmirror.com/@react-spring/rafz/9.6.1
       '@react-spring/types': registry.npmmirror.com/@react-spring/types/9.6.1
+      react: registry.npmmirror.com/react/18.2.0
+    dev: false
+
+  registry.npmmirror.com/@react-spring/shared/9.7.1_react@18.2.0:
+    resolution: {integrity: sha512-R2kZ+VOO6IBeIAYTIA3C1XZ0ZVg/dDP5FKtWaY8k5akMer9iqf5H9BU0jyt3Qtxn0qQY7whQdf6MTcWtKeaawg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/shared/-/shared-9.7.1.tgz}
+    id: registry.npmmirror.com/@react-spring/shared/9.7.1
+    name: '@react-spring/shared'
+    version: 9.7.1
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@react-spring/rafz': registry.npmmirror.com/@react-spring/rafz/9.7.1
+      '@react-spring/types': registry.npmmirror.com/@react-spring/types/9.7.1
       react: registry.npmmirror.com/react/18.2.0
     dev: false
 
@@ -1271,10 +1322,35 @@ packages:
       three: registry.npmmirror.com/three/0.150.1
     dev: false
 
+  registry.npmmirror.com/@react-spring/three/9.7.1_lfvpzd3m5escehi2gx2mx2fjgy:
+    resolution: {integrity: sha512-5leUe0PDwIIw1M3GN3788zwTY4Ykyy+kNvQmg9+Hqs1DN3T8J1ovRTGwqWfGAu4ApTta9p5BH7SWNxxt3NO59Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/three/-/three-9.7.1.tgz}
+    id: registry.npmmirror.com/@react-spring/three/9.7.1
+    name: '@react-spring/three'
+    version: 9.7.1
+    peerDependencies:
+      '@react-three/fiber': '>=6.0'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      three: '>=0.126'
+    dependencies:
+      '@react-spring/animated': registry.npmmirror.com/@react-spring/animated/9.7.1_react@18.2.0
+      '@react-spring/core': registry.npmmirror.com/@react-spring/core/9.7.1_react@18.2.0
+      '@react-spring/shared': registry.npmmirror.com/@react-spring/shared/9.7.1_react@18.2.0
+      '@react-spring/types': registry.npmmirror.com/@react-spring/types/9.7.1
+      '@react-three/fiber': registry.npmmirror.com/@react-three/fiber/8.12.0_73epb4osyabtjyiaeamriercbi
+      react: registry.npmmirror.com/react/18.2.0
+      three: registry.npmmirror.com/three/0.150.1
+    dev: false
+
   registry.npmmirror.com/@react-spring/types/9.6.1:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/types/-/types-9.6.1.tgz}
     name: '@react-spring/types'
     version: 9.6.1
+    dev: false
+
+  registry.npmmirror.com/@react-spring/types/9.7.1:
+    resolution: {integrity: sha512-yBcyfKUeZv9wf/ZFrQszvhSPuDx6Py6yMJzpMnS+zxcZmhXPeOCKZSHwqrUz1WxvuRckUhlgb7eNI/x5e1e8CA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@react-spring/types/-/types-9.7.1.tgz}
+    name: '@react-spring/types'
+    version: 9.7.1
     dev: false
 
   registry.npmmirror.com/@react-three/drei/9.57.3_u3iila23zl7kxrjj2wxuc6ojr4:
@@ -5545,6 +5621,13 @@ packages:
     name: reusify
     version: 1.0.4
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  registry.npmmirror.com/rhino3dm/8.0.0:
+    resolution: {integrity: sha512-HwALKRubEP1hi8v2785LVcAau2laVxbI8DE/Krtl4RN3JEKXWfyVTXFSXEXUpBp7gr61Kk7B9fTbyCiwnsPl8Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rhino3dm/-/rhino3dm-8.0.0.tgz}
+    name: rhino3dm
+    version: 8.0.0
+    deprecated: Please use rhino3dm@8.0.0-beta.
+    dev: false
 
   registry.npmmirror.com/rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rimraf/-/rimraf-3.0.2.tgz}
