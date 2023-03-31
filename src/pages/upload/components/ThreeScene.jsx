@@ -3,9 +3,9 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 // import { Robot } from "../../../components/Robot";
 
-export const ThreeScene = () => {
+const ThreeScene = () => {
   return (
-    <div className="h-full">
+    <div className='h-full'>
       <Canvas camera={{ position: [0, 3, 5], fov: 60 }}>
         <OrbitControls />
         {/* 坏境光 */}
@@ -19,3 +19,4 @@ export const ThreeScene = () => {
     </div>
   );
 };
+export default ThreeScene;

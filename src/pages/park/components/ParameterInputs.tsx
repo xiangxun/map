@@ -13,8 +13,8 @@ import {
   Select,
 } from "antd";
 
-export const ParameterInputs: React.FC = () => {
-  // const dispatch = useDispatch();
+const ParameterInputs: React.FC = () => {
+  const dispatch = useDispatch();
 
   const [towerArea, setTowerArea] = useState(50000);
   const [skirtArea, setSkirtArea] = useState(5000);
@@ -45,18 +45,18 @@ export const ParameterInputs: React.FC = () => {
   };
 
   return (
-    <div className="flex opacity-90 items-left justify-left ">
-      <div className="max-w-lg">
-        <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded-lg shadow-md">
+    <div className='flex opacity-90 items-left justify-left '>
+      <div className='max-w-lg'>
+        <div className='px-8 pt-6 pb-8 mb-4 bg-white rounded-lg shadow-md'>
           <div>
-            <h1 className="text-3xl font-bold ">全局参数</h1>
+            <h1 className='text-3xl font-bold '>全局参数</h1>
           </div>
           <Divider />
           <Space
             style={{
               width: "100%",
             }}
-            direction="vertical"
+            direction='vertical'
           >
             {/* 塔楼目标面积 */}
             <Row>
@@ -87,7 +87,7 @@ export const ParameterInputs: React.FC = () => {
               </Col>
               <Col span={12}>
                 <Select
-                  defaultValue="平均模式"
+                  defaultValue='平均模式'
                   style={{
                     margin: "0 6px",
                     width: "100%",
@@ -274,7 +274,7 @@ export const ParameterInputs: React.FC = () => {
               </Col>
               <Col span={12}>
                 <Select
-                  defaultValue="条状生成"
+                  defaultValue='条状生成'
                   style={{
                     margin: "0 6px",
                     width: "100%",
@@ -410,8 +410,8 @@ export const ParameterInputs: React.FC = () => {
           </button> */}
           <Button
             block
-            type="primary"
-            className="font-bold text-white bg-blue-500 hover:bg-blue-700 "
+            type='primary'
+            className='font-bold text-white bg-blue-500 hover:bg-blue-700 '
             // onClick={() => submit({ onResultChange: setResult })}
             onClick={submit}
           >
@@ -422,3 +422,5 @@ export const ParameterInputs: React.FC = () => {
     </div>
   );
 };
+
+export default ParameterInputs;

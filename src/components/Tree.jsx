@@ -6,7 +6,7 @@ Command: npx gltfjsx@6.1.4 tree.glb
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { Mesh } from "three";
-import treePosition from "@/res/json/tree.json";
+import treePosition from "@/assets/json/tree.json";
 
 export function Tree(props) {
   const { nodes, materials, scene } = useGLTF("models/tree.glb");

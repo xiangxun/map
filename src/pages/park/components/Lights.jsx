@@ -1,4 +1,4 @@
-export const Lights = () => {
+const Lights = () => {
   return (
     <>
       {/* 坏境光 */}
@@ -13,10 +13,11 @@ export const Lights = () => {
         color={"#fff"}
       >
         <orthographicCamera
-          attach="shadow-camera"
+          attach='shadow-camera'
           args={[-2000, 2000, 2000, -2000]}
         />
       </directionalLight>
     </>
   );
 };
+export default Lights;

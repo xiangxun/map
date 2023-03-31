@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@jridgewell/sourcemap-codec": "^1.4.14",
     "@react-spring/three": "^9.7.1",
     "@react-three/drei": "^9.57.3",
     "@react-three/fiber": "^8.12.0",
@@ -23,6 +24,9 @@
     "antd": "^5.3.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "gl-react": "^5.2.0",
+    "gl-react-dom": "^5.2.1",
+    "glslify": "^7.1.1",
     "leva": "^0.9.34",
     "next": "13.2.4",
     "postcss-preset-env": "^8.0.1",
@@ -30,7 +34,8 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
-    "rhino3dm": "^8.0.0",
+    "rhino3dm": "8.0.0-beta",
+    "shadertoy-react": "^1.1.2",
     "three": "^0.150.1",
     "typescript": "5.0.2"
   },
