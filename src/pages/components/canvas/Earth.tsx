@@ -25,7 +25,7 @@ const City = () => {
 const EarthCanvas = () => {
   return (
     <Canvas
-      style={{ height: 600 }}
+      style={{ width: 500, height: 600 }}
       shadows
       frameloop='demand'
       dpr={[1, 2]}

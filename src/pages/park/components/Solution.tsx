@@ -1,6 +1,6 @@
 // import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { Table, Divider, Button ,Image} from "antd";
+import { Table, Divider, Button, Image } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { saveAs } from "file-saver";
 
@@ -58,31 +58,28 @@ const Solution: React.FC<SolutionProps> = ({ canvasRef }) => {
     }
   };
   return (
-    <div className="px-2 py-2 bg-white rounded-lg shadow-md">
-      <div className="px-1 py-2 text-xl font-bold">方案</div>
-      <Image src={image} alt={"save image"} width={250} height={150} />
-      <div className="min-w-full p-4 bg-white rounded-lg w-60 opacity-90 md:min-w-0">
-        <div className="px-1 py-2 text-base font-bold">总体技术指标</div>
-        {/* <Divider /> */}
+    <div className='p-2 bg-white'>
+      {/* <div className='p-1 text-lg font-bold'>方案</div> */}
+      <Image src={image} alt={"save image"} width={250} height={200} />
+      <div className='min-w-full p-1 bg-white rounded-lg w-60  md:min-w-0'>
+        <div className='p-1 text-sm font-bold'>总体技术指标</div>
         <Table
           showHeader={false}
           columns={columns}
           dataSource={data}
           // size="middle"
-          size="small"
+          size='small'
           pagination={{ hideOnSinglePage: true }}
         />
       </div>
       <Button
         block
-        type="primary"
-        className="font-bold text-white bg-blue-500 hover:bg-blue-700 "
-        // onClick={() => submit({ onResultChange: setResult })}
+        type='primary'
+        className='font-bold text-white bg-blue-500 hover:bg-blue-700 '
         onClick={handleSaveImage}
       >
         保存方案
       </Button>
-      {/* <button onClick={handleSaveImage}>Save Image</button> */}
     </div>
   );
 };

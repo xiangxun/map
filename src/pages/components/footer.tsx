@@ -8,7 +8,7 @@ const Footer = () => {
         <ul className='flex space-x-4'>
           <li>
             <Link href='/about'>
-              <div className='text-gray-400 hover:text-white'>关于我们</div>
+              <div className='text-gray-400 hover:text-grad-800'>关于我们</div>
             </Link>
           </li>
         </ul>

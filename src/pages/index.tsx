@@ -10,7 +10,8 @@ export default function Home() {
         <title>MAP</title>
         <meta name='description' content='Master_Archi_Parter' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        {/* <link rel='icon' href='/favicon.ico' /> */}
+        <link rel='icon' href='/logo.svg' />
       </Head>
       <div className='relative z-0 bg-gray-100'>
         <div className='bg-center'>
