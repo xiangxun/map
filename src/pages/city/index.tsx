@@ -32,6 +32,8 @@ import { File3dm, Mesh } from "rhino3dm";
 import Navbar from "../components/navbar";
 import { Button } from "antd";
 import CityModel01 from "@/components/CityModel01";
+import CityModel03 from "@/components/CityModel03";
+import CityModel0101 from "@/components/CityModel0101";
 import { Road } from "@/components/Road";
 // import { Rhino3dmExporter } from 'three-stdlib/jsm/exporters/Rhino3dmExporter';
 
@@ -107,19 +109,19 @@ const City = () => {
       </div>
       <div className=' flex-grow flex'>
         {/* 左边栏 */}
-        <div className='relative bg-white p-4  shadow-lg'>
+        <div className='relative bg-white p-4  shadow-md'>
           <div>
             <UnorderedListOutlined
               onClick={() => setShowParameterInputs(!showParameterInputs)}
             />
           </div>
           <div>
+            {/* <SkinTwoTone onClick={() => setShowLeva(!showLeva)} /> */}
             <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
           </div>
         </div>
-        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-lg'>
+        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
           {/* 全局参数 */}
-
           <div className='mx-auto '>
             {!showParameterInputs && <ParameterInputs />}
           </div>
@@ -132,7 +134,7 @@ const City = () => {
                 type='primary'
                 className='font-bold text-white bg-blue-500 hover:bg-blue-700 sm:w-full'
                 // onClick={() => submit({ onResultChange: setResult })}
-                // onClick={submit}
+                // onClick={handleModel}
               >
                 确定
               </Button>
@@ -144,13 +146,14 @@ const City = () => {
         </div>
 
         {/* 主内容区 */}
-        <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
+        <div className='relative flex-grow p-6 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
             <Canvas
               gl={{ preserveDrawingBuffer: true }}
               ref={canvasRef}
               shadows
-              camera={{ position: [1000, 1000, 0], fov: 60, far: 8000 }}
+              orthographic
+              camera={{ position: [4000, 4000, 0], far: 8000 }}
             >
               <OrbitControls autoRotate maxDistance={2000} />
               {/* <Lights /> */}
@@ -167,12 +170,13 @@ const City = () => {
                     <SMAA />
                     <SSAO />
                     {/* <Road /> */}
+                    {/* <CityModel0101 castShadow receiveShadow /> */}
+                    <CityModel03 castShadow receiveShadow />
                   </EffectComposer>
-                  <CityModel01 />
                 </Selection>
 
-                {/* <Environment preset='city' /> */}
-                <Environment preset='forest' />
+                <Environment preset='city' />
+                {/* <Environment preset='forest' /> */}
               </Suspense>
               {/* <GizmoHelper
                 alignment='bottom-right'
@@ -191,7 +195,7 @@ const City = () => {
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
+        <div className='bg-white w-[300px] p-3 hidden lg:block shadow-md'>
           <div className='container z-10 w-auto  mx-auto flex flex-col justify-between'>
             <div className=' border'>
               <div className='p-3 text-lg font-bold'>方案一</div>

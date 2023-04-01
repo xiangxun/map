@@ -102,10 +102,10 @@ export default function RhinoModel0316({ ...props }) {
         castShadow
         receiveShadow
       >
-        <Edges scale={1} threshold={15} color="#F00" lineWidth={20} />
+        <Edges scale={1} threshold={15} color='#F00' lineWidth={20} />
       </mesh>
       <Select enabled={config.all}>
-        <Select name="center" enabled={config.center}>
+        <Select name='center' enabled={config.center}>
           //skirt
           {meshes
             .filter((v) => v.name.includes("skirt"))
@@ -125,7 +125,7 @@ export default function RhinoModel0316({ ...props }) {
                     // color="#F0F"
                   />
                   {/* <customOtherShaderMaterial attach="material" /> */}
-                  <Edges scale={1} threshold={15} color="#000" />
+                  <Edges scale={1} threshold={15} color='#000' />
                 </mesh>
               );
             })}
@@ -147,12 +147,12 @@ export default function RhinoModel0316({ ...props }) {
                     // opacity={0.95}
                     // color="#FF0"
                   />
-                  <Edges scale={1} threshold={15} color="#999" />
+                  <Edges scale={1} threshold={15} color='#999' />
                 </mesh>
               );
             })}
         </Select>
-        <Select name="building" enabled={config.building}>
+        <Select name='building' enabled={config.building}>
           //building
           {meshes
             .filter((v) => v.name.includes("building"))
@@ -167,10 +167,33 @@ export default function RhinoModel0316({ ...props }) {
                   <meshStandardMaterial
                     transparent
                     opacity={0.7}
-                    color="#AAA"
+                    color='#AAA'
                   />
                   {/* <customOtherShaderMaterial attach="material" /> */}
-                  <Edges scale={1} threshold={15} color="#AAA" />
+                  <Edges scale={1} threshold={15} color='#AAA' />
+                </mesh>
+              );
+            })}
+        </Select>
+        <Select name='ground'>
+          //ground
+          {meshes
+            .filter((v) => v.name.includes("ground"))
+            .map((item, index) => {
+              return (
+                <mesh
+                  key={index}
+                  geometry={item.geometry}
+                  castShadow
+                  receiveShadow
+                >
+                  <meshStandardMaterial
+                    transparent
+                    opacity={0.7}
+                    color='#AAA'
+                  />
+                  {/* <customOtherShaderMaterial attach="material" /> */}
+                  <Edges scale={1} threshold={15} color='#AAA' />
                 </mesh>
               );
             })}

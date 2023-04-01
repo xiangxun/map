@@ -20,6 +20,7 @@ import {
 import { Tree } from "@/components/Tree";
 import RhinoModel0316 from "@/components/RhinoModel0316";
 import ParkModel01 from "@/components/ParkModel01";
+import ParkModel03 from "@/components/ParkModel03";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import { Leva } from "leva";
@@ -116,7 +117,7 @@ const Park = () => {
             <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
           </div>
         </div>
-        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-lg'>
+        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
           {/* 全局参数 */}
 
           <div className='mx-auto'>
@@ -149,9 +150,10 @@ const Park = () => {
               gl={{ preserveDrawingBuffer: true }}
               ref={canvasRef}
               shadows
-              camera={{ position: [-150, 150, 0], fov: 60, far: 2000 }}
+              camera={{ position: [-250, 250, 0], fov: 60, far: 2000 }}
             >
-              <OrbitControls autoRotate maxDistance={300} />
+              <OrbitControls autoRotate maxDistance={350} />
+              {/* <OrbitControls maxDistance={350} /> */}
               <Lights />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
@@ -167,7 +169,7 @@ const Park = () => {
                     <SSAO />
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
-                  <ParkModel01 castShadow receiveShadow />
+                  <ParkModel03 castShadow receiveShadow />
                   <ContactShadows
                     rotation-x={Math.PI / 2}
                     position={[200, 200, 0]}

@@ -35,7 +35,7 @@ const HomePage = () => {
               <div className='flex flex-wrap gap-20 pt-15'>
                 <Card
                   hoverable
-                  style={{ width: 500 }}
+                  style={{ width: 1000 }}
                   cover={
                     <Image
                       src={park1}
@@ -61,11 +61,11 @@ const HomePage = () => {
                 </Card>
                 <Card
                   hoverable
-                  style={{ width: 500 }}
+                  style={{ width: 1000 }}
                   cover={
                     <Image
                       src={city1}
-                      alt='城市生成'
+                      alt='产业园区智能规划方案'
                       width={500}
                       height={500}
                       className='w-2/3 border-2'
