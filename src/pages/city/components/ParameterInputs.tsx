@@ -53,11 +53,11 @@ const ParameterInputs: React.FC = () => {
   };
 
   return (
-    <div className='flex opacity-90 items-left justify-left '>
+    <div className='flex items-left justify-left '>
       <div className='max-w-lg'>
-        <div className='px-8 pt-6 pb-8 mb-4 bg-white rounded-lg shadow-md'>
+        <div className='px-8 pt-6 pb-8 mb-4 bg-white'>
           <div>
-            <h1 className='text-3xl font-bold '>全局参数</h1>
+            <h1 className='text-lg font-bold '>全局参数</h1>
           </div>
           <Divider />
           <Space
@@ -68,7 +68,7 @@ const ParameterInputs: React.FC = () => {
           >
             {/* 城市类型 */}
             <Row>
-              <Col span={10}>
+              <Col span={12}>
                 <label>城市类型：</label>
               </Col>
               <Col span={12}>
@@ -98,7 +98,7 @@ const ParameterInputs: React.FC = () => {
             </Row>
             {/* 容积率 */}
             <Row>
-              <Col span={10}>
+              <Col span={12}>
                 <label>容积率：</label>
               </Col>
               <Col span={12}>
@@ -128,7 +128,7 @@ const ParameterInputs: React.FC = () => {
             </Row>
             {/* 网格数量 */}
             <Row>
-              <Col span={10}>
+              <Col span={12}>
                 <label>网格数量：</label>
               </Col>
               <Col span={12}>
@@ -140,13 +140,13 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={gridDensity}
-                  // onChange={(v) => setGridDensity(v)}
+                  onChange={(v) => setGridDensity(v!)}
                 />
               </Col>
             </Row>
             {/* 路网密度 */}
             <Row>
-              <Col span={10}>
+              <Col span={12}>
                 <label>路网密度：</label>
               </Col>
               <Col span={12}>
@@ -159,13 +159,13 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={roadDensity}
-                  // onChange={(v) => setRoadDensity(v)}
+                  onChange={(v) => setRoadDensity(v!)}
                 />
               </Col>
             </Row>
             {/* 绿地密度 */}
             <Row>
-              <Col span={10}>
+              <Col span={12}>
                 <label>绿地密度：</label>
               </Col>
               <Col span={12}>
@@ -178,16 +178,284 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={greenRate}
-                  // onChange={(v) => setGreenRate(v)}
+                  onChange={(v) => setGreenRate(v!)}
+                />
+              </Col>
+            </Row>
+            {/* 红线退距 */}
+            <Row>
+              <Col span={12}>
+                <label>红线退距：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={12}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                  // value={skirtHeight}
+                  // onChange={(v) => setSkirtHeight(v)}
+                />
+              </Col>
+            </Row>
+            {/* 塔楼限高 */}
+            <Row>
+              <Col span={12}>
+                <label>塔楼限高：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={100}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                  // value={skirtHeight}
+                  // onChange={(v) => setSkirtHeight(v)}
+                />
+              </Col>
+            </Row>
+            {/* 塔楼标准层高度 */}
+            <Row>
+              <Col span={12}>
+                <label>塔楼标准层高度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={4.2}
+                  step={0.1}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                  // value={skirtHeight}
+                  // onChange={(v) => setSkirtHeight(v)}
+                />
+              </Col>
+            </Row>
+            {/* 裙房限高 */}
+            <Row>
+              <Col span={12}>
+                <label>裙房限高：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={24}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                  // value={skirtHeight}
+                  // onChange={(v) => setSkirtHeight(v)}
+                />
+              </Col>
+            </Row>
+            {/* 裙房首层高度 */}
+            <Row>
+              <Col span={12}>
+                <label>裙房首层高度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={6.0}
+                  step={0.1}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                />
+              </Col>
+            </Row>
+
+            {/* 裙房标准层高度 */}
+            <Row>
+              <Col span={12}>
+                <label>裙房标准层高度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={5}
+                  step={0.1}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 容积率下限 */}
+            <Row>
+              <Col span={12}>
+                <label>容积率下限：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={0.1}
+                  max={10.0}
+                  defaultValue={1.5}
+                  step={0.01}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                />
+              </Col>
+            </Row>
+            {/* 容积率上限 */}
+            <Row>
+              <Col span={12}>
+                <label>容积率上限：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={0.1}
+                  max={10.0}
+                  defaultValue={7.5}
+                  step={0.01}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                />
+              </Col>
+            </Row>
+            {/* 商业最小间距 */}
+            <Row>
+              <Col span={12}>
+                <label>商业最小间距：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={15}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 主干道宽度  */}
+            <Row>
+              <Col span={12}>
+                <label>主干道宽度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={30}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 次干道宽度  */}
+            <Row>
+              <Col span={12}>
+                <label>次干道宽度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={20}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 三级道路宽度  */}
+            <Row>
+              <Col span={12}>
+                <label>三级道路宽度：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={15}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 道路转弯半径  */}
+            <Row>
+              <Col span={12}>
+                <label>道路转弯半径：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={1000}
+                  defaultValue={30}
+                  formatter={(value) => `${value}m`}
+                  parser={(value) => value!.replace("m", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 划分绿地最小面积  */}
+            <Row>
+              <Col span={12}>
+                <label className='text-xs'>划分绿地最小面积：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={100000}
+                  defaultValue={1000}
+                  formatter={(value) => `${value}m²`}
+                  parser={(value) => value!.replace("m²", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
+                />
+              </Col>
+            </Row>
+            {/* 划分园区最小面积 */}
+            <Row>
+              <Col span={12}>
+                <label className='text-xs'>划分园区最小面积：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={1}
+                  max={100000}
+                  defaultValue={5000}
+                  formatter={(value) => `${value}m²`}
+                  parser={(value) => value!.replace("m²", "") as any}
+                  style={{ margin: "0 6px", width: "100%" }}
                 />
               </Col>
             </Row>
           </Space>
           <Divider />
-          {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto block">
-            Click me!
-          </button> */}
-          <Button
+          {/* <Button
             block
             type='primary'
             className='font-bold text-white bg-blue-500 hover:bg-blue-700 '
@@ -195,7 +463,7 @@ const ParameterInputs: React.FC = () => {
             onClick={submit}
           >
             确定
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

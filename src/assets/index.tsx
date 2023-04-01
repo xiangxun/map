@@ -5,4 +5,7 @@ import close from "./close.svg";
 import city from "./images/city.png";
 import park from "./images/park.png";
 
-export { logo, city, park, menu, close };
+import city1 from "./images/city1.png";
+import park1 from "./images/park1.png";
+
+export { logo, city, park, menu, close, city1, park1 };

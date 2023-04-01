@@ -19,6 +19,7 @@ import {
 //
 import { Tree } from "@/components/Tree";
 import RhinoModel0316 from "@/components/RhinoModel0316";
+import ParkModel01 from "@/components/ParkModel01";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import { Leva } from "leva";
@@ -118,7 +119,7 @@ const Park = () => {
         <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-lg'>
           {/* 全局参数 */}
 
-          <div className='mx-auto bg-blue-500 '>
+          <div className='mx-auto'>
             {!showParameterInputs && <ParameterInputs />}
           </div>
 
@@ -150,7 +151,7 @@ const Park = () => {
               shadows
               camera={{ position: [-150, 150, 0], fov: 60, far: 2000 }}
             >
-              <OrbitControls maxDistance={300} />
+              <OrbitControls autoRotate maxDistance={300} />
               <Lights />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
@@ -165,7 +166,8 @@ const Park = () => {
                     <SMAA />
                     <SSAO />
                   </EffectComposer>
-                  <RhinoModel0316 castShadow receiveShadow />
+                  {/* <RhinoModel0316 castShadow receiveShadow /> */}
+                  <ParkModel01 castShadow receiveShadow />
                   <ContactShadows
                     rotation-x={Math.PI / 2}
                     position={[200, 200, 0]}
@@ -177,9 +179,9 @@ const Park = () => {
                   />
                 </Selection>
 
-                {/* <Environment preset="sunset" /> */}
+                <Environment preset='sunset' />
               </Suspense>
-              <GizmoHelper
+              {/* <GizmoHelper
                 alignment='bottom-right'
                 margin={[80, 80]}
                 renderPriority={2}
@@ -188,7 +190,7 @@ const Park = () => {
                   axisColors={["hotpink", "aquamarine", "#3498DB"]}
                   labelColor='black'
                 />
-              </GizmoHelper>
+              </GizmoHelper> */}
             </Canvas>
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>

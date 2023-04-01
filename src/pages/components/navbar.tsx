@@ -34,7 +34,8 @@ const Navbar = () => {
               <Image src={logo} alt='logo' className='w-9 h-9 object-contain' />
             </Link>
             <Link href='/' className='text-xl font-bold text-gray-800 px-3'>
-              M·A·P
+              {/* M·A·P */}
+              数字建筑
             </Link>
             <div className='hidden md:block'>
               <div className='flex items-baseline ml-10'>

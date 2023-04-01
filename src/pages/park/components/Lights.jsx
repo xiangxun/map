@@ -6,7 +6,7 @@ const Lights = () => {
       {/* 平行光 */}
       <directionalLight
         castShadow
-        intensity={0.5}
+        intensity={1.5}
         position={[0, 500, 200]}
         shadow-mapSize={[4096, 4096]}
         shadow-bias={-0.0025}
