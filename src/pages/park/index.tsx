@@ -17,23 +17,22 @@ import {
   Outline,
 } from "@react-three/postprocessing";
 //
-import { Tree } from "@/components/Tree";
-import RhinoModel0316 from "@/components/RhinoModel0316";
-import ParkModel01 from "@/components/ParkModel01";
-import ParkModel03 from "@/components/ParkModel03";
-import Lights from "./components/Lights";
-import ParameterInputs from "./components/ParameterInputs";
 import { Leva } from "leva";
 import {
-  ProfileTwoTone,
+  CloudDownloadOutlined,
   SkinTwoTone,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import Solution from "./components/Solution";
-import { File3dm, Mesh } from "rhino3dm";
-import Navbar from "../components/navbar";
 import { Button } from "antd";
-// import { Rhino3dmExporter } from 'three-stdlib/jsm/exporters/Rhino3dmExporter';
+import { saveAs } from "file-saver";
+
+import SaveSolution from "@/components/SaveSolution";
+import { Tree, ParkModel03, RhinoModel0316 } from "@/components/importModels";
+import Lights from "./components/Lights";
+import ParameterInputs from "./components/ParameterInputs";
+import { useSelector } from "react-redux";
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 
 const levaTheme = {
   colors: {
@@ -97,6 +96,12 @@ const Park = () => {
   const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // const modelScene = useSelector((state: any) => state.modelScene);
+
+  const handlerExportModels = () => {
+    console.log("exportModels");
+  };
+
   return (
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
@@ -108,13 +113,19 @@ const Park = () => {
       <div className=' flex-grow flex'>
         {/* 左边栏 */}
         <div className='relative bg-white p-4  shadow-lg'>
+          {/* 全局参数 */}
           <div>
             <UnorderedListOutlined
               onClick={() => setShowParameterInputs(!showParameterInputs)}
             />
           </div>
+          {/*leva GUI */}
           <div>
             <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
+          </div>
+          {/* exportModels */}
+          <div>
+            <CloudDownloadOutlined onClick={handlerExportModels} />
           </div>
         </div>
         <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
@@ -157,20 +168,20 @@ const Park = () => {
               <Lights />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
-                <Tree />
+                {/* <Tree /> */}
                 <Selection>
                   <EffectComposer multisampling={0} autoClear={false}>
-                    <Outline
+                    {/* <Outline
                       // visibleEdgeColor={"#FFFFFF"}
                       // hiddenEdgeColor={256}
                       edgeStrength={10}
-                    />
+                    /> */}
                     <SMAA />
-                    <SSAO />
+                    {/* <SSAO /> */}
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
                   <ParkModel03 castShadow receiveShadow />
-                  <ContactShadows
+                  {/* <ContactShadows
                     rotation-x={Math.PI / 2}
                     position={[200, 200, 0]}
                     opacity={1.0}
@@ -178,10 +189,10 @@ const Park = () => {
                     height={1000}
                     blur={2}
                     far={200}
-                  />
+                  /> */}
                 </Selection>
 
-                <Environment preset='sunset' />
+                {/* <Environment preset='city' /> */}
               </Suspense>
               {/* <GizmoHelper
                 alignment='bottom-right'
@@ -202,14 +213,15 @@ const Park = () => {
         {/* 右边栏 */}
         <div className='bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
           <div className='container z-10 w-auto  mx-auto flex flex-col justify-between'>
-            <div className=' border'>
+            <SaveSolution />
+            {/* <div className=' border'>
               <div className='p-3 text-lg font-bold'>方案一</div>
               <Solution canvasRef={canvasRef} />
             </div>
             <div className=' border'>
               <div className='p-3 text-lg font-bold'>方案二</div>
               <Solution canvasRef={canvasRef} />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

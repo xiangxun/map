@@ -9,7 +9,8 @@ import { useGLTF, Edges, shaderMaterial } from "@react-three/drei";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
 import { Color, ShaderMaterial } from "three";
 import { useControls, folder, Leva } from "leva";
-import { extend, useFrame } from "@react-three/fiber";
+import { extend, useFrame, useThree } from "@react-three/fiber";
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 
 const CustomCenterShaderMaterial = shaderMaterial(
   {
@@ -53,7 +54,31 @@ const CustomOtherShaderMaterial = shaderMaterial(
 extend({ CustomCenterShaderMaterial, CustomOtherShaderMaterial });
 
 export default function RhinoModel0316({ ...props }) {
-  const { nodes, materials, scene } = useGLTF("models/RhinoModel0316.glb");
+  const { scene } = useThree();
+  // exportGLTF();
+
+  const exportGLB = () => {
+    const exporter = new GLTFExporter();
+    exporter.parse(
+      scene,
+      (gltf) => {
+        const output = JSON.stringify(gltf, null, 2);
+        // const output = gltf;
+        console.log("output", output);
+        console.log("gltf", gltf);
+        console.log("scene", scene);
+
+        const blob = new Blob([output], {
+          type: "application/octet-stream",
+        });
+        // saveAs(blob, "scene.glb");
+      },
+      { binary: true }
+    );
+  };
+  exportGLB();
+
+  const { nodes, materials } = useGLTF("models/RhinoModel0316.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   const group = useRef();
   useFrame(() => {});
@@ -80,13 +105,13 @@ export default function RhinoModel0316({ ...props }) {
   });
 
   // 设置模型的材质和阴影属性
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.castShadow = true;
-      child.receiveShadow = true;
-      child.material.side = 2; // 设置材质为双面显示
-    }
-  });
+  // scene.traverse((child) => {
+  //   if (child.isMesh) {
+  //     child.castShadow = true;
+  //     child.receiveShadow = true;
+  //     child.material.side = 2; // 设置材质为双面显示
+  //   }
+  // });
 
   console.log("meshes", meshes);
   console.log("nodes", nodes);

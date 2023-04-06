@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { Mesh } from "three";
 import treePosition from "@/assets/json/tree.json";
 
-export function Tree(props) {
+export default function Tree(props) {
   const { nodes, materials, scene } = useGLTF("models/tree.glb");
 
   while (scene.children.length > 0) {
