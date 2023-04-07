@@ -17,6 +17,7 @@ const Lights = () => {
           args={[-2000, 2000, 2000, -2000]}
         />
       </directionalLight>
+      {/* <hemisphereLight color={"#ffffff"} groundColor='#dddddd' intensity={1} /> */}
     </>
   );
 };

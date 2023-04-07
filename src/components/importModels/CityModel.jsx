@@ -110,7 +110,8 @@ export const CityModel = () => {
   const data = useSelector((state) => state.data);
   const arr = data ? Object.values(data) : [];
 
-  const type = ["tower", "skirt", "green", "site"];
+  // const type = ["tower", "skirt", "green", "site"];
+  const type = Object.keys(data);
 
   const buildingType = () => {
     type.map((item) => {

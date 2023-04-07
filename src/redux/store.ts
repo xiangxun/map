@@ -25,7 +25,9 @@ const exportModelsReducer = (state = initialState1, action) => {
 };
 
 const store = configureStore({
-  reducer,
+  reducer: {
+    data: reducer,
+  },
 });
 
 export default store;
