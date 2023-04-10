@@ -173,6 +173,8 @@ const Park = () => {
               <OrbitControls autoRotate maxDistance={350} />
               {/* <OrbitControls maxDistance={350} /> */}
               <Lights />
+              <axesHelper args={[5]} />
+              <gridHelper args={[100, 100]} />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
@@ -186,7 +188,7 @@ const Park = () => {
                     {/* <Bloom /> */}
                     <SMAA />
                     {/* <SSAO
-                      blendFunction={BlendFunction.SATURATION} // blend mode
+                      blendFunction={BlendFunction.HARD_MIX} // blend mode
                       samples={30} // amount of samples per pixel (shouldn't be a multiple of the ring count)
                       rings={4} // amount of rings in the occlusion sampling pattern
                       distanceThreshold={1.0} // global distance threshold at which the occlusion effect starts to fade out. min: 0, max: 1
@@ -201,7 +203,7 @@ const Park = () => {
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
                   <ParkModel03 ref={parkRef} />
-                  <ContactShadows
+                  {/* <ContactShadows
                     rotation-x={Math.PI / 2}
                     position={[200, 200, 0]}
                     opacity={1.0}
@@ -209,7 +211,7 @@ const Park = () => {
                     height={1000}
                     blur={2}
                     far={200}
-                  />
+                  /> */}
                 </Selection>
 
                 {/* <Environment preset='city' /> */}
