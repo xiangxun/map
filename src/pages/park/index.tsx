@@ -1,4 +1,5 @@
-import { Suspense, useRef, useState, useEffect } from "react";
+/* eslint-disable react/jsx-key */
+import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   Bounds,
@@ -23,7 +24,9 @@ import { BlendFunction } from "postprocessing";
 import { Leva } from "leva";
 import {
   CloudDownloadOutlined,
+  FormatPainterOutlined,
   SkinTwoTone,
+  SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import Solution from "./components/Solution";
@@ -39,71 +42,17 @@ import {
 } from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
-import { useSelector } from "react-redux";
-import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
-
-const levaTheme = {
-  colors: {
-    elevation1: "#ffeeff",
-    elevation2: "#eeeeee",
-    elevation3: "#ffffff",
-    accent1: "#0066dc",
-    accent2: "#007bff",
-    accent3: "#3c93ff",
-    highlight1: "#0051ff",
-    highlight2: "#0040ff",
-    highlight3: "#73b1b1",
-    vivid1: "#ffcc00",
-  },
-  radii: {
-    xs: "2px",
-    sm: "3px",
-    lg: "10px",
-  },
-  space: {
-    sm: "6px",
-    md: "10px",
-    rowGap: "7px",
-    colGap: "7px",
-  },
-  fontSizes: {
-    root: "11px",
-  },
-  sizes: {
-    rootWidth: "280px",
-    controlWidth: "160px",
-    scrubberWidth: "8px",
-    scrubberHeight: "16px",
-    rowHeight: "24px",
-    folderHeight: "20px",
-    checkboxSize: "16px",
-    joystickWidth: "100px",
-    joystickHeight: "100px",
-    colorPickerWidth: "160px",
-    colorPickerHeight: "100px",
-    monitorHeight: "60px",
-    titleBarHeight: "39px",
-  },
-  borderWidths: {
-    root: "0px",
-    input: "1px",
-    focus: "1px",
-    hover: "1px",
-    active: "1px",
-    folder: "1px",
-  },
-  fontWeights: {
-    label: "normal",
-    folder: "normal",
-    button: "normal",
-  },
-};
+import RenderMode from "./components/RenderMode";
+import levaTheme from "@/assets/json/levaTheme.json";
 
 const Park = () => {
   const [showParameterInputs, setShowParameterInputs] = useState(false);
+  const [showRenderMode, setShowRenderMode] = useState(false);
   const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const parkRef = useRef<any>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  console.log("activeTab", activeTab);
 
   // const modelScene = useSelector((state: any) => state.modelScene);
   // const sceneRef = useSelector((state: any) => state.sceneRef);
@@ -126,30 +75,52 @@ const Park = () => {
       <div className=' flex-grow flex'>
         {/* 左边栏 icon*/}
         <div className='relative bg-white p-4  shadow-lg'>
-          {/* 全局参数 */}
-          <div>
-            <UnorderedListOutlined
-              onClick={() => setShowParameterInputs(!showParameterInputs)}
-            />
-          </div>
-          {/*leva GUI */}
-          <div>
-            <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
-          </div>
-          {/* exportModels */}
-          <div>
+          {[
+            // 全局参数
+            <UnorderedListOutlined />,
+            // 渲染模式
+            <SwitcherOutlined />,
+            // leva GUI
+            <FormatPainterOutlined />,
+          ].map((icon, index) => {
+            return (
+              <div
+                onClick={() => setActiveTab(index)}
+                key={index}
+                className={`${
+                  index === activeTab
+                    ? "border-indigo-500 text-indigo-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+
+                // className='flex flex-col items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-200'
+              >
+                {icon}
+              </div>
+            );
+          })}
+
+          <div className='border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'>
             <CloudDownloadOutlined onClick={handlerExportModels} />
           </div>
         </div>
         <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
-          {/* 全局参数 */}
           <div className='mx-auto'>
-            {!showParameterInputs && <ParameterInputs />}
+            {[
+              // 全局参数
+              <ParameterInputs />,
+              // 渲染模式
+              <RenderMode />,
+              // leva GUI
+              <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
+            ].map((item, index) => {
+              return <div key={index}>{index === activeTab && item}</div>;
+            })}
           </div>
         </div>
-        <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
+        {/* <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
           <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
-        </div>
+        </div> */}
 
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
@@ -164,7 +135,12 @@ const Park = () => {
               <OrbitControls />
               <Lights />
               <axesHelper args={[500]} />
-              {/* <gridHelper args={[500, 500]} /> */}
+              <gridHelper
+                args={[500, 20, "yellow", "grey"]}
+                onClick={(e) => {
+                  console.log("gridHelper", e);
+                }}
+              />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
@@ -193,17 +169,8 @@ const Park = () => {
                     <SMAA />
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
-                  {/* <ParkModel003 ref={parkRef} /> */}
+                  <ParkModel03 ref={parkRef} />
                   <ParkModel />
-                  {/* <ContactShadows
-                    rotation-x={Math.PI / 2}
-                    position={[200, 200, 0]}
-                    opacity={1.0}
-                    width={1000}
-                    height={1000}
-                    blur={2}
-                    far={200}
-                  /> */}
                 </Selection>
 
                 {/* <Environment preset='city' /> */}
@@ -230,9 +197,7 @@ const Park = () => {
                   hoverColor='hotpink'
                   textColor='black'
                   strokeColor='black'
-                  onClick={(e) => {
-                    console.log("e", e);
-                  }}
+                  onClick={(e) => null}
                   faces={["右", "左", "上", "下", "前", "后"]}
                 />
               </GizmoHelper>

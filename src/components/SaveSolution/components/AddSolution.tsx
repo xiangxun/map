@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-const AddSolution = (props) => {
+const AddSolution = (props: any) => {
   //   const { input, setInput } = useState();
   //   const todo = useSelector((state) => state.todo[props.id]);
   const dispatch = useDispatch();
@@ -12,8 +12,7 @@ const AddSolution = (props) => {
 
   return (
     <div>
-      <input onChange={(e) => setInput(e)} />
-      <button className='bg-blue-300' onClick={handleAddSolution}>
+      <button className='bg-blue-300 shadow-md' onClick={handleAddSolution}>
         <div>AddSolution</div>
       </button>
     </div>
