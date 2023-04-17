@@ -8,6 +8,7 @@ import {
   GizmoViewport,
   Environment,
   ContactShadows,
+  GizmoViewcube,
 } from "@react-three/drei";
 import {
   EffectComposer,
@@ -30,7 +31,12 @@ import { Button } from "antd";
 import { saveAs } from "file-saver";
 
 import SaveSolution from "@/components/SaveSolution";
-import { Tree, ParkModel03, RhinoModel0316 } from "@/components/importModels";
+import {
+  Tree,
+  ParkModel,
+  ParkModel03,
+  RhinoModel0316,
+} from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import { useSelector } from "react-redux";
@@ -137,24 +143,8 @@ const Park = () => {
         </div>
         <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
           {/* 全局参数 */}
-
           <div className='mx-auto'>
             {!showParameterInputs && <ParameterInputs />}
-          </div>
-
-          {/* 生成方案 */}
-          <div className='absolute bottom-5 left-0 right-0 flex justify-center items-center'>
-            <div className='w-64'>
-              <Button
-                block
-                type='primary'
-                className='font-bold text-white bg-blue-500 hover:bg-blue-700 sm:w-full'
-                // onClick={() => submit({ onResultChange: setResult })}
-                // onClick={submit}
-              >
-                确定
-              </Button>
-            </div>
           </div>
         </div>
         <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
@@ -168,28 +158,27 @@ const Park = () => {
               gl={{ preserveDrawingBuffer: true }}
               ref={canvasRef}
               shadows
-              camera={{ position: [-250, 250, 0], fov: 60, far: 2000 }}
+              camera={{ position: [200, 200, 200], fov: 60, far: 2000 }}
             >
-              <OrbitControls autoRotate maxDistance={350} />
-              {/* <OrbitControls maxDistance={350} /> */}
+              {/* <OrbitControls autoRotate maxDistance={350} /> */}
+              <OrbitControls />
               <Lights />
-              <axesHelper args={[5]} />
-              <gridHelper args={[100, 100]} />
+              <axesHelper args={[500]} />
+              {/* <gridHelper args={[500, 500]} /> */}
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
                 <Selection>
                   <EffectComposer multisampling={0} autoClear={false}>
-                    {/* <Outline
+                    <Outline
                       // visibleEdgeColor={"#FFFFFF"}
                       // hiddenEdgeColor={256}
                       edgeStrength={10}
-                    /> */}
+                    />
                     {/* <Bloom /> */}
-                    <SMAA />
-                    {/* <SSAO
-                      blendFunction={BlendFunction.HARD_MIX} // blend mode
-                      samples={30} // amount of samples per pixel (shouldn't be a multiple of the ring count)
+                    <SSAO
+                      blendFunction={BlendFunction.MULTIPLY} // blend mode
+                      samples={64} // amount of samples per pixel (shouldn't be a multiple of the ring count)
                       rings={4} // amount of rings in the occlusion sampling pattern
                       distanceThreshold={1.0} // global distance threshold at which the occlusion effect starts to fade out. min: 0, max: 1
                       distanceFalloff={0.0} // distance falloff. min: 0, max: 1
@@ -198,11 +187,14 @@ const Park = () => {
                       luminanceInfluence={0.9} // how much the luminance of the scene influences the ambient occlusion
                       radius={20} // occlusion sampling radius
                       scale={0.5} // scale of the ambient occlusion
-                      bias={0.5} // occlusion bias
-                    /> */}
+                      bias={0.1} // occlusion bias
+                      intensity={30}
+                    />
+                    <SMAA />
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
-                  <ParkModel03 ref={parkRef} />
+                  {/* <ParkModel003 ref={parkRef} /> */}
+                  <ParkModel />
                   {/* <ContactShadows
                     rotation-x={Math.PI / 2}
                     position={[200, 200, 0]}
@@ -226,6 +218,24 @@ const Park = () => {
                   labelColor='black'
                 />
               </GizmoHelper> */}
+              <GizmoHelper
+                alignment='bottom-right'
+                margin={[80, 80]}
+                renderPriority={2}
+              >
+                <GizmoViewcube
+                  font='normal 40px Source Sans Pro '
+                  opacity={0.9}
+                  color='white'
+                  hoverColor='hotpink'
+                  textColor='black'
+                  strokeColor='black'
+                  onClick={(e) => {
+                    console.log("e", e);
+                  }}
+                  faces={["右", "左", "上", "下", "前", "后"]}
+                />
+              </GizmoHelper>
             </Canvas>
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>

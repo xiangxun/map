@@ -85,6 +85,32 @@ const HomePage = () => {
                     </button>
                   </Link>
                 </Card>
+                <Card
+                  hoverable
+                  style={{ width: 1000 }}
+                  cover={
+                    <Image
+                      src={city1}
+                      alt='立面细部快速生成'
+                      width={500}
+                      height={500}
+                      className='w-2/3 border-2'
+                      priority // add this property if the image is above the fold
+                    />
+                  }
+                >
+                  {/* <Meta title='城市生成' description='城市生成' /> */}
+                  <Meta
+                    className='p-2'
+                    title='立面细部快速生成：'
+                    description='基于传入系统的基础体量根据算法快速生成指定风格的立面，生成结果具备一定的细节并具有生成效果图潜质'
+                  />
+                  <Link href='/city'>
+                    <button className='px-4 py-2 mt-4 w-full text-center  border-2  rounded  bg-blue-700 text-white hover:bg-blue-900'>
+                      Enter
+                    </button>
+                  </Link>
+                </Card>
               </div>
             </div>
             {/* <div>

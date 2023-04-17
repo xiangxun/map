@@ -23,15 +23,15 @@ const ParameterInputs: React.FC = () => {
   const [result, setResult] = useState([]);
   // const [isMounted, setIsMounted] = useState(false);
   const jsonData = {
-    TOWER_AREA: towerArea,
-    SKIRT_AREA: skirtArea,
-    TOWER_MODE: towerMode,
+    // TOWER_AREA: towerArea,
+    // SKIRT_AREA: skirtArea,
+    // TOWER_MODE: towerMode,
     // SKIRT_HEIGHT: skirtHeight,
   };
 
   const submit = async () => {
     // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.4.122:5000/cal", {
+    const response = await fetch("http://192.168.1.63:5002/cal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -407,16 +407,18 @@ const ParameterInputs: React.FC = () => {
             </Row>
           </Space>
           <Divider />
-
-          {/* <Button
-            block
-            type='primary'
-            className='font-bold text-white bg-blue-500 hover:bg-blue-700'
-            // onClick={() => submit({ onResultChange: setResult })}
-            onClick={submit}
-          >
-            确定
-          </Button> */}
+          <div className='absolute bottom-5 left-0 right-0 flex justify-center items-center'>
+            <div className='w-64'>
+              <Button
+                block
+                type='primary'
+                className='font-bold text-white bg-blue-500 hover:bg-blue-700 sm:w-full'
+                onClick={submit}
+              >
+                确定
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

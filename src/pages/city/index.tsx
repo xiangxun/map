@@ -17,25 +17,26 @@ import {
   Outline,
 } from "@react-three/postprocessing";
 //
-import { Tree } from "@/components/Tree";
-import RhinoModel0316 from "@/components/RhinoModel0316";
 import Lights from "./components/Lights";
-import ParameterInputs from "./components/ParameterInputs";
 import { Leva } from "leva";
 import {
   ProfileTwoTone,
   SkinTwoTone,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import Solution from "./components/Solution";
-import { File3dm, Mesh } from "rhino3dm";
-import Navbar from "../components/navbar";
 import { Button } from "antd";
-import CityModel01 from "@/components/CityModel01";
-import CityModel03 from "@/components/CityModel03";
-import CityModel0101 from "@/components/CityModel0101";
-import { Road } from "@/components/Road";
+import { File3dm, Mesh } from "rhino3dm";
 // import { Rhino3dmExporter } from 'three-stdlib/jsm/exporters/Rhino3dmExporter';
+// import Navbar from "../components/navbar";
+// import { Tree } from "@/components/Tree";
+// import RhinoModel0316 from "@/components/RhinoModel0316";
+// import CityModel01 from "@/components/CityModel01";
+// import CityModel03 from "@/components/CityModel03";
+// import CityModel0101 from "@/components/CityModel0101";
+// import { Road } from "@/components/Road";
+import { CityModel03 } from "@/components/importModels";
+import ParameterInputs from "./components/ParameterInputs";
+import Solution from "./components/Solution";
 
 const levaTheme = {
   colors: {
@@ -156,7 +157,7 @@ const City = () => {
               camera={{ position: [4000, 4000, 0], far: 8000 }}
             >
               <OrbitControls autoRotate maxDistance={2000} />
-              {/* <Lights /> */}
+              <Lights />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
@@ -175,7 +176,7 @@ const City = () => {
                   </EffectComposer>
                 </Selection>
 
-                <Environment preset='city' />
+                {/* <Environment preset='city' /> */}
                 {/* <Environment preset='forest' /> */}
               </Suspense>
               {/* <GizmoHelper

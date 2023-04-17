@@ -7,14 +7,21 @@ import React, { useRef } from "react";
 import { useGLTF, Edges } from "@react-three/drei";
 import { useControls, folder, Leva } from "leva";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
+import { useFrame } from "@react-three/fiber";
 
 export default function CityModel03(props) {
   const { nodes, materials, scene } = useGLTF("models/city/citymodel07.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   console.log("nodes", nodes);
   const group = useRef();
-  //leva GUI组件库 https://github.com/pmndrs/leva
 
+  useFrame((state, delta) => {
+    // console.log("first", state.events);
+    // group;
+    // group.current.rotation.y += 0.01;
+  });
+
+  //leva GUI组件库 https://github.com/pmndrs/leva
   const config = useControls({
     skirtColor: { value: "#fdd452" },
     towerColor: { value: "#ffac1b" },
@@ -36,7 +43,13 @@ export default function CityModel03(props) {
   });
 
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      onClick={(e) => {
+        console.log("group", e.intersections[0].object.parent.name);
+      }}
+    >
       {/* //site */}
       {/* <mesh
         geometry={nodes.site.geometry}
@@ -81,6 +94,10 @@ export default function CityModel03(props) {
                   geometry={item.geometry}
                   castShadow
                   receiveShadow
+                  onClick={(e) => {
+                    console.log("click tower", item.userData.name);
+                  }}
+                  // onClick={ console.log("click tower", item.userData.name)}
                 >
                   <meshStandardMaterial
                     transparent
