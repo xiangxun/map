@@ -6,6 +6,7 @@ const SolutionLIst = () => {
     <div>
       <div>SolutionLIst</div>
       <Solution />
+      <Solution />
     </div>
   );
 };

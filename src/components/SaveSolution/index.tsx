@@ -5,7 +5,7 @@ import AddSolution from "./components/AddSolution";
 function SaveSolution() {
   return (
     <div>
-      <div> SaveSolution</div>;
+      <div>方案保存</div>
       <SolutionLIst />
       <AddSolution />
     </div>

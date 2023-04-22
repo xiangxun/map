@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button, Card } from "antd";
 import EarthCanvas from "./canvas/Earth";
-import { city, city1, park, park1 } from "@/assets";
+import { city, park } from "@/assets";
 const { Meta } = Card;
 
 const HomePage = () => {
@@ -38,7 +38,7 @@ const HomePage = () => {
                   style={{ width: 1000 }}
                   cover={
                     <Image
-                      src={park1}
+                      src={park}
                       alt='产业园区'
                       width={500}
                       height={500}
@@ -64,7 +64,7 @@ const HomePage = () => {
                   style={{ width: 1000 }}
                   cover={
                     <Image
-                      src={city1}
+                      src={city}
                       alt='产业园区智能规划方案'
                       width={500}
                       height={500}
@@ -90,7 +90,7 @@ const HomePage = () => {
                   style={{ width: 1000 }}
                   cover={
                     <Image
-                      src={city1}
+                      src={city}
                       alt='立面细部快速生成'
                       width={500}
                       height={500}

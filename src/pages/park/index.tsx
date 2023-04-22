@@ -25,21 +25,14 @@ import { Leva } from "leva";
 import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
-  SkinTwoTone,
+  MenuUnfoldOutlined,
   SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import Solution from "./components/Solution";
-import { Button } from "antd";
-import { saveAs } from "file-saver";
 
 import SaveSolution from "@/components/SaveSolution";
-import {
-  Tree,
-  ParkModel,
-  ParkModel03,
-  RhinoModel0316,
-} from "@/components/importModels";
+import { ParkModel, ParkModel03 } from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
@@ -53,10 +46,6 @@ const Park = () => {
   const parkRef = useRef<any>(null);
   const [activeTab, setActiveTab] = useState(0);
   console.log("activeTab", activeTab);
-
-  // const modelScene = useSelector((state: any) => state.modelScene);
-  // const sceneRef = useSelector((state: any) => state.sceneRef);
-  // console.log("modelScene", modelScene);
 
   const handlerExportModels = () => {
     console.log("exportModels");
@@ -92,7 +81,6 @@ const Park = () => {
                     ? "border-indigo-500 text-indigo-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
-
                 // className='flex flex-col items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-200'
               >
                 {icon}
@@ -104,7 +92,8 @@ const Park = () => {
             <CloudDownloadOutlined onClick={handlerExportModels} />
           </div>
         </div>
-        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
+        {/* 左边栏 */}
+        <div className=' relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
           <div className='mx-auto'>
             {[
               // 全局参数
@@ -147,9 +136,19 @@ const Park = () => {
                 <Selection>
                   <EffectComposer multisampling={0} autoClear={false}>
                     <Outline
-                      // visibleEdgeColor={"#FFFFFF"}
-                      // hiddenEdgeColor={256}
+                      blendFunction={BlendFunction.ALPHA}
+                      // blendFunction={BlendFunction.ALPHA}
+
+                      selectionLayer={1}
+                      visibleEdgeColor={0x000000}
+                      hiddenEdgeColor={0x000000}
                       edgeStrength={10}
+                      // width: number;
+                      // height: number;
+                      // kernelSize: KernelSize;
+                      // blur
+                      // xRay
+                      // xRay: boolean;
                     />
                     {/* <Bloom /> */}
                     <SSAO
@@ -170,21 +169,11 @@ const Park = () => {
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
                   <ParkModel03 ref={parkRef} />
-                  <ParkModel />
+                  {/* <ParkModel ref={parkRef} /> */}
                 </Selection>
 
                 {/* <Environment preset='city' /> */}
               </Suspense>
-              {/* <GizmoHelper
-                alignment='bottom-right'
-                margin={[80, 80]}
-                renderPriority={2}
-              >
-                <GizmoViewport
-                  axisColors={["hotpink", "aquamarine", "#3498DB"]}
-                  labelColor='black'
-                />
-              </GizmoHelper> */}
               <GizmoHelper
                 alignment='bottom-right'
                 margin={[80, 80]}

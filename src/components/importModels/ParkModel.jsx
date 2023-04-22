@@ -1,44 +1,14 @@
-import {
-  BufferGeometry,
-  BufferAttribute,
-  MeshStandardMaterial,
-  ShaderMaterial,
-} from "three";
-import { Edges, Select } from "@react-three/drei";
+import React, { useImperativeHandle } from "react";
 import { useSelector } from "react-redux";
-import { useControls, folder } from "leva";
+import { BufferGeometry, BufferAttribute } from "three";
 import { useThree } from "@react-three/fiber";
+import { Edges, Select } from "@react-three/drei";
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
+import { saveAs } from "file-saver";
+import { useControls, folder } from "leva";
 
-const Tower = ({ positionArray, indexArray, color, opacity }) => {
-  const position = new BufferAttribute(new Float32Array(positionArray), 3);
-  const index = new BufferAttribute(new Uint16Array(indexArray), 1);
-
-  const bufferGeometry = new BufferGeometry();
-  bufferGeometry.setAttribute("position", position);
-  bufferGeometry.setIndex(index);
-  bufferGeometry.computeVertexNormals();
-
-  const material = new MeshStandardMaterial({
-    color: { color },
-    transparent: true,
-    side: 2,
-  });
-
-  return (
-    <Select enable='true'>
-      <mesh geometry={bufferGeometry} receiveShadow castShadow>
-        <meshStandardMaterial
-          transparent
-          opacity={opacity}
-          color={color}
-          side={2}
-        />
-        <Edges threshold={30} silhouette={true} color='#FFF' lineWidth={2} />
-      </mesh>
-    </Select>
-  );
-};
-const Skirt = ({ positionArray, indexArray, color, opacity }) => {
+// 通过后端数据生成mesh
+const CreateMesh = ({ type, positionArray, indexArray, color, opacity }) => {
   const position = new BufferAttribute(new Float32Array(positionArray), 3);
   const index = new BufferAttribute(new Uint16Array(indexArray), 1);
 
@@ -48,197 +18,162 @@ const Skirt = ({ positionArray, indexArray, color, opacity }) => {
   bufferGeometry.computeVertexNormals();
 
   return (
-    <mesh geometry={bufferGeometry} receiveShadow castShadow>
+    <mesh
+      name={type ? type : "mesh"}
+      geometry={bufferGeometry}
+      receiveShadow
+      castShadow
+      onClick={(e) => {
+        e.stopPropagation();
+        console.log("click Mesh", e.intersections[0].object);
+        alert(e.intersections[0].object.name);
+      }}
+    >
       <meshStandardMaterial
+        // wireframe
         transparent
         opacity={opacity}
         color={color}
         side={2}
       />
-      <Edges threshold={30} silhouette={true} color='#000000' lineWidth={2} />
-    </mesh>
-  );
-};
-const Plane = ({ positionArray, indexArray, color, opacity }) => {
-  const position = new BufferAttribute(new Float32Array(positionArray), 3);
-  const index = new BufferAttribute(new Uint16Array(indexArray), 1);
-
-  const bufferGeometry = new BufferGeometry();
-  bufferGeometry.setAttribute("position", position);
-  bufferGeometry.setIndex(index);
-  bufferGeometry.computeVertexNormals();
-
-  return (
-    <mesh geometry={bufferGeometry} receiveShadow castShadow>
-      <meshStandardMaterial
-        transparent
-        opacity={opacity}
-        color={color}
-        side={2}
-      />
-      <Edges threshold={30} silhouette={true} color='#000000' lineWidth={2} />
-    </mesh>
-  );
-};
-const Site = ({ positionArray, indexArray, color, opacity }) => {
-  const position = new BufferAttribute(new Float32Array(positionArray), 3);
-  const index = new BufferAttribute(new Uint16Array(indexArray), 1);
-
-  const bufferGeometry = new BufferGeometry();
-  bufferGeometry.setAttribute("position", position);
-  bufferGeometry.setIndex(index);
-  bufferGeometry.computeVertexNormals();
-
-  return (
-    <mesh geometry={bufferGeometry} receiveShadow castShadow>
-      <meshStandardMaterial
-        transparent
-        opacity={opacity}
-        color={color}
-        side={2}
-      />
-      <Edges threshold={30} silhouette={true} color='#000000' lineWidth={2} />
+      <Edges threshold={30} silhouette={true} color='#000' lineWidth={2} />
     </mesh>
   );
 };
 
-const ParkModel = () => {
+const ParkModel = React.forwardRef((props, ref) => {
+  // 导出模型
   const { scene } = useThree();
   console.log("scene in ParkModel", scene);
+
+  const exportGLB = () => {
+    const exporter = new GLTFExporter();
+    exporter.parse(
+      scene,
+      (gltf) => {
+        const output = JSON.stringify(gltf, null, 2);
+        console.log("output", output);
+        console.log("gltf", gltf);
+        console.log("scene", scene);
+        const blob = new Blob([output], {
+          type: "application/octet-stream",
+        });
+        saveAs(blob, "scene.glb");
+      },
+      { onlyVisible: false, binary: true }
+    );
+  };
+
+  useImperativeHandle(ref, () => ({
+    exportGLB: exportGLB,
+  }));
 
   //从store里取数据
   const data = useSelector((state) => state.data);
   // const arr = data ? Object.values(data) : [];
 
-  const towerArr = data
-    ? Object.values(data)
-    : // .filter((key) => key.includes("Tower0"))
-      // .map((key) => data[key])
-      [];
-  const skirtArr = data
-    ? Object.keys(data)
-        .filter((key) => key.includes("Skirt"))
-        .map((key) => data[key])
-    : [];
-  const PlaneArr = data
-    ? Object.keys(data)
-        .filter((key) => key.includes("Plane"))
-        .map((key) => data[key])
-    : [];
-
-  // const greenArr = data
-  //   ? Object.keys(data)
-  //       .filter((key) => key.includes("green"))
-  //       .map((key) => data[key])
-  //   : [];
-  // const siteArr = data
-  //   ? Object.keys(data)
-  //       .filter((key) => key.includes("road"))
-  //       .map((key) => data[key])
-  //   : [];
-  // const towerArr = data ? Object.values(data) : [];
-  console.log("type", typeof towerArr);
-
+  const buildingType = (type) => {
+    const arr = data
+      ? Object.keys(data)
+          .filter((key) => key.includes(type))
+          .map((key) => data[key])
+      : [];
+    console.log("arr", arr);
+    return arr;
+  };
   console.log("data in ParkModel", data);
-  console.log("towerArr", towerArr);
 
   //GUI leva
-  const config = useControls({
-    Outline: folder(
-      {
-        center: { value: true },
-        // tower: { value: true },
-        building: { value: false },
-      },
-      { collapsed: false }
-    ),
-    Skirt: folder({
-      skirtColor: { value: "#cee6e9" },
-      skirtOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    }),
-    Tower: folder({
-      towerColor: { value: "#e97b79" },
-      towerOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    }),
+  // const config = useControls({
+  //   Skirt: folder({
+  //     skirtColor: { value: "#cee6e9" },
+  //     skirtOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   }),
+  //   Tower: folder({
+  //     towerColor: { value: "#e97b79" },
+  //     towerOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   }),
 
-    // Site: folder({
-    //   siteColor: { value: "#DDD" },
-    //   siteOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    // }),
-    // Green: folder({
-    //   greenColor: { value: "#9bad8c" },
-    //   greenOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    // }),
-  });
+  //   // Site: folder({
+  //   //   siteColor: { value: "#DDD" },
+  //   //   siteOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   // }),
+  //   // Green: folder({
+  //   //   greenColor: { value: "#9bad8c" },
+  //   //   greenOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   // }),
+  // });
+  const displayMode = {
+    mode1: {
+      Skirt: {
+        Color: "#cee6e9",
+        Opacity: 1.0,
+      },
+      Tower: {
+        Color: "#e97b79",
+        Opacity: 1.0,
+      },
+    },
+  };
+  const config = {
+    Skirt: {
+      Color: "#FF09E0",
+      Opacity: 1.0,
+    },
+    Tower: {
+      Color: "#B47878",
+      Opacity: 1.0,
+    },
+  };
 
   return (
-    <>
-      <Select enable='true'>
-        {towerArr.map((item, index) => {
-          const { vertices, vertex_indices } = item;
-          return (
-            <Tower
-              key={index}
-              positionArray={vertices}
-              indexArray={vertex_indices}
-              opacity={config.towerOpacity}
-              color={config.towerColor}
-            ></Tower>
-          );
-        })}
-      </Select>
-      {skirtArr.map((item, index) => {
+    <group
+      onClick={(e) => {
+        console.log("click", e);
+      }}
+    >
+      {buildingType("Tower").map((item, index) => {
         const { vertices, vertex_indices } = item;
         return (
-          <Skirt
+          <CreateMesh
+            type={"tower"}
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.skirtOpacity}
-            color={config.skirtColor}
-          />
-        );
-      })}
-      {PlaneArr.map((item, index) => {
-        const { vertices, vertex_indices } = item;
-        return (
-          <Plane
-            key={index}
-            positionArray={vertices}
-            indexArray={vertex_indices}
-            opacity={config.skirtOpacity}
-            color={config.skirtColor}
+            opacity={config.Tower.Opacity}
+            color={config.Tower.Color}
           />
         );
       })}
 
-      {/* {greenArr.map((item, index) => {
+      {buildingType("Skirt").map((item, index) => {
         const { vertices, vertex_indices } = item;
         return (
-          <Green
+          <CreateMesh
+            type={"skirt"}
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.greenOpacity}
-            color={config.greenColor}
-            // color={"#00FF00"}
+            opacity={config.Skirt.Opacity}
+            color={config.Skirt.Color}
           />
         );
       })}
-      {siteArr.map((item, index) => {
+      {buildingType("Plane").map((item, index) => {
         const { vertices, vertex_indices } = item;
         return (
-          <Site
+          <CreateMesh
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.siteOpacity}
-            color={config.siteColor}
+            // opacity={config.skirtOpacity}
+            // color={config.skirtColor}
           />
         );
-      })} */}
-    </>
+      })}
+    </group>
   );
-};
+});
 
 export default ParkModel;
+ParkModel.displayName = "ParkModel";

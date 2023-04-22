@@ -24,7 +24,8 @@
     "**/*.tsx",
     "src/components/importModels/CityModel.jsx",
     "src/shader/Basic.js",
-    "src/pages/Cube.jsx"
+    "src/pages/Cube.jsx",
+    "src/pages/residence/canvas/ResidenceCanvas.jsx"
   ],
   "exclude": ["node_modules"]
 }

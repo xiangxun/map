@@ -62,9 +62,11 @@ const ParkModel03 = React.forwardRef((props, ref) => {
   const { nodes } = useGLTF("models/park/parkmodel03.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   console.log("nodes", nodes);
+  console.log("meshes", meshes);
 
   //leva GUI组件库 https://github.com/pmndrs/leva
   const config = useControls({
+    center: { value: true },
     skirtColor: { value: "#57939d" },
     towerColor: { value: "#6f8893" },
     greenColor: { value: "#d2e4ae" },
@@ -75,45 +77,6 @@ const ParkModel03 = React.forwardRef((props, ref) => {
     waterColor: { value: "#9dd6f1" },
     siteColor: { value: "#f8f0ba" },
   });
-
-  const config1 = {
-    skirt: {
-      color: "#57939d",
-      opacity: 0.95,
-    },
-    tower: {
-      color: "#6f8893",
-      opacity: 0.95,
-    },
-    green: {
-      color: "#d2e4ae",
-      opacity: 0.95,
-    },
-    ground: {
-      color: "#55646b",
-      opacity: 0.95,
-    },
-    road: {
-      color: "#f8f8f8",
-      opacity: 0.95,
-    },
-    tree: {
-      color: "#a2c332",
-      opacity: 0.95,
-    },
-    build: {
-      color: "#dcd9df",
-      opacity: 0.95,
-    },
-    water: {
-      color: "#9dd6f1",
-      opacity: 0.95,
-    },
-    site: {
-      color: "#f8f0ba",
-      opacity: 0.95,
-    },
-  };
 
   // 设置模型的材质和阴影属性
   // scene.traverse((child) => {
@@ -229,7 +192,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
             .map((item, index) => {
               return (
                 <mesh
-                  key={index}
+                  key={item.uuid}
                   geometry={item.geometry}
                   castShadow
                   receiveShadow

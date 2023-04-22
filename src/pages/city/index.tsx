@@ -179,16 +179,6 @@ const City = () => {
                 {/* <Environment preset='city' /> */}
                 {/* <Environment preset='forest' /> */}
               </Suspense>
-              {/* <GizmoHelper
-                alignment='bottom-right'
-                margin={[80, 80]}
-                renderPriority={2}
-              >
-                <GizmoViewport
-                  axisColors={["hotpink", "aquamarine", "#3498DB"]}
-                  labelColor='black'
-                />
-              </GizmoHelper> */}
             </Canvas>
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>

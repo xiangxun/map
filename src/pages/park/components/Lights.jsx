@@ -6,11 +6,11 @@ const Lights = () => {
       {/* 平行光 */}
       <directionalLight
         castShadow
-        intensity={2.5}
-        position={[0, 500, 200]}
+        intensity={1.5}
+        position={[0, 400, 100]}
         shadow-mapSize={4096}
         // shadow-mapSize={[4096, 4096]}
-        shadow-bias={-0.00025}
+        shadow-bias={-0.00015}
         color={"#fff"}
       >
         <orthographicCamera
