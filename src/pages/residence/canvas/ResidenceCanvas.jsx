@@ -40,10 +40,10 @@ const ResidenceCanvas = () => {
         {/* <axesHelper args={[10]} /> */}
         <gridHelper args={[80, 20]} />
         {/* <Plane args={[20, 10]} /> */}
-        <mesh receiveShadow position={[0, 0, 0]} castShadow>
+        {/* <mesh receiveShadow position={[0, 0, 0]} castShadow>
           <boxGeometry attach='geometry' args={[20, 0.01, 20]} />
           <meshStandardMaterial attach='material' color={"#FFFFFF"} />
-        </mesh>
+        </mesh> */}
         <ResidenceModel />
 
         <EffectComposer>

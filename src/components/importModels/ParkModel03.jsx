@@ -61,8 +61,8 @@ const ParkModel03 = React.forwardRef((props, ref) => {
   //导入模型
   const { nodes } = useGLTF("models/park/parkmodel03.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
-  console.log("nodes", nodes);
-  console.log("meshes", meshes);
+  // console.log("nodes", nodes);
+  // console.log("meshes", meshes);
 
   //leva GUI组件库 https://github.com/pmndrs/leva
   const config = useControls({

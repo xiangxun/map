@@ -1,5 +1,12 @@
 /* eslint-disable react/jsx-key */
-import { Suspense, useRef, useState, useEffect, useCallback } from "react";
+import {
+  Suspense,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  createContext,
+} from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   Bounds,
@@ -37,15 +44,26 @@ import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
-
+import { useDispatch } from "react-redux";
+// export const CanvasContext = createContext(null);
 const Park = () => {
   const [showParameterInputs, setShowParameterInputs] = useState(false);
   const [showRenderMode, setShowRenderMode] = useState(false);
   const [showLeva, setShowLeva] = useState(true);
+  // const [canvasRef, setCanvasRef] =
+  //   useState<React.RefObject<HTMLCanvasElement> | null>(null);
+
+  const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const parkRef = useRef<any>(null);
   const [activeTab, setActiveTab] = useState(0);
   console.log("activeTab", activeTab);
+
+  // useEffect(() => {
+  //   // dispatch setCanvasRef action on component mount
+  //   // setCanvasRef(canvasRef);
+  //   dispatch({ type: "SET_CANVAS_REF", payload: canvasRef });
+  // }, [dispatch]);
 
   const handlerExportModels = () => {
     console.log("exportModels");
@@ -93,7 +111,7 @@ const Park = () => {
           </div>
         </div>
         {/* 左边栏 */}
-        <div className=' relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
+        <div className='relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
           <div className='mx-auto'>
             {[
               // 全局参数
@@ -114,6 +132,7 @@ const Park = () => {
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
+            {/* <CanvasContext.Provider value={canvasRef}> */}
             <Canvas
               gl={{ preserveDrawingBuffer: true }}
               ref={canvasRef}
@@ -191,15 +210,16 @@ const Park = () => {
                 />
               </GizmoHelper>
             </Canvas>
+            {/* </CanvasContext.Provider> */}
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>
             <p className='text-xs mx-auto text-white'>Smart Park Planning</p>
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
-          <div className='container z-10 w-auto  mx-auto flex flex-col justify-between'>
-            <SaveSolution />
+        <div className='relative bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
+          <div className='container z-10 w-auto  mx-auto '>
+            <SaveSolution canvasRef={canvasRef} />
             {/* <div className=' border'>
               <div className='p-3 text-lg font-bold'>方案一</div>
               <Solution canvasRef={canvasRef} />

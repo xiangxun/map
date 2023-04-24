@@ -1,7 +1,28 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function ModelInfo() {
-  return <div>modelInfo</div>;
+  // use modelInfo data from redux
+  const modelInfo = useSelector((state: any) => state.modelInfo);
+  console.log("modelInfo", modelInfo);
+
+  return (
+    <div>
+      {/* <div>modelInfo</div> */}
+      <div className='text-xl p-4 bg-gray-200 rounded-xl'>
+        <div>{modelInfo ? modelInfo : ""}</div>
+      </div>
+      {/* {meshInfo.map((meshInfoItem, index) => ( */}
+      {/* // <div key={index}> */}
+      {/* <p>{meshInfoItem.name}</p> */}
+      {/* <p>颜色：{meshInfoItem.color.toArray().join(", ")}</p> */}
+      {/* <p>位置：{meshInfoItem.position.toArray().join(", ")}</p> */}
+      {/* <MaterialInfo material={meshInfoItem.material} /> */}
+      {/* </div> */}
+      {/* ))} */}
+      {/* </div> */}
+    </div>
+  );
 }
 
 export default ModelInfo;

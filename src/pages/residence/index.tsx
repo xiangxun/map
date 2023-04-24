@@ -12,7 +12,8 @@ import Solution from "./components/Solution";
 import SaveSolution from "@/components/SaveSolution";
 import { ParkModel, ParkModel03 } from "@/components/importModels";
 import ResidenceCanvas from "./canvas/ResidenceCanvas";
-import Lights from "./components/Lights";
+import ResidenceCanvas01 from "./canvas/ResidenceCanvas01";
+// import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
@@ -72,10 +73,10 @@ const Residence = () => {
           </div>
         </div>
         {/* 左边栏 */}
-        <div className=' relative bg-white w-[400px] p-1  hidden sm:block shadow-md'>
+        <div className=' relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
           <div className='flex flex-col p-1'>
-            <div className=' w-auto h-[300px] bg-slate-200 p-1 '>图例一</div>
-            <div className=' w-auto h-[300px] bg-slate-200 p-1'>图例二</div>
+            <div className=' w-auto h-[250px] bg-slate-200 p-1 '>图例一</div>
+            <div className=' w-auto h-[250px] bg-slate-200 p-1'>图例二</div>
             <div className='p-2 bg-center'>
               <NightingaleChart />
             </div>
@@ -101,6 +102,7 @@ const Residence = () => {
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
             <ResidenceCanvas />
+            <ResidenceCanvas01 />
           </div>
           <div>
             <ModelInfo />

@@ -37,7 +37,7 @@ const NightingaleChart = () => {
         {
           name: "Nightingale Chart",
           type: "pie",
-          radius: [50, 100],
+          radius: [20, 50],
           center: ["50%", "50%"],
           roseType: "area",
           // itemStyle: {
@@ -62,7 +62,7 @@ const NightingaleChart = () => {
     initChart();
   }, []);
 
-  return <div id='main' className='w-[370px] h-[370px] justify-center'></div>;
+  return <div id='main' className='w-[250px] h-[250px] justify-center'></div>;
 };
 
 export default NightingaleChart;

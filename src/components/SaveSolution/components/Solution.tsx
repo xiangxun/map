@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Table, Divider, Button, Image } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { saveAs } from "file-saver";
@@ -51,20 +51,24 @@ const data: DataType[] = [
 
 const Solution: React.FC<SolutionProps> = ({ canvasRef }) => {
   const [image, setImage] = useState<string | undefined>(undefined);
+
   //  image1 = image ? image : parkImage;
   // const { gl, scene, camera } = useThree();
   const handleSaveImage = () => {
     if (canvasRef.current) {
       const dataUrl = canvasRef.current.toDataURL("image/png");
       setImage(dataUrl);
-      // saveAs(dataUrl, "image.png");
+      saveAs(dataUrl, "image.png");
     }
+    console.log("canvasRef", canvasRef);
+    console.log("image", image);
   };
   return (
     <div className='p-2 bg-white'>
       {/* <div className='p-1 text-lg font-bold'>方案</div> */}
       <Image
         src={image ? image : "/images/park.png"}
+        // src={image}
         alt={"save image"}
         width={250}
         height={200}

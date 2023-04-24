@@ -1,12 +1,12 @@
 import React from "react";
 import Solution from "./Solution";
 
-const SolutionLIst = () => {
+const SolutionLIst = (
+  solutions: { [s: string]: React.ReactNode } | ArrayLike<React.ReactNode>
+) => {
   return (
-    <div>
-      <div>SolutionLIst</div>
-      <Solution />
-      <Solution />
+    <div className='h-[800px] overflow-y-scroll'>
+      <div className=''>{Object.values(solutions)}</div>
     </div>
   );
 };
