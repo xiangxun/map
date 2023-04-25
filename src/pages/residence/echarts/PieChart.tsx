@@ -17,6 +17,8 @@ const PieChart = () => {
         bottom: 5,
         left: "center", // doesn't perfectly work with our tricks, disable it
         selectedMode: false,
+        itemWidth: 10,
+        itemHeight: 5,
         textStyle: {
           color: "#000000",
           fontSize: 8,
@@ -41,14 +43,16 @@ const PieChart = () => {
             position: "outside",
             alignTo: "none",
             bleedMargin: 5,
+            fontSize: 8,
             formatter(param) {
               // correct the percentage
-              return param.name + " (" + param.percent! * 2 + "%)";
+              return param.name;
+              // + " (" + param.percent! * 2 + "%)";
             },
           },
           labelLine: {
-            length: 5,
-            length2: 0,
+            length: 12,
+            length2: 5,
             maxSurfaceAngle: 80,
           },
           data: [
@@ -70,7 +74,8 @@ const PieChart = () => {
                 },
               },
               label: {
-                show: false,
+                show: true,
+                fontSize: 2,
               },
             },
           ],
@@ -83,7 +88,7 @@ const PieChart = () => {
     initChart();
   }, []);
 
-  return <div id='main' className='w-[250px] h-[250px] justify-center'></div>;
+  return <div id='main' className='w-[220px] h-[150px] justify-center'></div>;
 };
 
 export default PieChart;

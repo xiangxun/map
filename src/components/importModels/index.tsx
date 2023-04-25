@@ -6,6 +6,7 @@ import RhinoModel0316 from "./RhinoModel0316";
 import Tree from "./Tree";
 import ResidenceModel from "./ResidenceModel";
 import ResidenceModel01 from "./ResidenceModel01";
+import ResidenceModel02 from "./ResidenceModel02";
 
 export {
   CityModel,
@@ -16,4 +17,5 @@ export {
   RhinoModel0316,
   ResidenceModel,
   ResidenceModel01,
+  ResidenceModel02,
 };

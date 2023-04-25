@@ -12,12 +12,14 @@ import { colorType1, colorType2, colorType3 } from "@/assets";
 import { number } from "echarts";
 import Link from "next/link";
 
-const gltfFile = "models/gltf/residence.glb";
+const gltfFile = "/models/gltf/residence.glb";
 const ResidenceModel = React.forwardRef((props, ref) => {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  const [meshInfo, setMeshInfo] = useState([]);
+  const [meshInfo, setMeshInfo] = useState("1F");
+  const [floor, setFloor] = useState(1);
   const groupRef = useRef(null);
+  const meshRef = useRef(null);
   // dispatch model data to redux
   const dispatch = useDispatch();
   //导入模型
@@ -36,6 +38,16 @@ const ResidenceModel = React.forwardRef((props, ref) => {
 
   // const meshInfo = [];
   const meshInfoPosition = [];
+  console.log("meshInfo", meshInfo);
+  console.log(typeof meshInfo);
+  const matches = meshInfo?.match(/\d+/);
+  useEffect(() => {
+    if (matches != null && matches.length > 0) {
+      setFloor(parseInt(matches[0]));
+      // console.log("floor", floor);
+    }
+  }, [matches, meshInfo]);
+
   let timeout;
 
   const colorType = colorType3;
@@ -145,10 +157,11 @@ const ResidenceModel = React.forwardRef((props, ref) => {
                       position={meshItem.position}
                       name={meshName}
                       userData={meshItem.userData}
+                      ref={meshRef}
                       castShadow
                       receiveShadow
                     >
-                      <Html
+                      {/* <Html
                         position={[
                           11,
                           meshItem.name.match(/\d+/) * 2.87 - 1,
@@ -157,12 +170,12 @@ const ResidenceModel = React.forwardRef((props, ref) => {
                         rotation={[0, Math.PI / 2, 0]}
                         transform
                       >
-                        <div className='text-xl p-4 bg-gray-200 rounded-xl'>
-                          <Link href='/residence'>
-                            <p>{meshName}</p>
-                          </Link>
-                        </div>
-                      </Html>
+                        <Link href='/residence'>
+                          <div className='text-xl p-4 bg-gray-200 rounded-xl'>
+                            <p>{hovered ? meshName : ""}</p>
+                          </div>
+                        </Link>
+                      </Html> */}
                     </mesh>
                   );
                 })}
@@ -171,16 +184,40 @@ const ResidenceModel = React.forwardRef((props, ref) => {
         })}
         <primitive object={scene} {...props} castShadow receiveShadow />
       </group>
-      <Html position={[30, 50, 0]}>
-        {/* <div>{meshItem.position.x}</div> */}
-        <div className='text-xl p-4 bg-gray-200 rounded-xl'>
-          <p>Hello</p>
-          <p>
-            {hovered ? meshInfo : ""}
-            {console.log("meshinfo", meshInfo)}
-          </p>
-        </div>
+      <Html position={[20, floor * 2.9 + 1, 0]}>
+        <div class='w-8 h-8 bg-blue-500 rounded-full animate-ping infinite'></div>
       </Html>
+      <Html position={[20, floor * 2.9 + 1, 0]}>
+        <Link
+          href={`/residence/canvas/ResidenceCanvas${
+            floor % 2 === 0 ? "02" : "01"
+          }`}
+        >
+          <div
+            className='text-xs p-2 bg-blue-300 rounded-full
+          transport opacity-50
+          hover:bg-blue-700
+            hover:text-white'
+          >
+            <p>
+              {/* {floor} */}
+              {/* {hovered ? meshInfo : ""} */}
+              {meshInfo}
+            </p>
+          </div>
+        </Link>
+      </Html>
+      {/* <Html
+        position={[11, meshRef.current?.name.match(/\d+/) * 2.87 - 1, -8]}
+        rotation={[0, Math.PI / 2, 0]}
+        transform
+      >
+        <Link href='/residence/canvas/ResidenceCanvas01'>
+          <div className='text-xl p-4 bg-gray-200 rounded-xl'>
+            <p>{meshInfo}</p>
+          </div>
+        </Link>
+      </Html> */}
     </>
   );
 });

@@ -83,7 +83,7 @@ const Residence = () => {
           <div className='flex flex-col p-2 gap-4'>
             <div className='text-sm font-bold'>PLAN INFORMATIONS</div>
             <div className='w-auto h-auto bg-white text-xs'>
-              <Image src={Single} alt='单层' />
+              <Image src={Single} alt='单层' priority />
               <div className='grid grid-cols-2 grid-rows-2 gap-2 p-2'>
                 <div className='p-1'>室内面积</div>
                 <div className='p-1 rounded-md shadow-md'>106.93m2</div>
@@ -95,7 +95,7 @@ const Residence = () => {
               </div>
             </div>
             <div className=' w-auto h-auto bg-white p-1 text-xs '>
-              <Image src={Double} alt='双层' />
+              <Image src={Double} alt='双层' priority />
               <div className='grid grid-cols-2 grid-rows-2 gap-2 p-4'>
                 <div className='p-1'>室内面积</div>
                 <div className='p-1 rounded-md shadow-md'>106.93m2</div>
@@ -133,7 +133,7 @@ const Residence = () => {
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
             <ResidenceCanvas />
-            <ResidenceCanvas01 />
+            {/* <ResidenceCanvas01 /> */}
             {/* <VehicleScene /> */}
           </div>
           <div>

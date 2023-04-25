@@ -11,7 +11,7 @@ import { Box3, Vector3, MeshStandardMaterial } from "three";
 import { colorType1, colorType2, colorType3 } from "@/assets";
 import { number } from "echarts";
 
-const gltfFile = "models/gltf/residence01.glb";
+const gltfFile = "/models/gltf/residence01.glb";
 const ResidenceModel01 = React.forwardRef((props, ref) => {
   // const [state, setState] = useState({
   //   hovered: false,
