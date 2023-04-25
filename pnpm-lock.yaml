@@ -10,6 +10,9 @@ dependencies:
   '@react-spring/three':
     specifier: ^9.7.1
     version: 9.7.1(@react-three/fiber@8.12.0)(react@18.2.0)(three@0.150.1)
+  '@react-three/cannon':
+    specifier: ^6.5.2
+    version: 6.5.2(@react-three/fiber@8.12.0)(react@18.2.0)(three@0.150.1)(typescript@5.0.2)
   '@react-three/drei':
     specifier: ^9.57.3
     version: 9.57.3(@react-three/fiber@8.12.0)(@types/three@0.149.0)(react-dom@18.2.0)(react@18.2.0)(three@0.150.1)
@@ -91,6 +94,9 @@ dependencies:
   three:
     specifier: ^0.150.1
     version: 0.150.1
+  type:
+    specifier: ^2.7.2
+    version: 2.7.2
   typescript:
     specifier: 5.0.2
     version: 5.0.2
@@ -706,6 +712,14 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@pmndrs/cannon-worker-api@2.3.2(three@0.150.1):
+    resolution: {integrity: sha512-+4YGTH7XfSvUYUa65LoltcDMRLu3lr7rFtHT9dmeCeu2JJ7Zg2xBFJ5wiWSJmcM1ECh2R0YDcROdEQ1JKpOgFA==}
+    peerDependencies:
+      three: '>=0.139'
+    dependencies:
+      three: 0.150.1
+    dev: false
+
   /@radix-ui/popper@0.1.0:
     resolution: {integrity: sha512-uzYeElL3w7SeNMuQpXiFlBhTT+JyaNMCwDfjKkrzugEcYrf5n52PHqncNdQPUtR42hJh8V9FsqyEDbDxkeNjJQ==, tarball: https://registry.npm.taobao.org/@radix-ui/popper/-/popper-0.1.0.tgz}
     dependencies:
@@ -1139,6 +1153,23 @@ packages:
 
   /@react-spring/types@9.7.1:
     resolution: {integrity: sha512-yBcyfKUeZv9wf/ZFrQszvhSPuDx6Py6yMJzpMnS+zxcZmhXPeOCKZSHwqrUz1WxvuRckUhlgb7eNI/x5e1e8CA==, tarball: https://registry.npm.taobao.org/@react-spring/types/-/types-9.7.1.tgz}
+    dev: false
+
+  /@react-three/cannon@6.5.2(@react-three/fiber@8.12.0)(react@18.2.0)(three@0.150.1)(typescript@5.0.2):
+    resolution: {integrity: sha512-d7qH2XMVtHRkCaMUWpLkWSD9JPiE570gy8LoP7WBw+Ui+hI9ZiFx9HDaX5+Y6wzbGJd1WvELWaG9O0cOtk2rmw==}
+    peerDependencies:
+      '@react-three/fiber': '>=8'
+      react: '>=18'
+      three: '>=0.139'
+    dependencies:
+      '@pmndrs/cannon-worker-api': 2.3.2(three@0.150.1)
+      '@react-three/fiber': 8.12.0(react-dom@18.2.0)(react@18.2.0)(three@0.150.1)
+      cannon-es: 0.20.0
+      cannon-es-debugger: 1.0.0(cannon-es@0.20.0)(three@0.150.1)(typescript@5.0.2)
+      react: 18.2.0
+      three: 0.150.1
+    transitivePeerDependencies:
+      - typescript
     dev: false
 
   /@react-three/drei@9.57.3(@react-three/fiber@8.12.0)(@types/three@0.149.0)(react-dom@18.2.0)(react@18.2.0)(three@0.150.1):
@@ -1778,6 +1809,25 @@ packages:
 
   /caniuse-lite@1.0.30001468:
     resolution: {integrity: sha512-zgAo8D5kbOyUcRAgSmgyuvBkjrGk5CGYG5TYgFdpQv+ywcyEpo1LOWoG8YmoflGnh+V+UsNuKYedsoYs0hzV5A==, tarball: https://registry.npm.taobao.org/caniuse-lite/-/caniuse-lite-1.0.30001468.tgz}
+
+  /cannon-es-debugger@1.0.0(cannon-es@0.20.0)(three@0.150.1)(typescript@5.0.2):
+    resolution: {integrity: sha512-sE9lDOBAYFKlh+0w+cvWKwUhJef8HYnUSVPWPL0jD15MAuVRQKno4QYZSGxgOoJkMR3mQqxL4bxys2b3RSWH8g==}
+    peerDependencies:
+      cannon-es: 0.x
+      three: 0.x
+      typescript: '>=3.8'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      cannon-es: 0.20.0
+      three: 0.150.1
+      typescript: 5.0.2
+    dev: false
+
+  /cannon-es@0.20.0:
+    resolution: {integrity: sha512-eZhWTZIkFOnMAJOgfXJa9+b3kVlvG+FX4mdkpePev/w/rP5V8NRquGyEozcjPfEoXUlb+p7d9SUcmDSn14prOA==}
+    dev: false
 
   /chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==, tarball: https://registry.npm.taobao.org/chalk/-/chalk-4.1.2.tgz}
@@ -5642,6 +5692,10 @@ packages:
   /type-fest@0.20.2:
     resolution: {integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==, tarball: https://registry.npm.taobao.org/type-fest/-/type-fest-0.20.2.tgz}
     engines: {node: '>=10'}
+    dev: false
+
+  /type@2.7.2:
+    resolution: {integrity: sha512-dzlvlNlt6AXU7EBSfpAscydQ7gXB+pPGsPnfJnZpiNJBDj7IaJzQlBZYGdEi4R9HmPdBv2XmWJ6YUtoTa7lmCw==}
     dev: false
 
   /typed-array-length@1.0.4:

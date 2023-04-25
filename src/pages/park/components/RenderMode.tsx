@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useState } from "react";
 
-import { A, B, C, logo } from "@/assets";
+import { A, AO, B, C, logo, type1, type2, type3 } from "@/assets";
 import { Switch } from "antd";
 
 const Tabs = ({ children }) => {
@@ -18,7 +18,7 @@ const Tabs = ({ children }) => {
                 <Image
                   // src={child.props.label}
                   src={child.props.label}
-                  alt='Logo'
+                  alt='type'
                   width={100}
                   height={100}
                   key={index}
@@ -61,30 +61,24 @@ const RenderMode = () => {
         <div>
           <Image src={logo} alt='Logo' />
         </div> */}
-        <Tab label={A}>
-          <div>
-            <Image src={A} alt='A' sizes='10' />
-          </div>
+        <Tab label={type1}>
+          <div>{/* <Image src={A} alt='A' sizes='10' /> */}</div>
           <p>白模</p>
           <p>Content for Tab 1 goes here.</p>
         </Tab>
-        <Tab label={B}>
-          <div>
-            <Image src={B} alt='A' sizes='10' />
-          </div>
+        <Tab label={type2}>
+          <div>{/* <Image src={B} alt='A' sizes='10' /> */}</div>
           <p>分析图</p>
           <p>Content for Tab 2 goes here.</p>
         </Tab>
-        <Tab label={C}>
-          <div>
-            <Image src={C} alt='A' sizes='10' />
-          </div>
+        <Tab label={type3}>
+          <div>{/* <Image src={C} alt='A' sizes='10' /> */}</div>
           <p>语义分割图</p>
           <p>Content for Tab 3 goes here.</p>
         </Tab>
       </Tabs>
       <div className=' p-4 flex flex-row'>
-        <Image src={logo} alt='Logo' width={80} height={80} />
+        <Image src={AO} alt='Logo' width={80} height={80} />
         <div className='p-2'>
           <p>AO效果</p>
           <Switch defaultChecked onChange={onChange} />

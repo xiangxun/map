@@ -8,7 +8,9 @@ import {
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import Solution from "./components/Solution";
+import Image from "next/image";
 
+//
 import SaveSolution from "@/components/SaveSolution";
 import { ParkModel, ParkModel03 } from "@/components/importModels";
 import ResidenceCanvas from "./canvas/ResidenceCanvas";
@@ -19,6 +21,10 @@ import RenderMode from "./components/RenderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
 import ModelInfo from "@/components/modelInfo";
 import NightingaleChart from "./echarts/NightingaleChart";
+import VehicleScene from "@/components/RaycastVehicle";
+import PieChart from "./echarts/PieChart";
+import { Double, Single } from "@/assets";
+import { Button } from "antd";
 
 const Residence = () => {
   const [showLeva, setShowLeva] = useState(true);
@@ -73,12 +79,37 @@ const Residence = () => {
           </div>
         </div>
         {/* 左边栏 */}
-        <div className=' relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
-          <div className='flex flex-col p-1'>
-            <div className=' w-auto h-[250px] bg-slate-200 p-1 '>图例一</div>
-            <div className=' w-auto h-[250px] bg-slate-200 p-1'>图例二</div>
-            <div className='p-2 bg-center'>
-              <NightingaleChart />
+        <div className=' relative bg-white w-[250px] p-1  hidden sm:block shadow-md'>
+          <div className='flex flex-col p-2 gap-4'>
+            <div className='text-sm font-bold'>PLAN INFORMATIONS</div>
+            <div className='w-auto h-auto bg-white text-xs'>
+              <Image src={Single} alt='单层' />
+              <div className='grid grid-cols-2 grid-rows-2 gap-2 p-2'>
+                <div className='p-1'>室内面积</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1'>绿色阳台面积</div>
+                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+              </div>
+              <div className='flex justify-center mb-2'>
+                <div className='p-1'>奇数层平面</div>
+              </div>
+            </div>
+            <div className=' w-auto h-auto bg-white p-1 text-xs '>
+              <Image src={Double} alt='双层' />
+              <div className='grid grid-cols-2 grid-rows-2 gap-2 p-4'>
+                <div className='p-1'>室内面积</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1'>绿色阳台面积</div>
+                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+              </div>
+              <div className='flex justify-center mb-2'>
+                <div className='p-1'>偶数层平面</div>
+              </div>
+            </div>
+
+            <div className='bg-center'>
+              {/* <NightingaleChart /> */}
+              <PieChart />
             </div>
           </div>
           {/* <div className='mx-auto'>
@@ -103,6 +134,7 @@ const Residence = () => {
           <div className='w-full h-full absolute top-0 left-0'>
             <ResidenceCanvas />
             <ResidenceCanvas01 />
+            {/* <VehicleScene /> */}
           </div>
           <div>
             <ModelInfo />

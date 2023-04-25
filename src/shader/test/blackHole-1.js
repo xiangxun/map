@@ -49,9 +49,9 @@ const Loop = ({ time }) => {
   </Surface>;
 };
 
-const BlackHole = () => {
+const BlackHole1 = () => {
   return <Loop />;
   // Surface creates the canvas, an area of pixels where you can draw.
   // Node instanciates a "shader program" with the fragment shader defined above.
 };
-export default BlackHole;
+export default BlackHole1;

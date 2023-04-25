@@ -23,9 +23,15 @@ import colorType1 from "./json/colorType1.json";
 import colorType2 from "./json/colorType2.json";
 import colorType3 from "./json/colorType3.json";
 
+import Single from "./images/Single.png";
+import Double from "./images/Double.png";
+
 export { logo, city, park, menu, close, city1, park1, cityImage, parkImage };
 
 export { A, B, C };
 
 export { colorType1, colorType2, colorType3 };
 export { type1, type2, type3, AO };
+
+// 住宅单双层示意图
+export { Single, Double };

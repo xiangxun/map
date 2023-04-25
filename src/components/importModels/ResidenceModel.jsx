@@ -10,6 +10,7 @@ import { Box3, Vector3, MeshStandardMaterial } from "three";
 
 import { colorType1, colorType2, colorType3 } from "@/assets";
 import { number } from "echarts";
+import Link from "next/link";
 
 const gltfFile = "models/gltf/residence.glb";
 const ResidenceModel = React.forwardRef((props, ref) => {
@@ -54,7 +55,7 @@ const ResidenceModel = React.forwardRef((props, ref) => {
   const highlightMaterial = new MeshStandardMaterial({
     color: 0xff0000,
     emissive: 0xff0000,
-    emissiveIntensity: 0.5,
+    emissiveIntensity: 1.0,
     transparent: true,
     opacity: 0.5,
   });
@@ -75,29 +76,6 @@ const ResidenceModel = React.forwardRef((props, ref) => {
 
   // 在移入网格的事件处理程序中
   // const handlePointerOver = (e) => {
-  //   e.stopPropagation();
-  //   setHover(true);
-  //   const group = e.object.parent;
-  //   console.log("group", group);
-  //   if (group.isGroup) {
-  //     group.children.forEach((child) => {
-  //       if (child.isMesh) {
-  //         child.material = highlightMaterial.clone();
-  //       }
-  //     });
-  //   }
-  //   const meshInfoItem = [
-  //     meshName,
-  //   ];
-  //   setMeshInfo(meshInfoItem);
-  //   // clearTimeout(timeout);
-  //   // timeout = setTimeout(() => {
-  //   //   setMeshInfo(meshInfoItem);
-  //   // }, 100);
-  //   dispatch({
-  //     type: "SET_MODEL_INFO",
-  //     payload: meshInfo,
-  //   });
   // };
 
   // 在移出网格的事件处理程序中
@@ -146,14 +124,15 @@ const ResidenceModel = React.forwardRef((props, ref) => {
                   timeout = setTimeout(() => {
                     setMeshInfo(meshInfoItem);
                   }, 100);
-                  // dispatch({
-                  //   type: "SET_MODEL_INFO",
-                  //   payload: meshInfo,
-                  // });
-                  console.log("meshInfo", meshInfo);
+                  // console.log("meshInfo", meshInfo);
                 }
               }}
               onPointerOut={handlePointerOut}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log("meshName", meshName);
+                <link to='/'></link>;
+              }}
             >
               {meshArr
                 .filter((v) => v.name.split("_")[0] === meshName)
@@ -169,15 +148,21 @@ const ResidenceModel = React.forwardRef((props, ref) => {
                       castShadow
                       receiveShadow
                     >
-                      {/* <Html
-                        position={[15, meshItem.name.match(/\d+/) * 2.8, -5]}
+                      <Html
+                        position={[
+                          11,
+                          meshItem.name.match(/\d+/) * 2.87 - 1,
+                          -8,
+                        ]}
                         rotation={[0, Math.PI / 2, 0]}
                         transform
                       >
                         <div className='text-xl p-4 bg-gray-200 rounded-xl'>
-                          <p>{meshName}</p>
+                          <Link href='/residence'>
+                            <p>{meshName}</p>
+                          </Link>
                         </div>
-                      </Html> */}
+                      </Html>
                     </mesh>
                   );
                 })}
