@@ -9,7 +9,7 @@ function ModelInfo() {
   return (
     <div>
       {/* <div>modelInfo</div> */}
-      <div className='text-sm p-4 bg-gray-200 rounded-xl'>
+      <div className='text-xs p-2 bg-gray-200 rounded-xl'>
         <div>{modelInfo ? modelInfo : ""}</div>
       </div>
       {/* {meshInfo.map((meshInfoItem, index) => ( */}

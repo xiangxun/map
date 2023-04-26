@@ -139,8 +139,8 @@ const Park = () => {
               shadows
               camera={{ position: [200, 200, 200], fov: 60, far: 2000 }}
             >
-              {/* <OrbitControls autoRotate maxDistance={350} /> */}
-              <OrbitControls />
+              <OrbitControls autoRotate maxDistance={350} />
+              {/* <OrbitControls  /> */}
               <Lights />
               <axesHelper args={[500]} />
               <gridHelper

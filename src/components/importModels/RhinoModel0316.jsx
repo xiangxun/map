@@ -78,7 +78,7 @@ export default function RhinoModel0316({ ...props }) {
   };
   exportGLB();
 
-  const { nodes, materials } = useGLTF("models/RhinoModel0316.glb");
+  const { nodes, materials } = useGLTF("/models/RhinoModel0316.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   const group = useRef();
   useFrame(() => {});
@@ -354,4 +354,4 @@ export default function RhinoModel0316({ ...props }) {
   );
 }
 
-useGLTF.preload("models/RhinoModel0316.glb");
+useGLTF.preload("/models/RhinoModel0316.glb");

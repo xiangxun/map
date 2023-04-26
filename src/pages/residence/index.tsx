@@ -15,7 +15,6 @@ import SaveSolution from "@/components/SaveSolution";
 import { ParkModel, ParkModel03 } from "@/components/importModels";
 import ResidenceCanvas from "./canvas/ResidenceCanvas";
 import ResidenceCanvas01 from "./canvas/ResidenceCanvas01";
-// import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
@@ -24,7 +23,6 @@ import NightingaleChart from "./echarts/NightingaleChart";
 import VehicleScene from "@/components/RaycastVehicle";
 import PieChart from "./echarts/PieChart";
 import { Double, Single } from "@/assets";
-import { Button } from "antd";
 
 const Residence = () => {
   const [showLeva, setShowLeva] = useState(true);
@@ -81,7 +79,9 @@ const Residence = () => {
         {/* 左边栏 */}
         <div className=' relative bg-white w-[250px] p-1  hidden sm:block shadow-md'>
           <div className='flex flex-col p-2 gap-4'>
-            <div className='text-sm font-bold'>PLAN INFORMATIONS</div>
+            <div>
+              <div className='text-sm font-bold p-4'>PLAN INFORMATIONS</div>
+            </div>
             <div className='w-auto h-auto bg-white text-xs'>
               <Image src={Single} alt='单层' priority />
               <div className='grid grid-cols-2 grid-rows-2 gap-2 p-2'>

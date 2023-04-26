@@ -1,52 +1,67 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Card = () => {
+interface CardProps {
+  data: {
+    image1: string;
+    image2: string;
+    link: string;
+    title: string;
+    description: string;
+  };
+}
+
+const Card: React.FC<CardProps> = ({ data }) => {
+  const { image1, image2, link, title, description } = data;
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  const handleSliderChange = (e) => {
+    setSliderPosition(e.target.value);
+  };
   return (
-    <div className="grid grid-cols-2 gap-4 p-10">
-      <div className="flex items-center p-10 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200">
-        <Image
-          src="/images/park1.png"
-          alt="Picture of the author"
-          width={500}
-          height={500}
-          className="w-2/3 rounded-lg shadow-md"
-          priority // add this property if the image is above the fold
-        />
-        {/* <img src={image1} alt="image1" className="w-1/2" /> */}
-        <div className="flex flex-col justify-center ml-4">
-          <h2 className="text-lg font-bold">产业园区</h2>
-          <p className="text-sm">
-            Description 1 Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Odit rem est exercitationem eaque totam, culpa, dolor
-            perferendis facilis commodi dolore labore. Dolores dolorum deleniti
-            a alias recusandae ab, eaque nisi?
-          </p>
-          <button className="px-4 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-700">
-            <Link href="/upload">Enter</Link>
-          </button>
+    <div className='max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl'>
+      <div className='md:flex'>
+        <div className='md:flex-shrink-0'>
+          <div className='md:w-[400px] h-auto'>
+            <div className='relative w-full'>
+              <Image className='w-full h-auto' src={image2} alt='After' />
+              <div
+                className='absolute top-0 left-0 right-0 bottom-0 '
+                style={{ clipPath: `inset(0% ${100 - sliderPosition}% 0% 0%)` }}
+              >
+                <Image className='w-full h-auto' src={image1} alt='Before' />
+              </div>
+              <input
+                type='range'
+                min='0'
+                max='100'
+                value={sliderPosition}
+                onChange={handleSliderChange}
+                className='absolute top-0 left-0 w-full h-full z-10 opacity-0 cursor-pointer '
+              />
+            </div>
+          </div>
+          {/* <Image
+            className='h-48 w-full object-cover md:w-48'
+            src={image1}
+            alt='Card image'
+            width={400}
+            height={300}
+          /> */}
         </div>
-      </div>
-      <div className="flex items-center p-10 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200">
-        <Image
-          src="/images/park1.png"
-          alt="Picture of the author"
-          width={500}
-          height={500}
-          className="w-2/3 rounded-lg shadow-md"
-          priority // add this property if the image is above the fold
-        />
-        <div className="flex flex-col justify-center ml-4">
-          <h2 className="text-lg font-bold">城市</h2>
-          <p className="text-sm">
-            Description 2 Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Odit rem est exercitationem eaque totam, culpa, dolor
-            perferendis facilis commodi dolore labore. Dolores dolorum deleniti
-            a alias recusandae ab, eaque nisi?
-          </p>
-          <button className="px-4 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-700">
-            <Link href="/city">Enter</Link>
-          </button>
+        <div className='p-8 relative'>
+          <div className='uppercase tracking-wide text-lg text-indigo-500 font-semibold'>
+            {title}
+          </div>
+          <p className='mt-2 text-gray-500 text-sm'>{description}</p>
+          <div className='absolute bottom-4'>
+            <Link href={link}>
+              <button className='mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded'>
+                Enter
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

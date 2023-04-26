@@ -224,7 +224,11 @@ const ShaderPlane = () => {
 
   useFrame(({ clock }) => {
     shader.uniforms.iTime.value = clock.getElapsedTime();
-    shader.uniforms.iResolution.value.set(size.width, size.height);
+    shader.uniforms.iResolution.value.set(
+      viewport.width * 100,
+      viewport.height
+    );
+    // shader.uniforms.iResolution.value.set(size.width, size.height);
   });
   return (
     <mesh material={shader}>

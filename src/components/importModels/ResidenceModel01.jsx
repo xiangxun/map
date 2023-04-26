@@ -13,14 +13,6 @@ import { number } from "echarts";
 
 const gltfFile = "/models/gltf/residence01.glb";
 const ResidenceModel01 = React.forwardRef((props, ref) => {
-  // const [state, setState] = useState({
-  //   hovered: false,
-  //   active: false,
-  //   selectedGroup: null,
-  //   highlightMaterials: {},
-  //   originalMaterials: {},
-  // });
-
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
   const [meshInfo, setMeshInfo] = useState([]);
@@ -88,29 +80,6 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
 
   // 在移入网格的事件处理程序中
   // const handlePointerOver = (e) => {
-  //   e.stopPropagation();
-  //   setHover(true);
-  //   const group = e.object.parent;
-  //   console.log("group", group);
-  //   if (group.isGroup) {
-  //     group.children.forEach((child) => {
-  //       if (child.isMesh) {
-  //         child.material = highlightMaterial.clone();
-  //       }
-  //     });
-  //   }
-  //   const meshInfoItem = [
-  //     meshName,
-  //   ];
-  //   setMeshInfo(meshInfoItem);
-  //   // clearTimeout(timeout);
-  //   // timeout = setTimeout(() => {
-  //   //   setMeshInfo(meshInfoItem);
-  //   // }, 100);
-  //   dispatch({
-  //     type: "SET_MODEL_INFO",
-  //     payload: meshInfo,
-  //   });
   // };
 
   // 在移出网格的事件处理程序中
@@ -126,36 +95,18 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
       });
     }
   };
+  useEffect(() => {
+    // console.log("meshInfo", meshInfo);
+    dispatch({
+      type: "SET_MODEL_INFO",
+      payload: meshInfo,
+    });
+  }, [dispatch, meshInfo]);
 
   return (
     <>
       <group {...props} dispose={null} ref={groupRef}>
-        <group
-          // key={index}
-          // name={meshName}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            setHover(true);
-            const hoveredMesh = e.object;
-            // console.log("group", group);
-
-            if (hoveredMesh.isMesh) {
-              hoveredMesh.material = highlightMaterial.clone();
-            }
-
-            // const meshInfoItem = [meshName];
-            // setMeshInfo(meshInfoItem);
-            // clearTimeout(timeout);
-            // timeout = setTimeout(() => {
-            //   setMeshInfo(meshInfoItem);
-            // }, 100);
-            // dispatch({
-            //   type: "SET_MODEL_INFO",
-            //   payload: meshInfo,
-            // });
-          }}
-          onPointerOut={handlePointerOut}
-        >
+        <group>
           {meshArr
             // .filter((v) => v.name.split("_")[0] === meshName)
             .map((meshItem, index) => {
@@ -169,29 +120,34 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
                   userData={meshItem.userData}
                   castShadow
                   receiveShadow
-                >
-                  {/* <Html
-                        position={[15, meshItem.name.match(/\d+/) * 2.8, -5]}
-                        rotation={[0, Math.PI / 2, 0]}
-                        transform
-                      >
-                        <div className='text-xl p-4 bg-gray-200 rounded-xl'>
-                          <p>{meshName}</p>
-                        </div>
-                      </Html> */}
-                </mesh>
+                  onPointerOver={(e) => {
+                    e.stopPropagation();
+                    setHover(true);
+                    const hoveredMesh = e.object;
+                    // console.log("group", group);
+
+                    if (hoveredMesh.isMesh) {
+                      hoveredMesh.material = highlightMaterial.clone();
+                    }
+
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                      setMeshInfo(meshItem.name);
+                    }, 100);
+                  }}
+                  onPointerOut={handlePointerOut}
+                ></mesh>
               );
             })}
         </group>
-        <primitive object={scene} {...props} castShadow receiveShadow />
+        {/* <primitive object={scene} {...props} castShadow receiveShadow /> */}
       </group>
-      <Html position={[30, 50, 0]}>
-        {/* <div>{meshItem.position.x}</div> */}
-        <div className='text-xl p-4 bg-gray-200 rounded-xl'>
+      {/* <Html position={[3, 5, 0]}>
+        <div className='text-xs p-2 bg-gray-200 rounded-xl'>
           <p>Hello</p>
           <p>{hovered ? meshInfo : ""}</p>
         </div>
-      </Html>
+      </Html> */}
     </>
   );
 });

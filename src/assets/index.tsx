@@ -10,6 +10,8 @@ import park1 from "./images/park1.png";
 
 import city from "./images/city.jpg";
 import park from "./images/park.jpg";
+import park01 from "./images/park01.jpg";
+import park02 from "./images/park02.jpg";
 
 import parkImage from "./images/parkImage.png";
 import cityImage from "./images/cityImage.png";
@@ -35,3 +37,5 @@ export { type1, type2, type3, AO };
 
 // 住宅单双层示意图
 export { Single, Double };
+
+export { park01, park02 };

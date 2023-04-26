@@ -143,7 +143,6 @@ const ResidenceModel = React.forwardRef((props, ref) => {
               onClick={(e) => {
                 e.stopPropagation();
                 console.log("meshName", meshName);
-                <link to='/'></link>;
               }}
             >
               {meshArr
@@ -196,8 +195,7 @@ const ResidenceModel = React.forwardRef((props, ref) => {
           <div
             className='text-xs p-2 bg-blue-300 rounded-full
           transport opacity-50
-          hover:bg-blue-700
-            hover:text-white'
+          hover:bg-blue-700 hover:text-white'
           >
             <p>
               {/* {floor} */}

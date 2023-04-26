@@ -14,7 +14,7 @@ const PieChart = () => {
         trigger: "item",
       },
       legend: {
-        bottom: 5,
+        bottom: 20,
         left: "center", // doesn't perfectly work with our tricks, disable it
         selectedMode: false,
         itemWidth: 10,
@@ -35,15 +35,15 @@ const PieChart = () => {
         {
           name: "Access From",
           type: "pie",
-          radius: ["30%", "50%"],
-          center: ["50%", "70%"], // adjust the start angle
+          radius: ["30%", "60%"],
+          center: ["50%", "50%"], // adjust the start angle
           startAngle: 180,
           label: {
             show: true,
             position: "outside",
             alignTo: "none",
             bleedMargin: 5,
-            fontSize: 8,
+            fontSize: 10,
             formatter(param) {
               // correct the percentage
               return param.name;
@@ -52,7 +52,7 @@ const PieChart = () => {
           },
           labelLine: {
             length: 12,
-            length2: 5,
+            length2: 10,
             maxSurfaceAngle: 80,
           },
           data: [

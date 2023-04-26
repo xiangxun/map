@@ -16,13 +16,15 @@ import { Box3, Box3Helper, Group, Object3D, Vector3 } from "three";
 import { ResidenceModel01 } from "@/components/importModels";
 import { colorType1, colorType2, colorType3 } from "@/assets";
 import Link from "next/link";
+import ModelInfo from "@/components/modelInfo";
+import { LeftCircleOutlined } from "@ant-design/icons";
 
 const ResidenceCanvas01 = () => {
   return (
     <div className=' relative h-screen'>
       <div className='w-full h-full absolute top-0 left-0'>
-        <Canvas shadows camera={{ position: [10, 20, 10], fov: 45, far: 2000 }}>
-          <OrbitControls />
+        <Canvas shadows camera={{ position: [10, 20, 10], fov: 45, far: 200 }}>
+          <OrbitControls maxDistance={35} />
           <Suspense>
             {/* 坏境光 */}
             <ambientLight intensity={0.8} />
@@ -42,17 +44,12 @@ const ResidenceCanvas01 = () => {
                 // args={[-100, 100, 100, -100]}
               />
             </directionalLight>
-            {/* <ambientLight intensity={0.5} /> */}
             {/* <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} /> */}
             {/* <pointLight position={[10, 15, 10]} /> */}
             {/* <fog attach='fog' args={["white", 15, 150]} /> */}
             {/* <axesHelper args={[10]} /> */}
             <gridHelper args={[80, 20]} />
             {/* <Plane args={[20, 10]} /> */}
-            {/* <mesh receiveShadow position={[0, 0, 0]} castShadow>
-          <boxGeometry attach='geometry' args={[20, 0.01, 20]} />
-          <meshStandardMaterial attach='material' color={"#FFFFFF"} />
-        </mesh> */}
             <ResidenceModel01 />
 
             <EffectComposer>
@@ -93,8 +90,12 @@ const ResidenceCanvas01 = () => {
       </div>
       <div className='absolute top-5 left-5'>
         <Link href='/residence'>
-          <div className='p-2 bg-blue-100 rounded-md shadow-md'>back</div>
+          <LeftCircleOutlined style={{ fontSize: "32px", color: "#08c" }} />
+          {/* <div className='p-2 bg-blue-100 rounded-md shadow-md'>back</div> */}
         </Link>
+      </div>
+      <div className='absolute left-5 top-20'>
+        <ModelInfo />
       </div>
     </div>
   );
