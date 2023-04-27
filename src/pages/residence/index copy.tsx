@@ -3,30 +3,38 @@ import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
+  MenuUnfoldOutlined,
   SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
+import Solution from "./components/Solution";
+import Image from "next/image";
 
 //
 import SaveSolution from "@/components/SaveSolution";
+import { ParkModel, ParkModel03 } from "@/components/importModels";
 import ResidenceCanvas from "./canvas/ResidenceCanvas";
 import ResidenceCanvas01 from "./canvas/ResidenceCanvas01";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
+import levaTheme from "@/assets/json/levaTheme.json";
 import ModelInfo from "@/components/modelInfo";
-import ExportModels from "@/components/exportModels";
+import NightingaleChart from "./echarts/NightingaleChart";
+import VehicleScene from "@/components/RaycastVehicle";
+import PieChart from "./echarts/PieChart";
+import { Double, Single } from "@/assets";
 
 const Residence = () => {
   const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const residenceRef = useRef<any>(null);
+  const parkRef = useRef<any>(null);
   const [activeTab, setActiveTab] = useState(0);
   // console.log("activeTab", activeTab);
 
   const handlerExportModels = () => {
     console.log("exportModels");
-    // residenceRef.current.exportGLB();
-    residenceRef.current.sayHello();
+    // parkRef.current.exportGLB();
+    // parkRef.current.sayHello();
   };
 
   return (
@@ -69,27 +77,64 @@ const Residence = () => {
           </div>
         </div>
         {/* 左边栏 */}
-        <div className='relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
-          <div className='mx-auto'>
+        <div className=' relative bg-white w-[250px] p-1  hidden sm:block shadow-md'>
+          <div className='flex flex-col p-2 gap-4'>
+            <div>
+              <div className='text-sm font-bold p-4'>PLAN INFORMATIONS</div>
+            </div>
+            <div className='w-auto h-auto bg-white text-xs'>
+              <Image src={Single} alt='单层' priority />
+              <div className='grid grid-cols-2 grid-rows-2 gap-2 p-2'>
+                <div className='p-1'>室内面积</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1'>绿色阳台面积</div>
+                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+              </div>
+              <div className='flex justify-center mb-2'>
+                <div className='p-1'>奇数层平面</div>
+              </div>
+            </div>
+            <div className=' w-auto h-auto bg-white p-1 text-xs '>
+              <Image src={Double} alt='双层' priority />
+              <div className='grid grid-cols-2 grid-rows-2 gap-2 p-4'>
+                <div className='p-1'>室内面积</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1'>绿色阳台面积</div>
+                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+              </div>
+              <div className='flex justify-center mb-2'>
+                <div className='p-1'>偶数层平面</div>
+              </div>
+            </div>
+
+            <div className='bg-center'>
+              {/* <NightingaleChart /> */}
+              <PieChart />
+            </div>
+          </div>
+          {/* <div className='mx-auto'>
             {[
               // 全局参数
               <ParameterInputs />,
               // 渲染模式
               <RenderMode />,
               // leva GUI
-              <div>1</div>,
-              // <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
+              <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
             ].map((item, index) => {
               return <div key={index}>{index === activeTab && item}</div>;
             })}
-          </div>
+          </div> */}
         </div>
+        {/* <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
+          <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
+        </div> */}
 
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
-            <ResidenceCanvas residenceRef={residenceRef} />
-            {/* <ExportModels parkRef={parkRef} /> */}
+            <ResidenceCanvas />
+            {/* <ResidenceCanvas01 /> */}
+            {/* <VehicleScene /> */}
           </div>
           <div>
             <ModelInfo />
@@ -101,11 +146,11 @@ const Residence = () => {
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
-          <div className='container z-10 w-auto  mx-auto '>
-            <SaveSolution canvasRef={canvasRef} />
+        {/* <div className='bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
+          <div className='container z-10 w-auto  mx-auto flex flex-col justify-between'>
+            <SaveSolution />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import dynamic from "next/dynamic";
 import {
   Suspense,
   useRef,
@@ -28,7 +29,7 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 //
-import { Leva } from "leva";
+// import { Leva } from "leva";
 import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
@@ -42,14 +43,11 @@ import SaveSolution from "@/components/SaveSolution";
 import { ParkModel, ParkModel03 } from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
-import RenderMode from "./components/RenderMode";
+import RenderMode from "@/components/RanderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
 import { useDispatch } from "react-redux";
 // export const CanvasContext = createContext(null);
 const Park = () => {
-  const [showParameterInputs, setShowParameterInputs] = useState(false);
-  const [showRenderMode, setShowRenderMode] = useState(false);
-  const [showLeva, setShowLeva] = useState(true);
   // const [canvasRef, setCanvasRef] =
   //   useState<React.RefObject<HTMLCanvasElement> | null>(null);
 
@@ -119,15 +117,13 @@ const Park = () => {
               // 渲染模式
               <RenderMode />,
               // leva GUI
-              <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
+              <div>1</div>,
+              // <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
             ].map((item, index) => {
               return <div key={index}>{index === activeTab && item}</div>;
             })}
           </div>
         </div>
-        {/* <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
-          <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
-        </div> */}
 
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
@@ -139,8 +135,8 @@ const Park = () => {
               shadows
               camera={{ position: [200, 200, 200], fov: 60, far: 2000 }}
             >
-              <OrbitControls autoRotate maxDistance={350} />
-              {/* <OrbitControls  /> */}
+              {/* <OrbitControls autoRotate maxDistance={350} /> */}
+              <OrbitControls />
               <Lights />
               <axesHelper args={[500]} />
               <gridHelper
@@ -156,18 +152,10 @@ const Park = () => {
                   <EffectComposer multisampling={0} autoClear={false}>
                     <Outline
                       blendFunction={BlendFunction.ALPHA}
-                      // blendFunction={BlendFunction.ALPHA}
-
                       selectionLayer={1}
                       visibleEdgeColor={0x000000}
                       hiddenEdgeColor={0x000000}
                       edgeStrength={10}
-                      // width: number;
-                      // height: number;
-                      // kernelSize: KernelSize;
-                      // blur
-                      // xRay
-                      // xRay: boolean;
                     />
                     {/* <Bloom /> */}
                     <SSAO
@@ -187,10 +175,9 @@ const Park = () => {
                     <SMAA />
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
-                  <ParkModel03 ref={parkRef} />
-                  {/* <ParkModel ref={parkRef} /> */}
+                  {/* <ParkModel03 ref={parkRef} /> */}
+                  <ParkModel ref={parkRef} />
                 </Selection>
-
                 {/* <Environment preset='city' /> */}
               </Suspense>
               <GizmoHelper
@@ -217,7 +204,7 @@ const Park = () => {
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='relative bg-white w-[300px] p-3 hidden lg:block shadow-lg'>
+        <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
           <div className='container z-10 w-auto  mx-auto '>
             <SaveSolution canvasRef={canvasRef} />
             {/* <div className=' border'>

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 interface CardProps {
   data: {
-    image1: string;
-    image2: string;
+    image1: StaticImageData;
+    image2: StaticImageData;
     link: string;
     title: string;
     description: string;
@@ -16,7 +16,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
   const { image1, image2, link, title, description } = data;
   const [sliderPosition, setSliderPosition] = useState(50);
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: any) => {
     setSliderPosition(e.target.value);
   };
   return (
@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
             {title}
           </div>
           <p className='mt-2 text-gray-500 text-sm'>{description}</p>
-          <div className='absolute bottom-4'>
+          <div className='md:absolute bottom-4'>
             <Link href={link}>
               <button className='mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded'>
                 Enter

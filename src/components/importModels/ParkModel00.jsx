@@ -12,7 +12,7 @@ import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 import { saveAs } from "file-saver";
 import { useDispatch } from "react-redux";
 
-const ParkModel03 = React.forwardRef((props, ref) => {
+const ParkModel00 = React.forwardRef((props, ref) => {
   //导出模型
   const { scene, gl } = useThree();
 
@@ -59,7 +59,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
   }));
 
   //导入模型
-  const { nodes } = useGLTF("models/park/parkmodel03.glb");
+  const { nodes } = useGLTF("models/park/parkmodel00.glb");
   const meshes = Object.values(nodes).filter((n) => n.type === "Mesh");
   // console.log("nodes", nodes);
   // console.log("meshes", meshes);
@@ -152,7 +152,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='green' enabled={config.green}>
           {/* green */}
           {meshes
-            .filter((v) => v.parent.name.includes("green"))
+            .filter((v) => v.name.includes("green"))
             .map((item, index) => {
               return (
                 <mesh
@@ -177,7 +177,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='ground'>
           {/* ground */}
           {meshes
-            .filter((v) => v.parent.name.includes("ground"))
+            .filter((v) => v.name.includes("ground"))
             .map((item, index) => {
               return (
                 <mesh
@@ -200,7 +200,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='road'>
           {/* road */}
           {meshes
-            .filter((v) => v.parent.name.includes("road"))
+            .filter((v) => v.name.includes("road"))
             .map((item, index) => {
               return (
                 <mesh
@@ -246,7 +246,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='building'>
           {/* building */}
           {meshes
-            .filter((v) => v.parent.name.includes("building"))
+            .filter((v) => v.name.includes("building"))
             .map((item, index) => {
               return (
                 <mesh
@@ -269,7 +269,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='water'>
           {/* water */}
           {meshes
-            .filter((v) => v.parent.name.includes("water"))
+            .filter((v) => v.name.includes("water"))
             .map((item, index) => {
               return (
                 <mesh
@@ -292,7 +292,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
         <Select name='site'>
           {/* site */}
           {meshes
-            .filter((v) => v.parent.name.includes("site"))
+            .filter((v) => v.name.includes("site"))
             .map((item, index) => {
               return (
                 <mesh
@@ -327,7 +327,7 @@ const ParkModel03 = React.forwardRef((props, ref) => {
   );
 });
 
-export default ParkModel03;
-ParkModel03.displayName = "ParkModel03";
+export default ParkModel00;
+ParkModel00.displayName = "ParkModel00";
 
-useGLTF.preload("models/park/parkmodel03.glb");
+useGLTF.preload("models/park/parkmodel00.glb");

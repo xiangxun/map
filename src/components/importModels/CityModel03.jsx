@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.1.4 tree.glb
 
 import React, { useRef } from "react";
 import { useGLTF, Edges } from "@react-three/drei";
-import { useControls, folder, Leva } from "leva";
+// import { useControls, folder, Leva } from "leva";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
 import { useFrame } from "@react-three/fiber";
 
@@ -22,16 +22,16 @@ export default function CityModel03(props) {
   });
 
   //leva GUI组件库 https://github.com/pmndrs/leva
-  const config = useControls({
-    skirtColor: { value: "#fdd452" },
-    towerColor: { value: "#ffac1b" },
-    greenColor: { value: "#d2e4ae" },
-    roadColor: { value: "#bebdc2" },
-    treeColor: { value: "#819526" },
-    carColor: { value: "#f8f351" },
-    waterColor: { value: "#57939d" },
-    siteColor: { value: "#dcd9df" },
-  });
+  const config = {
+    skirtColor: "#fdd452",
+    towerColor: "#ffac1b",
+    greenColor: "#d2e4ae",
+    roadColor: "#bebdc2",
+    treeColor: "#819526",
+    carColor: "#f8f351",
+    waterColor: "#57939d",
+    siteColor: "#dcd9df",
+  };
 
   // 设置模型的材质和阴影属性
   scene.traverse((child) => {

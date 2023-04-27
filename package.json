@@ -30,7 +30,6 @@
     "gl-react": "^5.2.0",
     "gl-react-dom": "^5.2.1",
     "glslify": "^7.1.1",
-    "leva": "^0.9.34",
     "next": "13.2.4",
     "postcss-preset-env": "^8.0.1",
     "react": "18.2.0",
@@ -38,11 +37,11 @@
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "rhino3dm": "8.0.0-beta",
-    "shadertoy-react": "^1.1.2",
     "sharp": "^0.32.0",
     "three": "^0.150.1",
     "type": "^2.7.2",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "valtio": "^1.10.4"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",

@@ -6,7 +6,7 @@ import {
 } from "three";
 import { Edges, Select } from "@react-three/drei";
 import { useSelector } from "react-redux";
-import { useControls, folder } from "leva";
+// import { useControls, folder } from "leva";
 import { useThree } from "@react-three/fiber";
 
 const Tower = ({ positionArray, indexArray, color, opacity }) => {
@@ -153,32 +153,54 @@ const CityModel = () => {
   console.log("value in CityModel", data);
 
   //GUI leva
-  const config = useControls({
-    Outline: folder(
-      {
-        center: { value: true },
-        // tower: { value: true },
-        building: { value: false },
-      },
-      { collapsed: false }
-    ),
-    Skirt: folder({
-      skirtColor: { value: "#cee6e9" },
-      skirtOpacity: { min: 0.0, max: 1.0, value: 0.95 },
-    }),
-    Tower: folder({
-      towerColor: { value: "#e97b79" },
-      towerOpacity: { min: 0.0, max: 1.0, value: 0.95 },
-    }),
-    Site: folder({
-      siteColor: { value: "#DDD" },
-      siteOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    }),
-    Green: folder({
-      greenColor: { value: "#9bad8c" },
-      greenOpacity: { min: 0.0, max: 1.0, value: 1.0 },
-    }),
-  });
+  // const config = useControls({
+  //   Outline: folder(
+  //     {
+  //       center: { value: true },
+  //       // tower: { value: true },
+  //       building: { value: false },
+  //     },
+  //     { collapsed: false }
+  //   ),
+  //   Skirt: folder({
+  //     skirtColor: { value: "#cee6e9" },
+  //     skirtOpacity: { min: 0.0, max: 1.0, value: 0.95 },
+  //   }),
+  //   Tower: folder({
+  //     towerColor: { value: "#e97b79" },
+  //     towerOpacity: { min: 0.0, max: 1.0, value: 0.95 },
+  //   }),
+  //   Site: folder({
+  //     siteColor: { value: "#DDD" },
+  //     siteOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   }),
+  //   Green: folder({
+  //     greenColor: { value: "#9bad8c" },
+  //     greenOpacity: { min: 0.0, max: 1.0, value: 1.0 },
+  //   }),
+  // });
+
+  const config = {
+    Outline: {
+      center: true,
+    },
+    Skirt: {
+      Color: "#cee6e9",
+      Opacity: 0.95,
+    },
+    Tower: {
+      Color: "#e97b79",
+      Opacity: 0.95,
+    },
+    Site: {
+      Color: "#DDD",
+      Opacity: 1.0,
+    },
+    Green: {
+      Color: "#9bad8c",
+      Opacity: 1.0,
+    },
+  };
 
   return (
     <>
@@ -190,8 +212,8 @@ const CityModel = () => {
               key={index}
               positionArray={vertices}
               indexArray={vertex_indices}
-              opacity={config.towerOpacity}
-              color={config.towerColor}
+              opacity={config.Tower.Opacity}
+              color={config.Tower.Color}
             />
           );
         })}
@@ -203,8 +225,8 @@ const CityModel = () => {
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.skirtOpacity}
-            color={config.skirtColor}
+            opacity={config.Skirt.Opacity}
+            color={config.Skirt.Color}
           />
         );
       })}
@@ -215,8 +237,8 @@ const CityModel = () => {
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.greenOpacity}
-            color={config.greenColor}
+            opacity={config.Green.Opacity}
+            color={config.Green.Color}
             // color={"#00FF00"}
           />
         );
@@ -228,8 +250,8 @@ const CityModel = () => {
             key={index}
             positionArray={vertices}
             indexArray={vertex_indices}
-            opacity={config.siteOpacity}
-            color={config.siteColor}
+            opacity={config.Site.Opacity}
+            color={config.Site.Color}
           />
         );
       })}

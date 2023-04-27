@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
@@ -16,89 +17,33 @@ import {
   Selection,
   Outline,
 } from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 //
 import Lights from "./components/Lights";
-import { Leva } from "leva";
+// import { Leva } from "leva";
 import {
-  ProfileTwoTone,
-  SkinTwoTone,
+  CloudDownloadOutlined,
   UnorderedListOutlined,
+  SwitcherOutlined,
+  FormatPainterOutlined,
 } from "@ant-design/icons";
-import { Button } from "antd";
 import { File3dm, Mesh } from "rhino3dm";
-// import { Rhino3dmExporter } from 'three-stdlib/jsm/exporters/Rhino3dmExporter';
-// import Navbar from "../components/navbar";
-// import { Tree } from "@/components/Tree";
-// import RhinoModel0316 from "@/components/RhinoModel0316";
-// import CityModel01 from "@/components/CityModel01";
-// import CityModel03 from "@/components/CityModel03";
-// import CityModel0101 from "@/components/CityModel0101";
-// import { Road } from "@/components/Road";
 import { CityModel03 } from "@/components/importModels";
 import ParameterInputs from "./components/ParameterInputs";
-import Solution from "./components/Solution";
-
-const levaTheme = {
-  colors: {
-    elevation1: "#ffeeff",
-    elevation2: "#eeeeee",
-    elevation3: "#ffffff",
-    accent1: "#0066dc",
-    accent2: "#007bff",
-    accent3: "#3c93ff",
-    highlight1: "#0051ff",
-    highlight2: "#0040ff",
-    highlight3: "#73b1b1",
-    vivid1: "#ffcc00",
-  },
-  radii: {
-    xs: "2px",
-    sm: "3px",
-    lg: "10px",
-  },
-  space: {
-    sm: "6px",
-    md: "10px",
-    rowGap: "7px",
-    colGap: "7px",
-  },
-  fontSizes: {
-    root: "11px",
-  },
-  sizes: {
-    rootWidth: "280px",
-    controlWidth: "160px",
-    scrubberWidth: "8px",
-    scrubberHeight: "16px",
-    rowHeight: "24px",
-    folderHeight: "20px",
-    checkboxSize: "16px",
-    joystickWidth: "100px",
-    joystickHeight: "100px",
-    colorPickerWidth: "160px",
-    colorPickerHeight: "100px",
-    monitorHeight: "60px",
-    titleBarHeight: "39px",
-  },
-  borderWidths: {
-    root: "0px",
-    input: "1px",
-    focus: "1px",
-    hover: "1px",
-    active: "1px",
-    folder: "1px",
-  },
-  fontWeights: {
-    label: "normal",
-    folder: "normal",
-    button: "normal",
-  },
-};
+import SaveSolution from "@/components/SaveSolution";
+import RenderMode from "@/components/RanderMode";
 
 const City = () => {
-  const [showParameterInputs, setShowParameterInputs] = useState(false);
-  const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cityRef = useRef<any>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  console.log("activeTab", activeTab);
+
+  const handlerExportModels = () => {
+    console.log("exportModels");
+    cityRef.current.exportGLB();
+    // parkRef.current.sayHello();
+  };
 
   return (
     <div className='flex flex-col h-screen'>
@@ -109,41 +54,51 @@ const City = () => {
         </div>
       </div>
       <div className=' flex-grow flex'>
-        {/* 左边栏 */}
-        <div className='relative bg-white p-4  shadow-md'>
-          <div>
-            <UnorderedListOutlined
-              onClick={() => setShowParameterInputs(!showParameterInputs)}
-            />
-          </div>
-          <div>
-            {/* <SkinTwoTone onClick={() => setShowLeva(!showLeva)} /> */}
-            <SkinTwoTone onClick={() => setShowLeva(!showLeva)} />
-          </div>
-        </div>
-        <div className='relative bg-white w-[300px] p-1 hidden sm:block shadow-md'>
-          {/* 全局参数 */}
-          <div className='mx-auto '>
-            {!showParameterInputs && <ParameterInputs />}
-          </div>
-
-          {/* 生成方案 */}
-          <div className='absolute bottom-5 left-0 right-0 flex justify-center items-center'>
-            <div className='w-64'>
-              <Button
-                block
-                type='primary'
-                className='font-bold text-white bg-blue-500 hover:bg-blue-700 sm:w-full'
-                // onClick={() => submit({ onResultChange: setResult })}
-                // onClick={handleModel}
+        {/* 左边栏 icon*/}
+        <div className='relative bg-white p-4  shadow-lg'>
+          {[
+            // 全局参数
+            <UnorderedListOutlined />,
+            // 渲染模式
+            <SwitcherOutlined />,
+            // leva GUI
+            <FormatPainterOutlined />,
+          ].map((icon, index) => {
+            return (
+              <div
+                onClick={() => setActiveTab(index)}
+                key={index}
+                className={`${
+                  index === activeTab
+                    ? "border-indigo-500 text-indigo-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+                // className='flex flex-col items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-200'
               >
-                确定
-              </Button>
-            </div>
+                {icon}
+              </div>
+            );
+          })}
+
+          <div className='border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'>
+            <CloudDownloadOutlined onClick={handlerExportModels} />
           </div>
         </div>
-        <div className='container absolute z-10 w-auto px-2 py-4 mx-auto left-[350px]'>
-          <Leva theme={levaTheme} fill hidden={showLeva}></Leva>
+        {/* 左边栏 */}
+        <div className='relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
+          <div className='mx-auto'>
+            {[
+              // 全局参数
+              <ParameterInputs />,
+              // 渲染模式
+              <RenderMode />,
+              // leva GUI
+              <div>1</div>,
+              // <Leva theme={levaTheme} fill hidden={activeTab == 0}></Leva>,
+            ].map((item, index) => {
+              return <div key={index}>{index === activeTab && item}</div>;
+            })}
+          </div>
         </div>
 
         {/* 主内容区 */}
@@ -156,28 +111,38 @@ const City = () => {
               orthographic
               camera={{ position: [4000, 4000, 0], far: 8000 }}
             >
-              <OrbitControls autoRotate maxDistance={2000} />
+              <OrbitControls maxDistance={2000} />
               <Lights />
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
+                <CityModel03 castShadow receiveShadow />
                 <Selection>
                   <EffectComposer multisampling={0} autoClear={false}>
                     <Outline
-                      // visibleEdgeColor={"#FFFFFF"}
-                      // hiddenEdgeColor={"#FFFFFF"}
-                      edgeStrength={100}
+                      blendFunction={BlendFunction.ALPHA}
+                      selectionLayer={1}
+                      visibleEdgeColor={0x000000}
+                      hiddenEdgeColor={0x000000}
+                      edgeStrength={10}
                     />
-                    <SMAA />
-                    <SSAO />
-                    {/* <Road /> */}
-                    {/* <CityModel0101 castShadow receiveShadow /> */}
-                    <CityModel03 castShadow receiveShadow />
+                    {/* <Bloom /> */}
+                    <SSAO
+                      blendFunction={BlendFunction.MULTIPLY} // blend mode
+                      samples={64} // amount of samples per pixel (shouldn't be a multiple of the ring count)
+                      rings={4} // amount of rings in the occlusion sampling pattern
+                      distanceThreshold={1.0} // global distance threshold at which the occlusion effect starts to fade out. min: 0, max: 1
+                      distanceFalloff={0.0} // distance falloff. min: 0, max: 1
+                      rangeThreshold={0.5} // local occlusion range threshold at which the occlusion starts to fade out. min: 0, max: 1
+                      rangeFalloff={0.1} // occlusion range falloff. min: 0, max: 1
+                      luminanceInfluence={0.9} // how much the luminance of the scene influences the ambient occlusion
+                      radius={20} // occlusion sampling radius
+                      scale={0.5} // scale of the ambient occlusion
+                      bias={0.1} // occlusion bias
+                      intensity={300}
+                    />
                   </EffectComposer>
                 </Selection>
-
-                {/* <Environment preset='city' /> */}
-                {/* <Environment preset='forest' /> */}
               </Suspense>
             </Canvas>
           </div>
@@ -186,16 +151,9 @@ const City = () => {
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='bg-white w-[300px] p-3 hidden lg:block shadow-md'>
-          <div className='container z-10 w-auto  mx-auto flex flex-col justify-between'>
-            <div className=' border'>
-              <div className='p-3 text-lg font-bold'>方案一</div>
-              <Solution canvasRef={canvasRef} />
-            </div>
-            <div className=' border'>
-              <div className='p-3 text-lg font-bold'>方案二</div>
-              <Solution canvasRef={canvasRef} />
-            </div>
+        <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
+          <div className='container z-10 w-auto  mx-auto '>
+            <SaveSolution canvasRef={canvasRef} />
           </div>
         </div>
       </div>

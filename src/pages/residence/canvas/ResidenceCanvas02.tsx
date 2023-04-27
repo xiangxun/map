@@ -10,7 +10,6 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { EffectComposer, SMAA, SSAO } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { extend, useFrame } from "@react-three/fiber";
-import { useControls } from "leva";
 import { Box3, Box3Helper, Group, Object3D, Vector3 } from "three";
 
 import { ResidenceModel02 } from "@/components/importModels";

@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useGLTF, Edges, Html } from "@react-three/drei";
-import { useControls, folder, Leva } from "leva";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
 import { useThree, useFrame } from "@react-three/fiber";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";

@@ -6,14 +6,34 @@ import { BlendFunction } from "postprocessing";
 import { extend, useFrame } from "@react-three/fiber";
 import { Box3, Box3Helper, Group, Object3D, Vector3 } from "three";
 
-import { ResidenceModel, ParkModel00, Tree } from "@/components/importModels";
+import { ResidenceModel } from "@/components/importModels";
 import { colorType1, colorType2, colorType3 } from "@/assets";
-import ExportModels from "@/components/exportModels";
+import Vehicle from "@/components/RaycastVehicle/Vehicle";
+import { Physics, usePlane, Debug } from "@react-three/cannon";
+// import { useToggledControl } from "@/components/RaycastVehicle/use-toggled-control";
+// import type { PlaneProps } from "@react-three/cannon";
+
+// const ToggledDebug = useToggledControl(Debug, "?");
+function Plane(props) {
+  const [ref] = usePlane(
+    () => ({ material: "ground", type: "Static", ...props }),
+    useRef < Group > null
+  );
+  return (
+    <group ref={ref}>
+      <mesh receiveShadow>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial color='#303030' />
+      </mesh>
+    </group>
+  );
+}
 
 const ResidenceCanvas = () => {
   return (
     <Canvas shadows camera={{ position: [100, 200, 100], fov: 45, far: 2000 }}>
       <OrbitControls />
+
       {/* 坏境光 */}
       <ambientLight intensity={0.8} />
       {/* 平行光 */}
@@ -36,12 +56,23 @@ const ResidenceCanvas = () => {
       {/* <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} /> */}
       {/* <pointLight position={[10, 15, 10]} /> */}
       {/* <fog attach='fog' args={["white", 15, 150]} /> */}
-      <axesHelper args={[500]} />
-      <gridHelper args={[600, 20]} />
+      <axesHelper args={[10]} />
+      <gridHelper args={[80, 20]} />
       <Suspense>
-        {/* <Tree /> */}
-        <ResidenceModel />
-        <ParkModel00 position={[0, -40.1, 0]} />
+        <Physics
+          broadphase='SAP'
+          defaultContactMaterial={{
+            contactEquationRelaxation: 4,
+            friction: 1e-3,
+          }}
+          allowSleep
+        >
+          {/* <ToggledDebug> */}
+          <Plane rotation={[-Math.PI / 2, 0, 0]} userData={{ id: "floor" }} />
+          <Vehicle position={[30, 0, -18]} rotation={[0, -Math.PI / 2, 0]} />
+          <ResidenceModel />
+          {/* </ToggledDebug> */}
+        </Physics>
       </Suspense>
       <EffectComposer>
         <SSAO
@@ -60,7 +91,6 @@ const ResidenceCanvas = () => {
         />
         <SMAA />
       </EffectComposer>
-      <ExportModels />
     </Canvas>
   );
 };

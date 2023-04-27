@@ -11,6 +11,7 @@ import {
   Divider,
   Button,
   Select,
+  Switch,
 } from "antd";
 
 const ParameterInputs: React.FC = () => {
@@ -21,17 +22,49 @@ const ParameterInputs: React.FC = () => {
   const [towerMode, setTowerMode] = useState("AVG");
   const [skirtHeight, setSkirtHeight] = useState(21);
   const [result, setResult] = useState([]);
+
+  const [mod, setMod] = useState(4);
+  const [gfa, setGfa] = useState(6.0);
+  const [bcr, setBcr] = useState(0.25);
+  const [limitHeight, setLimitHeight] = useState(100);
+  const [standardHeight, setStandardHeight] = useState(2.92);
+  const [unit, setUnit] = useState(8);
+  const [gridTyp, setGridTyp] = useState(1);
+  const [recTyp, setRecTyp] = useState(1);
+  const [randomGenerate, setRandomGenerate] = useState("True");
+  const [BOUND, setBOUND] = useState("SVB");
+
   // const [isMounted, setIsMounted] = useState(false);
   const jsonData = {
-    // TOWER_AREA: towerArea,
-    // SKIRT_AREA: skirtArea,
-    // TOWER_MODE: towerMode,
-    // SKIRT_HEIGHT: skirtHeight,
+    // mod,
+    // gfa,
+    // bcr,
+    // limitHeight,
+    // standardHeight,
+    // unit,
+    // gridTyp,
+    // recTyp,
+    // randomGenerate,
+    // BOUND,
+    mod: mod,
+    gfa: gfa,
+    bcr: bcr,
+    limit_height: limitHeight,
+    standard_height: standardHeight,
+    unit: unit,
+    grid_typ: gridTyp,
+    rec_typ: recTyp,
+    random_generate: randomGenerate,
+    BOUND: BOUND,
   };
+  // TOWER_AREA: towerArea,
+  // SKIRT_AREA: skirtArea,
+  // TOWER_MODE: towerMode,
+  // SKIRT_HEIGHT: skirtHeight,
 
   const submit = async () => {
     // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.1.63:5002/cal", {
+    const response = await fetch("http://192.168.1.63:5000/cal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,348 +93,260 @@ const ParameterInputs: React.FC = () => {
             }}
             direction='vertical'
           >
-            {/* 塔楼目标面积 */}
+            {/* 住宅高度生成模式 */}
             <Row>
               <Col span={12}>
-                <label>塔楼目标面积：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000000}
-                  // defaultValue={135000}
-                  formatter={(value) => `${value}m2`}
-                  parser={(value) => value.replace("m2", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                  value={towerArea}
-                  onChange={(v) => setTowerArea(v)}
-                />
-              </Col>
-            </Row>
-
-            {/* 塔楼高度生成模式 */}
-            <Row>
-              <Col span={12}>
-                <label>塔楼高度生成模式：</label>
+                <label>住宅高度生成模式:</label>
               </Col>
               <Col span={12}>
                 <Select
-                  defaultValue='平均模式'
+                  defaultValue={0}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                  onChange={(v) => setTowerMode(v)}
+                  onChange={(v) => setMod(v)}
                   options={[
                     {
-                      value: "AVG",
-                      label: "平均模式",
+                      value: 0,
+                      label: "0",
                     },
                     {
-                      value: "TALL",
-                      label: "限高优先",
+                      value: 1,
+                      label: "1",
                     },
                     {
-                      value: "FUNC",
-                      label: "功能优先",
+                      value: 2,
+                      label: "2",
+                    },
+                    {
+                      value: 3,
+                      label: "3",
                     },
                   ]}
                 />
               </Col>
             </Row>
-            {/* 裙房目标面积 */}
+            {/* 容积率 */}
             <Row>
               <Col span={12}>
-                <label>裙房目标面积：</label>
+                <label>容积率：</label>
               </Col>
               <Col span={12}>
                 <InputNumber
-                  min={1}
-                  max={1000000}
-                  // defaultValue={4000}
-                  formatter={(value) => `${value}m2`}
-                  parser={(value) => value.replace("m2", "")}
+                  min={3.0}
+                  max={7.0}
+                  step={0.1}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                  value={skirtArea}
-                  onChange={(v) => setSkirtArea(v)}
+                  value={gfa}
+                  onChange={(v) => setGfa(v)}
                 />
               </Col>
             </Row>
-            {/* 裙房高度 */}
+            {/* 建筑密度 */}
             <Row>
               <Col span={12}>
-                <label>裙房高度：</label>
+                <label>建筑密度：</label>
               </Col>
               <Col span={12}>
                 <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={21}
+                  min={0.2}
+                  max={0.35}
+                  step={0.01}
+                  style={{
+                    margin: "0 6px",
+                    width: "100%",
+                  }}
+                  value={bcr}
+                  onChange={(v) => setBcr(v)}
+                />
+              </Col>
+            </Row>
+            {/* 建筑限高 */}
+            <Row>
+              <Col span={12}>
+                <label>建筑限高：</label>
+              </Col>
+              <Col span={12}>
+                <InputNumber
+                  min={60}
+                  max={150}
+                  step={0.1}
                   formatter={(value) => `${value}m`}
                   parser={(value) => value.replace("m", "")}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                  value={skirtHeight}
-                  onChange={(v) => setSkirtHeight(v)}
+                  value={limitHeight}
+                  onChange={(v) => setLimitHeight(v)}
                 />
               </Col>
             </Row>
-            {/* 塔楼限高 */}
-            <Row>
-              <Col span={12}>
-                <label>塔楼限高：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={100}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                />
-              </Col>
-            </Row>
-            {/* 塔楼标准层高度 */}
+            {/* 住宅标准层高度 */}
             <Row>
               <Col span={12}>
                 <label>塔楼标准层高度：</label>
               </Col>
               <Col span={12}>
                 <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={4.2}
+                  min={2.5}
+                  max={10.0}
+                  step={0.01}
                   formatter={(value) => `${value}m`}
                   parser={(value) => value.replace("m", "")}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
+                  value={standardHeight}
+                  onChange={(v) => setStandardHeight(v)}
                 />
               </Col>
             </Row>
-            {/* 塔楼最小单元长度 */}
+            {/* 网格大小 */}
             <Row>
               <Col span={12}>
-                <label>塔楼最小单元长度：</label>
+                <label>网格大小：</label>
               </Col>
               <Col span={12}>
                 <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={8}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
+                  min={6.0}
+                  max={10.0}
+                  step={0.1}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
+                  value={unit}
+                  onChange={(v) => setUnit(v)}
                 />
               </Col>
             </Row>
-
-            {/* 裙房限高 */}
+            {/* 网格生成模式 */}
             <Row>
               <Col span={12}>
-                <label>裙房限高：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={24}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                />
-              </Col>
-            </Row>
-            {/* 裙房首层高度 */}
-            <Row>
-              <Col span={12}>
-                <label>裙房首层高度：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={6}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                />
-              </Col>
-            </Row>
-            {/* 裙房标准层高度 */}
-            <Row>
-              <Col span={12}>
-                <label>裙房标准层高度：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={5}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                />
-              </Col>
-            </Row>
-            {/* 裙房生成模式 */}
-            <Row>
-              <Col span={12}>
-                <label>裙房生成模式</label>
+                <label>网格生成模式：</label>
               </Col>
               <Col span={12}>
                 <Select
-                  defaultValue='条状生成'
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                  // onChange={handleChange}
                   options={[
                     {
-                      value: "BAR",
-                      label: "条状生成",
+                      value: "0",
+                      label: "0",
                     },
                     {
-                      value: "BLOCK",
-                      label: "块状生成",
+                      value: "1",
+                      label: "1",
                     },
                   ]}
+                  value={gridTyp}
+                  onChange={(v) => setGridTyp(v)}
                 />
               </Col>
             </Row>
-            {/*  */}
-
-            {/* 容积率上限 */}
+            {/* 方向控制模式 */}
             <Row>
               <Col span={12}>
-                <label>容积率上限：</label>
+                <label>方向控制模式：</label>
               </Col>
               <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={100}
-                  defaultValue={10.0}
+                <Select
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
+                  options={[
+                    {
+                      value: "0",
+                      label: "0",
+                    },
+                    {
+                      value: "1",
+                      label: "1",
+                    },
+                    {
+                      value: "2",
+                      label: "2",
+                    },
+                  ]}
+                  value={recTyp}
+                  onChange={(v) => setRecTyp(v)}
                 />
               </Col>
             </Row>
-            {/* 容积率下限 */}
+            {/* 是否随机生成 */}
             <Row>
               <Col span={12}>
-                <label>容积率下限：</label>
+                <label>是否随机生成：</label>
               </Col>
               <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={100}
-                  defaultValue={1.0}
+                <Select
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
+                  options={[
+                    {
+                      value: "True",
+                      label: "是",
+                    },
+                    {
+                      value: "False",
+                      label: "否",
+                    },
+                  ]}
+                  value={randomGenerate}
+                  onChange={(v) => setRandomGenerate(v)}
                 />
-              </Col>
-            </Row>
-            {/* 建筑密度上限 */}
-            <Row>
-              <Col span={12}>
-                <label>建筑密度上限：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={100}
-                  defaultValue={50}
-                  formatter={(value) => `${value}%`}
+                {/* <Switch
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                />
+                  checked={randomGenerate}
+                  onChange={(v) => setRandomGenerate(v)}
+                /> */}
               </Col>
             </Row>
-            {/* 建筑密度下限 */}
+            {/* 住宅生成模式 */}
             <Row>
               <Col span={12}>
-                <label>建筑密度下限：</label>
+                <label>住宅生成模式：</label>
               </Col>
               <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={100}
-                  defaultValue={20}
-                  formatter={(value) => `${value}%`}
+                <Select
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
-                />
-              </Col>
-            </Row>
-            {/* 商业最小间距 */}
-            <Row>
-              <Col span={12}>
-                <label>商业最小间距：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={15}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
-                />
-              </Col>
-            </Row>
-            {/* 塔楼最小间距 */}
-            <Row>
-              <Col span={12}>
-                <label>塔楼最小间距：</label>
-              </Col>
-              <Col span={12}>
-                <InputNumber
-                  min={1}
-                  max={1000}
-                  defaultValue={30}
-                  formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
-                  style={{
-                    margin: "0 6px",
-                    width: "100%",
-                  }}
+                  options={[
+                    {
+                      value: "SVB",
+                      label: "SVB",
+                    },
+                    {
+                      value: "LEB",
+                      label: "LEB",
+                    },
+                    {
+                      value: "MBB",
+                      label: "MBB",
+                    },
+                    {
+                      value: "ABB",
+                      label: "ABB",
+                    },
+                  ]}
+                  value={BOUND}
+                  onChange={(v) => setBOUND(v)}
                 />
               </Col>
             </Row>

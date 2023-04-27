@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-key */
+import dynamic from "next/dynamic";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -12,6 +14,20 @@ import {
   Button,
   Select,
 } from "antd";
+// const {
+//   Form,
+//   Col,
+//   InputNumber,
+//   Row,
+//   Slider,
+//   Space,
+//   Input,
+//   Divider,
+//   Button,
+//   Select,
+// } = dynamic(() => import("antd"), {
+//   ssr: false,
+// });
 
 const ParameterInputs: React.FC = () => {
   const dispatch = useDispatch();
@@ -455,15 +471,18 @@ const ParameterInputs: React.FC = () => {
             </Row>
           </Space>
           <Divider />
-          {/* <Button
-            block
-            type='primary'
-            className='font-bold text-white bg-blue-500 hover:bg-blue-700 '
-            // onClick={() => submit({ onResultChange: setResult })}
-            onClick={submit}
-          >
-            确定
-          </Button> */}
+          <div className='absolute bottom-5 left-0 right-0 flex justify-center items-center'>
+            <div className='w-64'>
+              <Button
+                block
+                type='primary'
+                className='font-bold text-white bg-blue-500 hover:bg-blue-700 sm:w-full'
+                onClick={submit}
+              >
+                确定
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

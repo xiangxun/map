@@ -8,7 +8,7 @@ import React, { useRef } from "react";
 import { useGLTF, Edges, shaderMaterial } from "@react-three/drei";
 import { EffectComposer, Outline, Select } from "@react-three/postprocessing";
 import { Color, ShaderMaterial } from "three";
-import { useControls, folder, Leva } from "leva";
+// import { useControls, folder, Leva } from "leva";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 

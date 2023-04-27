@@ -52,7 +52,7 @@ const shader = new ShaderMaterial({
 			#define sin_freq 50. //for type 2
 			#define warp true
 		#elif TYPE == 2
-			#define brightness 4.
+			#define brightness 3.
 			#define ray_brightness 5.5
 			#define gamma 8.
 			#define spot_brightness 15.
@@ -221,12 +221,13 @@ const ShaderPlane = () => {
   const { viewport, size } = useThree();
   console.log(size.width, size.height);
   console.log("viewport", viewport);
+  console.log("window", window.innerWidth, window.innerHeight);
 
   useFrame(({ clock }) => {
     shader.uniforms.iTime.value = clock.getElapsedTime();
     shader.uniforms.iResolution.value.set(
-      viewport.width * 100,
-      viewport.height
+      window.innerWidth * viewport.dpr,
+      window.innerHeight * viewport.dpr
     );
     // shader.uniforms.iResolution.value.set(size.width, size.height);
   });
