@@ -25,7 +25,8 @@
     "src/components/importModels/CityModel.jsx",
     "src/shader/test/Basic.js",
     "src/pages/test/Cube.jsx",
-    "src/pages/residence/canvas/ResidenceCanvas.jsx"
+    "src/pages/residence/canvas/ResidenceCanvas.jsx",
+    "src/components/importModels/ResidenceModel00.jsx"
   ],
   "exclude": ["node_modules"]
 }

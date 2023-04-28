@@ -36,8 +36,8 @@ const ResidenceCanvas = () => {
       {/* <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} /> */}
       {/* <pointLight position={[10, 15, 10]} /> */}
       {/* <fog attach='fog' args={["white", 15, 150]} /> */}
-      <axesHelper args={[500]} />
-      <gridHelper args={[600, 20]} />
+      {/* <axesHelper args={[500]} />
+      <gridHelper args={[600, 20]} /> */}
       <Suspense>
         {/* <Tree /> */}
         <ResidenceModel />

@@ -9,8 +9,11 @@
   "Beam": { "color": "#A5A5A5", "opacity": 1.0 },
   "Furniture": { "color": "#FFFFFF", "opacity": 1.0 },
   "Structure": { "color": "#A5A5A5", "opacity": 1.0 },
-  "Glaz": { "color": "#FF0000", "opacity": 1.0 },
+  "Glaz": { "color": "#ccffff", "opacity": 0.5 },
   "Door_Glaz": { "color": "#FFFFFF", "opacity": 1.0 },
   "Door_Fram": { "color": "#E1E1E1", "opacity": 1.0 },
-  "Hral": { "color": "#00007B", "opacity": 0.05 }
+  "Hral": { "color": "#00007B", "opacity": 0.5 },
+  "frame": { "color": "#FFFFFF", "opacity": 1.0 },
+  "glass": { "color": "#ccffff", "opacity": 0.5 },
+  "strip": { "color": "#FFFFFF", "opacity": 1.0 }
 }

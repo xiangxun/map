@@ -3,22 +3,19 @@ import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
-  StarOutlined,
   SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 
 //
 import SaveSolution from "@/components/SaveSolution";
-import ResidenceCanvas from "./canvas/ResidenceCanvas";
-import ResidenceCanvas01 from "./canvas/ResidenceCanvas01";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
 import ModelInfo from "@/components/modelInfo";
 import ExportModels from "@/components/exportModels";
-import Link from "next/link";
+import FacadeCanvas from "./canvas/FacadeCanvas";
 
-const Residence = () => {
+const Facade = () => {
   const [showLeva, setShowLeva] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const residenceRef = useRef<any>(null);
@@ -36,12 +33,12 @@ const Residence = () => {
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900 z-20 '>
         <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          智慧住宅方案生成 Smart Residence Planning
+          立面细部快速生成 Smart Facade Planning
         </div>
       </div>
       <div className=' flex-grow flex'>
         {/* 左边栏 icon*/}
-        <div className='relative bg-white p-4 shadow-lg'>
+        <div className='relative bg-white p-3 shadow-lg'>
           {[
             // 全局参数
             <UnorderedListOutlined />,
@@ -69,14 +66,9 @@ const Residence = () => {
           <div className='border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'>
             <CloudDownloadOutlined onClick={handlerExportModels} />
           </div>
-          <div className='border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'>
-            <Link href={"/residence/show"}>
-              <StarOutlined />
-            </Link>
-          </div>
         </div>
         {/* 左边栏 */}
-        <div className='relative bg-white w-[300px] p-1  hidden sm:block shadow-md'>
+        <div className='relative bg-white w-[250px] p-1  hidden sm:block shadow-md'>
           <div className='mx-auto'>
             {[
               // 全局参数
@@ -95,26 +87,24 @@ const Residence = () => {
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
-            <ResidenceCanvas />
+            <FacadeCanvas />
             {/* <ExportModels parkRef={parkRef} /> */}
           </div>
           <div>
             <ModelInfo />
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>
-            <p className='text-xs mx-auto text-white'>
-              Smart Residence Planning
-            </p>
+            <p className='text-xs mx-auto text-white'>Smart Facade Planning</p>
           </div>
         </div>
         {/* 右边栏 */}
-        <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
+        {/* <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
           <div className='container z-10 w-auto  mx-auto '>
             <SaveSolution canvasRef={canvasRef} />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
-export default Residence;
+export default Facade;

@@ -25,12 +25,22 @@ const Card: React.FC<CardProps> = ({ data }) => {
         <div className='md:flex-shrink-0'>
           <div className='md:w-[400px] h-auto'>
             <div className='relative w-full'>
-              <Image className='w-full h-auto' src={image2} alt='After' />
+              <Image
+                className='w-full h-auto'
+                src={image2}
+                alt='After'
+                property='true'
+              />
               <div
                 className='absolute top-0 left-0 right-0 bottom-0 '
                 style={{ clipPath: `inset(0% ${100 - sliderPosition}% 0% 0%)` }}
               >
-                <Image className='w-full h-auto' src={image1} alt='Before' />
+                <Image
+                  className='w-full h-auto'
+                  src={image1}
+                  alt='Before'
+                  property='true'
+                />
               </div>
               <input
                 type='range'
@@ -42,13 +52,6 @@ const Card: React.FC<CardProps> = ({ data }) => {
               />
             </div>
           </div>
-          {/* <Image
-            className='h-48 w-full object-cover md:w-48'
-            src={image1}
-            alt='Card image'
-            width={400}
-            height={300}
-          /> */}
         </div>
         <div className='p-8 relative'>
           <div className='uppercase tracking-wide text-lg text-indigo-500 font-semibold'>

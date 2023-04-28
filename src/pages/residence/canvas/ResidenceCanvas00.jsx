@@ -6,7 +6,7 @@ import { BlendFunction } from "postprocessing";
 import { extend, useFrame } from "@react-three/fiber";
 import { Box3, Box3Helper, Group, Object3D, Vector3 } from "three";
 
-import { ResidenceModel } from "@/components/importModels";
+import { ResidenceModel00 } from "@/components/importModels";
 import { colorType1, colorType2, colorType3 } from "@/assets";
 import Vehicle from "@/components/RaycastVehicle/Vehicle";
 import { Physics, usePlane, Debug } from "@react-three/cannon";
@@ -29,7 +29,7 @@ function Plane(props) {
   );
 }
 
-const ResidenceCanvas = () => {
+const ResidenceCanvas00 = () => {
   return (
     <Canvas shadows camera={{ position: [100, 200, 100], fov: 45, far: 2000 }}>
       <OrbitControls />
@@ -70,7 +70,7 @@ const ResidenceCanvas = () => {
           {/* <ToggledDebug> */}
           <Plane rotation={[-Math.PI / 2, 0, 0]} userData={{ id: "floor" }} />
           <Vehicle position={[30, 0, -18]} rotation={[0, -Math.PI / 2, 0]} />
-          <ResidenceModel />
+          <ResidenceModel00 />
           {/* </ToggledDebug> */}
         </Physics>
       </Suspense>
@@ -95,4 +95,4 @@ const ResidenceCanvas = () => {
   );
 };
 
-export default ResidenceCanvas;
+export default ResidenceCanvas00;

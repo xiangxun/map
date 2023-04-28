@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { Box3, Vector3, MeshStandardMaterial } from "three";
 
 import { colorType1, colorType2, colorType3 } from "@/assets";
-import { number } from "echarts";
 import Link from "next/link";
 
 const gltfFile = "/models/gltf/residence.glb";
@@ -36,9 +35,9 @@ const ResidenceModel = React.forwardRef((props, ref) => {
   const meshMaterialNameArr = Array.from(new Set(meshMaterialName));
 
   // const meshInfo = [];
-  const meshInfoPosition = [];
-  console.log("meshInfo", meshInfo);
-  console.log(typeof meshInfo);
+  // const meshInfoPosition = [];
+  // console.log("meshInfo", meshInfo);
+  // console.log(typeof meshInfo);
   const matches = meshInfo?.match(/\d+/);
   useEffect(() => {
     if (matches != null && matches.length > 0) {
@@ -141,7 +140,7 @@ const ResidenceModel = React.forwardRef((props, ref) => {
               onPointerOut={handlePointerOut}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("meshName", meshName);
+                // console.log("meshName", meshName);
               }}
             >
               {meshArr

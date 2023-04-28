@@ -43,17 +43,12 @@ const ResidenceCanvas02 = () => {
                 // args={[-100, 100, 100, -100]}
               />
             </directionalLight>
-            {/* <ambientLight intensity={0.5} /> */}
             {/* <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} /> */}
             {/* <pointLight position={[10, 15, 10]} /> */}
             {/* <fog attach='fog' args={["white", 15, 150]} /> */}
             {/* <axesHelper args={[10]} /> */}
             <gridHelper args={[80, 20]} />
             {/* <Plane args={[20, 10]} /> */}
-            {/* <mesh receiveShadow position={[0, 0, 0]} castShadow>
-          <boxGeometry attach='geometry' args={[20, 0.01, 20]} />
-          <meshStandardMaterial attach='material' color={"#FFFFFF"} />
-        </mesh> */}
             <ResidenceModel02 />
 
             <EffectComposer>
@@ -93,7 +88,7 @@ const ResidenceCanvas02 = () => {
         </Canvas>
       </div>
       <div className='absolute top-5 left-5'>
-        <Link href='/residence'>
+        <Link href='/residence/show'>
           <LeftCircleOutlined style={{ fontSize: "32px", color: "#08c" }} />
           {/* <div className='p-2 bg-blue-100 rounded-md shadow-md'>back</div> */}
         </Link>

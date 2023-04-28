@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 function ModelInfo() {
   // use modelInfo data from redux
   const modelInfo = useSelector((state: any) => state.modelInfo);
-  console.log("modelInfo", modelInfo);
+  // console.log("modelInfo", modelInfo);
 
   return (
     <div>

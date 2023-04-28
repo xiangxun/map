@@ -1,27 +1,16 @@
+import dynamic from "next/dynamic";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Form,
-  Col,
-  InputNumber,
-  Row,
-  Slider,
-  Space,
-  Input,
-  Divider,
-  Button,
-  Select,
-  Switch,
-} from "antd";
-
+import { Col, Row, Space, Divider, Button } from "antd";
+const Select = dynamic(() => import("antd").then((antd) => antd.Select), {
+  ssr: false,
+});
+const InputNumber = dynamic(
+  () => import("antd").then((antd) => antd.InputNumber),
+  { ssr: false }
+);
 const ParameterInputs: React.FC = () => {
   const dispatch = useDispatch();
-
-  const [towerArea, setTowerArea] = useState(50000);
-  const [skirtArea, setSkirtArea] = useState(5000);
-  const [towerMode, setTowerMode] = useState("AVG");
-  const [skirtHeight, setSkirtHeight] = useState(21);
-  const [result, setResult] = useState([]);
 
   const [mod, setMod] = useState(4);
   const [gfa, setGfa] = useState(6.0);
@@ -36,16 +25,6 @@ const ParameterInputs: React.FC = () => {
 
   // const [isMounted, setIsMounted] = useState(false);
   const jsonData = {
-    // mod,
-    // gfa,
-    // bcr,
-    // limitHeight,
-    // standardHeight,
-    // unit,
-    // gridTyp,
-    // recTyp,
-    // randomGenerate,
-    // BOUND,
     mod: mod,
     gfa: gfa,
     bcr: bcr,
@@ -57,10 +36,6 @@ const ParameterInputs: React.FC = () => {
     random_generate: randomGenerate,
     BOUND: BOUND,
   };
-  // TOWER_AREA: towerArea,
-  // SKIRT_AREA: skirtArea,
-  // TOWER_MODE: towerMode,
-  // SKIRT_HEIGHT: skirtHeight,
 
   const submit = async () => {
     // 发送 POST 请求并获取数据
@@ -105,7 +80,7 @@ const ParameterInputs: React.FC = () => {
                     margin: "0 6px",
                     width: "100%",
                   }}
-                  onChange={(v) => setMod(v)}
+                  onChange={(v) => setMod(Number(v))}
                   options={[
                     {
                       value: 0,
@@ -142,7 +117,7 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={gfa}
-                  onChange={(v) => setGfa(v)}
+                  onChange={(v) => setGfa(Number(v))}
                 />
               </Col>
             </Row>
@@ -161,7 +136,7 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={bcr}
-                  onChange={(v) => setBcr(v)}
+                  onChange={(v) => setBcr(Number(v))}
                 />
               </Col>
             </Row>
@@ -176,20 +151,20 @@ const ParameterInputs: React.FC = () => {
                   max={150}
                   step={0.1}
                   formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
+                  parser={(value) => parseFloat(value!.replace("m", ""))}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
                   value={limitHeight}
-                  onChange={(v) => setLimitHeight(v)}
+                  onChange={(v) => setLimitHeight(Number(v))}
                 />
               </Col>
             </Row>
             {/* 住宅标准层高度 */}
             <Row>
               <Col span={12}>
-                <label>塔楼标准层高度：</label>
+                <label>住宅标准层高度：</label>
               </Col>
               <Col span={12}>
                 <InputNumber
@@ -197,13 +172,13 @@ const ParameterInputs: React.FC = () => {
                   max={10.0}
                   step={0.01}
                   formatter={(value) => `${value}m`}
-                  parser={(value) => value.replace("m", "")}
+                  parser={(value) => parseFloat(value!.replace("m", ""))}
                   style={{
                     margin: "0 6px",
                     width: "100%",
                   }}
                   value={standardHeight}
-                  onChange={(v) => setStandardHeight(v)}
+                  onChange={(v) => setStandardHeight(Number(v))}
                 />
               </Col>
             </Row>
@@ -222,7 +197,7 @@ const ParameterInputs: React.FC = () => {
                     width: "100%",
                   }}
                   value={unit}
-                  onChange={(v) => setUnit(v)}
+                  onChange={(v) => setUnit(Number(v))}
                 />
               </Col>
             </Row>
@@ -248,7 +223,7 @@ const ParameterInputs: React.FC = () => {
                     },
                   ]}
                   value={gridTyp}
-                  onChange={(v) => setGridTyp(v)}
+                  onChange={(v) => setGridTyp(Number(v))}
                 />
               </Col>
             </Row>
@@ -278,7 +253,7 @@ const ParameterInputs: React.FC = () => {
                     },
                   ]}
                   value={recTyp}
-                  onChange={(v) => setRecTyp(v)}
+                  onChange={(v) => setRecTyp(Number(v))}
                 />
               </Col>
             </Row>
@@ -304,7 +279,7 @@ const ParameterInputs: React.FC = () => {
                     },
                   ]}
                   value={randomGenerate}
-                  onChange={(v) => setRandomGenerate(v)}
+                  onChange={(v) => setRandomGenerate(v as string)}
                 />
                 {/* <Switch
                   style={{
@@ -346,7 +321,7 @@ const ParameterInputs: React.FC = () => {
                     },
                   ]}
                   value={BOUND}
-                  onChange={(v) => setBOUND(v)}
+                  onChange={(v) => setBOUND(v as string)}
                 />
               </Col>
             </Row>

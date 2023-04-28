@@ -1,17 +1,25 @@
+import dynamic from "next/dynamic";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Form,
   Col,
-  InputNumber,
+  // InputNumber,
   Row,
   Slider,
   Space,
   Input,
   Divider,
   Button,
-  Select,
+  // Select,
 } from "antd";
+const Select = dynamic(() => import("antd").then((antd) => antd.Select), {
+  ssr: false,
+});
+const InputNumber = dynamic(
+  () => import("antd").then((antd) => antd.InputNumber),
+  { ssr: false }
+);
 
 const ParameterInputs: React.FC = () => {
   const dispatch = useDispatch();

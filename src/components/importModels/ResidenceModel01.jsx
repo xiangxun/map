@@ -42,13 +42,20 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
   let timeout;
 
   const colorType = colorType2;
+
   gltfModel.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
       child.receiveShadow = true;
       Object.keys(colorType).map((key, index) => {
         if (child.material.name === key) {
-          child.material.color.set(colorType[key]);
+          child.material.color.set(colorType[key].color);
+          child.material.transparent = colorType[key].transparent;
+          // child.material.depthWrite = colorType[key].depthWrite;
+          // child.material.depthTest = colorType[key].depthTest;
+          // child.material.depthWrite = true;
+          // child.material.depthTest = true;
+          child.material.opacity = colorType[key].opacity;
         }
       });
     }
@@ -65,15 +72,9 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
 
   const groups = [];
 
-  // 遍历模型中的group
   gltfModel.traverse((child) => {
-    if (child.isGroup) {
-      groups.push(child);
-      child.children.forEach((mesh) => {
-        if (mesh.isMesh) {
-          mesh.userData.originalMaterial = mesh.material;
-        }
-      });
+    if (child.isMesh) {
+      child.userData.originalMaterial = child.material;
     }
   });
 
@@ -85,13 +86,9 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
   const handlePointerOut = (e) => {
     e.stopPropagation();
     setHover(false);
-    const group = e.object.parent;
-    if (group.isGroup) {
-      group.children.forEach((child) => {
-        if (child.isMesh) {
-          child.material = child.userData.originalMaterial;
-        }
-      });
+    const mesh = e.object;
+    if (mesh.isMesh) {
+      mesh.material = mesh.userData.originalMaterial;
     }
   };
   useEffect(() => {
@@ -124,11 +121,9 @@ const ResidenceModel01 = React.forwardRef((props, ref) => {
                     setHover(true);
                     const hoveredMesh = e.object;
                     // console.log("group", group);
-
                     if (hoveredMesh.isMesh) {
                       hoveredMesh.material = highlightMaterial.clone();
                     }
-
                     clearTimeout(timeout);
                     timeout = setTimeout(() => {
                       setMeshInfo(meshItem.name);

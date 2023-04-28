@@ -4,16 +4,16 @@ import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
   MenuUnfoldOutlined,
+  StarOutlined,
   SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import Solution from "./components/Solution";
 import Image from "next/image";
 
 //
 import SaveSolution from "@/components/SaveSolution";
-import { ParkModel, ParkModel03 } from "@/components/importModels";
-import ResidenceCanvas from "./canvas/ResidenceCanvas";
+// import { ParkModel, ParkModel03 } from "@/components/importModels";
+import ResidenceCanvas00 from "./canvas/ResidenceCanvas00";
 import ResidenceCanvas01 from "./canvas/ResidenceCanvas01";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
@@ -23,6 +23,7 @@ import NightingaleChart from "./echarts/NightingaleChart";
 import VehicleScene from "@/components/RaycastVehicle";
 import PieChart from "./echarts/PieChart";
 import { Double, Single } from "@/assets";
+import Link from "next/link";
 
 const Residence = () => {
   const [showLeva, setShowLeva] = useState(true);
@@ -132,7 +133,7 @@ const Residence = () => {
         {/* 主内容区 */}
         <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
-            <ResidenceCanvas />
+            <ResidenceCanvas00 />
             {/* <ResidenceCanvas01 /> */}
             {/* <VehicleScene /> */}
           </div>

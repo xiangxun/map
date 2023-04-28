@@ -9,6 +9,7 @@ import ResidenceModel from "./ResidenceModel";
 import ResidenceModel00 from "./ResidenceModel00";
 import ResidenceModel01 from "./ResidenceModel01";
 import ResidenceModel02 from "./ResidenceModel02";
+import FacadeModel from "./FacadeModel";
 
 export {
   CityModel,
@@ -22,4 +23,5 @@ export {
   ResidenceModel00,
   ResidenceModel01,
   ResidenceModel02,
+  FacadeModel,
 };

@@ -88,7 +88,7 @@ const ResidenceCanvas01 = () => {
         </Canvas>
       </div>
       <div className='absolute top-5 left-5'>
-        <Link href='/residence'>
+        <Link href='/residence/show'>
           <LeftCircleOutlined style={{ fontSize: "32px", color: "#08c" }} />
           {/* <div className='p-2 bg-blue-100 rounded-md shadow-md'>back</div> */}
         </Link>
