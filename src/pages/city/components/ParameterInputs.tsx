@@ -3,17 +3,21 @@ import dynamic from "next/dynamic";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
-  Form,
   Col,
-  InputNumber,
+  // InputNumber,
   Row,
-  Slider,
   Space,
-  Input,
   Divider,
   Button,
-  Select,
+  // Select,
 } from "antd";
+const Select = dynamic(() => import("antd").then((antd) => antd.Select), {
+  ssr: false,
+});
+const InputNumber = dynamic(
+  () => import("antd").then((antd) => antd.InputNumber),
+  { ssr: false }
+);
 // const {
 //   Form,
 //   Col,
@@ -54,7 +58,7 @@ const ParameterInputs: React.FC = () => {
   };
   const submit = async () => {
     // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.1.23:5002/cal", {
+    const response = await fetch("http://192.168.1.23:5003/city", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -40,7 +40,12 @@ import {
 import Solution from "./components/Solution";
 
 import SaveSolution from "@/components/SaveSolution";
-import { ParkModel, ParkModel03 } from "@/components/importModels";
+import {
+  GenModel,
+  ParkModel,
+  ParkModel00,
+  ParkModel03,
+} from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "@/components/RanderMode";
@@ -138,13 +143,13 @@ const Park = () => {
               {/* <OrbitControls autoRotate maxDistance={350} /> */}
               <OrbitControls />
               <Lights />
-              <axesHelper args={[500]} />
+              {/* <axesHelper args={[500]} />
               <gridHelper
                 args={[500, 20, "yellow", "grey"]}
                 onClick={(e) => {
                   console.log("gridHelper", e);
                 }}
-              />
+              /> */}
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
@@ -155,7 +160,7 @@ const Park = () => {
                       selectionLayer={1}
                       visibleEdgeColor={0x000000}
                       hiddenEdgeColor={0x000000}
-                      edgeStrength={10}
+                      edgeStrength={1}
                     />
                     {/* <Bloom /> */}
                     <SSAO
@@ -175,8 +180,9 @@ const Park = () => {
                     <SMAA />
                   </EffectComposer>
                   {/* <RhinoModel0316 castShadow receiveShadow /> */}
-                  {/* <ParkModel03 ref={parkRef} /> */}
-                  <ParkModel ref={parkRef} />
+                  <ParkModel00 ref={parkRef} position={[0, -40.1, 0]} />
+                  <GenModel ref={parkRef} />
+                  {/* <ParkModel ref={parkRef} /> */}
                 </Selection>
                 {/* <Environment preset='city' /> */}
               </Suspense>

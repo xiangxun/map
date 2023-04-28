@@ -39,7 +39,7 @@ const ParameterInputs: React.FC = () => {
 
   const submit = async () => {
     // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.1.63:5000/cal", {
+    const response = await fetch("http://192.168.1.63:5002/residence", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

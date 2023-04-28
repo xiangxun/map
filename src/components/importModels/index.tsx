@@ -10,6 +10,7 @@ import ResidenceModel00 from "./ResidenceModel00";
 import ResidenceModel01 from "./ResidenceModel01";
 import ResidenceModel02 from "./ResidenceModel02";
 import FacadeModel from "./FacadeModel";
+import GenModel from "./GenModel";
 
 export {
   CityModel,
@@ -25,3 +26,5 @@ export {
   ResidenceModel02,
   FacadeModel,
 };
+// 从后端数据生成模型，通用
+export { GenModel };

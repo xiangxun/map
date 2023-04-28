@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectComposer, SMAA, SSAO } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import { FacadeModel } from "@/components/importModels";
+import { FacadeModel, GenModel, ParkModel00 } from "@/components/importModels";
 
 const FacadeCanvas = () => {
   return (
@@ -28,7 +28,9 @@ const FacadeCanvas = () => {
       <axesHelper args={[10]} />
       <gridHelper args={[80, 20]} />
       <Suspense>
-        <FacadeModel />
+        {/* <FacadeModel /> */}
+        {/* <ParkModel00 position={[0, -40.1, 0]} /> */}
+        <GenModel />
         {/* <ResidenceModel00 /> */}
       </Suspense>
       <EffectComposer>

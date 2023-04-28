@@ -22,7 +22,7 @@ const ParameterInputs: React.FC = () => {
   const [modelIndex, setModelIndex] = useState(0);
   const [firstHeight, setFirstHeight] = useState(6.5);
   const [standardHeight, setStandardHeight] = useState(4.5);
-  const [unit, setUnit] = useState(2.4);
+  const [unit, setUnit] = useState(4.0);
 
   const jsonData = {
     random_choice: randomChoice,
@@ -34,7 +34,7 @@ const ParameterInputs: React.FC = () => {
 
   const submit = async () => {
     // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.1.63:5003/cal", {
+    const response = await fetch("http://192.168.1.63:5003/facade", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,9 +52,10 @@ const ParameterInputs: React.FC = () => {
       <div className='max-w-lg'>
         <div className='p-4 bg-white'>
           <div>
-            <h1 className='text-xl font-bold '>全局参数</h1>
+            <h1 className='text-xl font-bold p-2'>全局参数</h1>
           </div>
-          <div className='flex flex-col space-y-4 text-xs p-2'>
+          <div className='m-4'></div>
+          <div className='flex flex-col space-y-4 text-sm p-2'>
             <div className='w-48'>
               <Select
                 value={randomChoice}
@@ -88,7 +89,7 @@ const ParameterInputs: React.FC = () => {
             </div>
             {/* 首层高度 */}
             <div className='flex items-center w-48'>
-              <label className='mr-2 w-36'>首层高度：</label>
+              <label className='mr-2 w-48'>首层高度：</label>
               <InputNumber
                 min={2.5}
                 max={10.0}
@@ -102,7 +103,7 @@ const ParameterInputs: React.FC = () => {
             </div>
             {/* 标准层高度 */}
             <div className='flex items-center w-48'>
-              <label className='mr-2 w-36'>标准层高度：</label>
+              <label className='mr-2 w-48'>标准层高度：</label>
               <InputNumber
                 min={2.5}
                 max={10.0}
@@ -116,10 +117,10 @@ const ParameterInputs: React.FC = () => {
             </div>
             {/* 网格大小 */}
             <div className='flex items-center w-48'>
-              <label className='mr-2 w-36'>网格大小：</label>
+              <label className='mr-2 w-48'>网格大小：</label>
               <InputNumber
                 min={2.0}
-                max={3.0}
+                max={8.0}
                 step={0.1}
                 className='w-full'
                 value={unit}
