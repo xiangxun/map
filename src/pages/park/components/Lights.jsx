@@ -2,16 +2,16 @@ const Lights = () => {
   return (
     <>
       {/* 坏境光 */}
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.5} />
       {/* 平行光 */}
       <directionalLight
         castShadow
-        intensity={2.5}
-        position={[0, 300, 100]}
+        intensity={1.5}
+        position={[-50, 300, 0]}
         shadow-mapSize={4096}
         // shadow-mapSize={[4096, 4096]}
-        shadow-bias={-0.00015}
-        color={"#fff"}
+        shadow-bias={-0.0025}
+        color={"#ffffff"}
       >
         <orthographicCamera
           attach='shadow-camera'

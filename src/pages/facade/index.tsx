@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import Link from "next/link";
+import Image from "next/image";
 import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import {
   CloudDownloadOutlined,
@@ -14,6 +16,7 @@ import RenderMode from "./components/RenderMode";
 import ModelInfo from "@/components/modelInfo";
 import ExportModels from "@/components/exportModels";
 import FacadeCanvas from "./canvas/FacadeCanvas";
+import { logo } from "@/assets";
 
 const Facade = () => {
   const [showLeva, setShowLeva] = useState(true);
@@ -32,8 +35,13 @@ const Facade = () => {
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900 z-20 '>
-        <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          立面细部快速生成 Smart Facade Planning
+        <div className='flex flex-row items-center px-4 mx-auto sm:px-6 lg:px-12'>
+          <Link href='/'>
+            <Image src={logo} alt='logo' className='w-5 h-5' />
+          </Link>
+          <div className='text-white text-xs ml-2'>
+            立面细部快速生成 Smart Facade Planning
+          </div>
         </div>
       </div>
       <div className=' flex-grow flex'>

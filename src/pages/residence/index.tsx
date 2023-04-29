@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import Link from "next/link";
+import Image from "next/image";
 import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import {
   CloudDownloadOutlined,
@@ -16,7 +18,7 @@ import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "./components/RenderMode";
 import ModelInfo from "@/components/modelInfo";
 import ExportModels from "@/components/exportModels";
-import Link from "next/link";
+import { logo } from "@/assets";
 
 const Residence = () => {
   const [showLeva, setShowLeva] = useState(true);
@@ -35,8 +37,13 @@ const Residence = () => {
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900 z-20 '>
-        <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          智慧住宅方案生成 Smart Residence Planning
+        <div className='flex flex-row items-center px-4 mx-auto sm:px-6 lg:px-12'>
+          <Link href='/'>
+            <Image src={logo} alt='logo' className='w-5 h-5' />
+          </Link>
+          <div className='text-white text-xs ml-2'>
+            智慧住宅方案生成 Smart Residence Planning
+          </div>
         </div>
       </div>
       <div className=' flex-grow flex'>

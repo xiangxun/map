@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import Link from "next/link";
+import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
@@ -32,6 +34,7 @@ import { CityModel03 } from "@/components/importModels";
 import ParameterInputs from "./components/ParameterInputs";
 import SaveSolution from "@/components/SaveSolution";
 import RenderMode from "@/components/RanderMode";
+import { logo } from "@/assets";
 
 const City = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,8 +52,13 @@ const City = () => {
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900  z-20 '>
-        <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          智慧园区规划方案生成 Smart Park Planning
+        <div className='flex flex-row items-center px-4 mx-auto sm:px-6 lg:px-12'>
+          <Link href='/'>
+            <Image src={logo} alt='logo' className='w-5 h-5' />
+          </Link>
+          <div className='text-white text-xs ml-2'>
+            智慧园区规划方案生成 Smart Park Planning
+          </div>
         </div>
       </div>
       <div className=' flex-grow flex'>

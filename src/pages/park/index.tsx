@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import {
   Suspense,
@@ -26,6 +28,7 @@ import {
   Selection,
   Outline,
   Bloom,
+  Select,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 //
@@ -40,17 +43,14 @@ import {
 import Solution from "./components/Solution";
 
 import SaveSolution from "@/components/SaveSolution";
-import {
-  GenModel,
-  ParkModel,
-  ParkModel00,
-  ParkModel03,
-} from "@/components/importModels";
+import { GenModel, ParkModel00 } from "@/components/importModels";
 import Lights from "./components/Lights";
 import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "@/components/RanderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
 import { useDispatch } from "react-redux";
+import { logo } from "@/assets";
+
 // export const CanvasContext = createContext(null);
 const Park = () => {
   // const [canvasRef, setCanvasRef] =
@@ -78,8 +78,13 @@ const Park = () => {
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900  z-20 '>
-        <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          智慧园区单地块方案生成 Smart Park Planning
+        <div className='flex flex-row items-center px-4 mx-auto sm:px-6 lg:px-12'>
+          <Link href='/'>
+            <Image src={logo} alt='logo' className='w-5 h-5' />
+          </Link>
+          <div className='text-white text-xs ml-2'>
+            智慧园区单地块方案生成 Smart Park Planning
+          </div>
         </div>
       </div>
       <div className=' flex-grow flex'>
@@ -158,9 +163,9 @@ const Park = () => {
                     <Outline
                       blendFunction={BlendFunction.ALPHA}
                       selectionLayer={1}
-                      visibleEdgeColor={0x000000}
-                      hiddenEdgeColor={0x000000}
-                      edgeStrength={1}
+                      visibleEdgeColor={0x464646}
+                      hiddenEdgeColor={0x464646}
+                      edgeStrength={10}
                     />
                     {/* <Bloom /> */}
                     <SSAO
@@ -179,12 +184,9 @@ const Park = () => {
                     />
                     <SMAA />
                   </EffectComposer>
-                  {/* <RhinoModel0316 castShadow receiveShadow /> */}
                   <ParkModel00 ref={parkRef} position={[0, -40.1, 0]} />
                   <GenModel ref={parkRef} />
-                  {/* <ParkModel ref={parkRef} /> */}
                 </Selection>
-                {/* <Environment preset='city' /> */}
               </Suspense>
               <GizmoHelper
                 alignment='bottom-right'

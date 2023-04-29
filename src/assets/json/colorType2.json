@@ -13,10 +13,12 @@
   "Door_Glaz": { "color": "#FFFFFF", "opacity": 1.0 },
   "Door_Fram": { "color": "#E1E1E1", "opacity": 1.0 },
   "Hral": { "color": "#00007B", "opacity": 0.5 },
-  "frame": { "color": "#FFFFFF", "opacity": 1.0 },
+  "balcony": { "color": "#969696", "opacity": 1.0 },
+  "floors": { "color": "#FFFFFF", "opacity": 1.0 },
+  "frame": { "color": "#969696", "opacity": 1.0 },
   "glass": { "color": "#ccffff", "opacity": 0.5 },
-  "strip": { "color": "#FFFFFF", "opacity": 1.0 },
+  "strip": { "color": "#646464", "opacity": 1.0 },
   "Plane": { "color": "#FFFFFF", "opacity": 1.0 },
-  "Skirt": { "color": "#FFFFFF", "opacity": 1.0 },
-  "Tower": { "color": "#FFFFFF", "opacity": 1.0 }
+  "Skirt": { "color": "#eeffff", "opacity": 0.8 },
+  "Tower": { "color": "#ffeeff", "opacity": 1.0 }
 }

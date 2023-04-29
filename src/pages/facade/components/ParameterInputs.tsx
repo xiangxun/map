@@ -1,7 +1,10 @@
 import { Col, Row } from "antd";
 import dynamic from "next/dynamic";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { gsap } from "gsap";
 
 // import { Select, InputNumber } from 'antd';
 
@@ -15,13 +18,36 @@ const InputNumber = dynamic(
   }
 );
 
+const LoadingSpinner = () => {
+  const spinnerRef = useRef(null);
+
+  useEffect(() => {
+    const spinnerTimeline = gsap.timeline({ repeat: -1 });
+    spinnerTimeline.to(spinnerRef.current, { rotation: 360, duration: 1 });
+  }, []);
+
+  return (
+    <svg width='24' height='24' viewBox='0 0 24 24' ref={spinnerRef}>
+      <circle
+        cx='12'
+        cy='12'
+        r='10'
+        fill='none'
+        strokeWidth='2'
+        stroke='#29d'
+      />
+    </svg>
+  );
+};
+
 const ParameterInputs: React.FC = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const [randomChoice, setRandomChoice] = useState("True");
   const [modelIndex, setModelIndex] = useState(0);
-  const [firstHeight, setFirstHeight] = useState(6.5);
-  const [standardHeight, setStandardHeight] = useState(4.5);
+  const [firstHeight, setFirstHeight] = useState(6.0);
+  const [standardHeight, setStandardHeight] = useState(4.0);
   const [unit, setUnit] = useState(4.0);
 
   const jsonData = {
@@ -33,22 +59,50 @@ const ParameterInputs: React.FC = () => {
   };
 
   const submit = async () => {
-    // 发送 POST 请求并获取数据
-    const response = await fetch("http://192.168.1.63:5003/facade", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonData), // 用你的请求数据替换
-    });
-    const data = await response.json();
+    try {
+      // 显示进度条和禁用按钮
+      NProgress.start();
+      setLoading(true);
 
-    // 分发 action，将数据作为 payload
-    dispatch({ type: "SET_DATA", payload: data });
+      // 发送 POST 请求并获取数据
+      const response = await fetch("http://192.168.1.63:5003/facade", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonData), // 用你的请求数据替换
+      });
+      const data = await response.json();
+
+      // 分发 action，将数据作为 payload
+      dispatch({ type: "SET_DATA", payload: data });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // 隐藏进度条和启用按钮
+      setLoading(false);
+      NProgress.done();
+    }
   };
+  // const submit = async () => {
+  //   // 发送 POST 请求并获取数据
+  //   const response = await fetch("http://192.168.1.63:5003/facade", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(jsonData), // 用你的请求数据替换
+  //   });
+  //   const data = await response.json();
+
+  //   // 分发 action，将数据作为 payload
+  //   dispatch({ type: "SET_DATA", payload: data });
+  // };
 
   return (
     <div className='flex items-left justify-left '>
+      {loading && <LoadingSpinner />}
+      {/* {loading && <div className='progress-bar' />} */}
       <div className='max-w-lg'>
         <div className='p-4 bg-white'>
           <div>

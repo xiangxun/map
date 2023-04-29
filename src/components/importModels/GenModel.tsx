@@ -2,24 +2,12 @@ import React, { FC, forwardRef, useImperativeHandle, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useThree } from "@react-three/fiber";
 import { useGLTF, Edges, Html } from "@react-three/drei";
-import { BufferGeometry, BufferAttribute, Mesh } from "three";
+import { BufferGeometry, BufferAttribute, Mesh, Vector3 } from "three";
 import { colorType1, colorType2, colorType3 } from "@/assets";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 import saveAs from "file-saver";
+import { Select } from "@react-three/postprocessing";
 
-type ColorType = {
-  [key: string]: {
-    color: string;
-    opacity: number;
-  };
-};
-type CreateMeshProps = {
-  type: string;
-  positionArray: number[];
-  indexArray: number[];
-  color: string;
-  opacity: number;
-};
 // 通过后端数据生成mesh
 /**
  * Creates a mesh from given parameters.
@@ -37,22 +25,82 @@ const CreateMesh: FC<CreateMeshProps> = ({
   indexArray,
   color,
   opacity,
+  flag,
 }) => {
-  const position = new BufferAttribute(new Float32Array(positionArray), 3);
-  const index = new BufferAttribute(new Uint16Array(indexArray), 1);
+  const fixInvertedFaces = (geometry: BufferGeometry) => {
+    geometry.computeVertexNormals();
+    const position = geometry.getAttribute("position");
+    const normal = geometry.getAttribute("normal") as BufferAttribute;
 
-  const bufferGeometry = new BufferGeometry();
-  bufferGeometry.setAttribute("position", position);
-  bufferGeometry.setIndex(index);
-  bufferGeometry.computeVertexNormals();
+    const indexArray = geometry.getIndex()?.array ?? [];
+    for (let i = 0; i < position.count; i += 3) {
+      const faceNormal = new Vector3(
+        normal.getX(i),
+        normal.getY(i),
+        normal.getZ(i)
+      );
+      const dotProduct = faceNormal.dot(faceNormal);
+      // console.log("faceNormal", faceNormal);
+      // console.log("dotProduct", dotProduct);
+      if (dotProduct < 0) {
+        const swap = indexArray[i + 1];
+        indexArray[i + 1] = indexArray[i + 2];
+        indexArray[i + 2] = swap;
+      }
+    }
+    geometry.setIndex(new BufferAttribute(new Uint16Array(indexArray), 1));
+  };
+  // const position = new BufferAttribute(new Float32Array(positionArray), 3);
+  // const index = new BufferAttribute(new Uint16Array(indexArray), 1);
 
-  // const highlightMaterial = new MeshStandardMaterial({
-  //   color: 0xff0000,
-  //   emissive: 0xff0000,
-  //   emissiveIntensity: 0.5,
-  //   transparent: true,
-  //   opacity: 0.5,
-  // });
+  // const bufferGeometry = new BufferGeometry();
+  // bufferGeometry.setAttribute("position", position);
+  // bufferGeometry.setIndex(index);
+  // bufferGeometry.computeVertexNormals();
+  const swapSecondAndThird = (arr: number[]): number[] => {
+    const newArr: number[] = [];
+    for (let i = 0; i < arr.length; i += 3) {
+      newArr.push(arr[i + 0]);
+      newArr.push(arr[i + 2]);
+      newArr.push(arr[i + 1]);
+    }
+    return newArr;
+  };
+
+  const position = useMemo(
+    () => new BufferAttribute(new Float32Array(positionArray), 3),
+    [positionArray]
+  );
+  const normal = useMemo(
+    () => new BufferAttribute(new Float32Array(positionArray), 3, false),
+    [positionArray]
+  );
+  const index = useMemo(
+    () =>
+      flag
+        ? new BufferAttribute(
+            new Uint16Array(swapSecondAndThird(indexArray)),
+            1
+          )
+        : new BufferAttribute(new Uint16Array(indexArray), 1),
+    [flag, indexArray]
+  );
+
+  const bufferGeometry = useMemo(() => {
+    const geometry = new BufferGeometry();
+    // console.log("position", position);
+    // console.log("index", index);
+    geometry.setAttribute("position", position);
+    geometry.setAttribute("normal", normal);
+    geometry.setIndex(index);
+    geometry.computeVertexNormals();
+    geometry.normalizeNormals();
+    // console.log("geometry", geometry);
+    // fixInvertedFaces(geometry);
+
+    // geometry.computeFaceNormals();
+    return geometry;
+  }, [position, normal, index]);
 
   return (
     <mesh
@@ -72,11 +120,15 @@ const CreateMesh: FC<CreateMeshProps> = ({
       <meshStandardMaterial
         // wireframe
         transparent
+        // emissive={0xff0000}
+        // emissiveIntensity={0.5}
+        // roughness={0.1}
+        // metalness={0.5}
         opacity={opacity}
         color={color}
         side={2}
       />
-      <Edges threshold={30} color='#555555' />
+      <Edges threshold={30} color='#888888' />
     </mesh>
   );
 };
@@ -116,11 +168,8 @@ const GenModel = forwardRef((props, ref) => {
 
   console.log("data in GenModel", data);
 
-  interface BuildingProps {
-    type: string;
-  }
   // 通过建筑类型名称生成建筑
-  const CreateBuilding: FC<BuildingProps> = ({ type }) => {
+  const CreateBuilding: FC<BuildingProps> = ({ type, flag }) => {
     // 通过建筑类型type获得生成建筑的vertex, vertex_index的数组
     // 在 VertexData 函数中使用 Object.entries() 方法获取对象的键值对数组，避免使用 Object.keys() 方法和 filter() 方法分别获取键和值。
     const VertexData = useMemo(() => {
@@ -132,18 +181,34 @@ const GenModel = forwardRef((props, ref) => {
           );
       };
     }, []);
+    // 使用 Object.values(data) 来获取 data 对象中的值数组，避免使用 filter() 方法进行筛选。我们使用空值合并操作符 ?? 来设置默认值，避免在 colorType[type] 为 undefined 或 null 时出现异常。最后，我们使用 逻辑运算符 || 来判断 value 对象中是否存在 vertex 和 vertex_index 属性，在解构时使用空对象 {} 作为默认值，以避免出现类型不匹配的问题。
     return (
       <>
-        {VertexData(type).map((item, index) => {
-          const { vertex, vertex_index } = item;
+        {/* {Object.values<DataType>(data).map((value, index) => {
+          const { vertex, vertex_index } = value || {};
+          const { opacity = 1, color = "#ffffff" } = colorType[type] ?? {};
           return (
             <CreateMesh
               type={type}
               key={index}
               positionArray={vertex}
               indexArray={vertex_index}
+              opacity={opacity}
+              color={color}
+            />
+          );
+        })} */}
+        {VertexData(type).map((item, index) => {
+          const { vertex, vertex_index } = item;
+          return (
+            <CreateMesh
+              type={type}
+              flag={flag ? flag : false}
+              key={index}
+              positionArray={vertex}
+              indexArray={vertex_index}
               opacity={colorType[type] ? colorType[type].opacity : 1}
-              color={colorType[type] ? colorType[type].color : "#ffffff"}
+              color={colorType[type] ? colorType[type].color : "#00ffff"}
             />
           );
         })}
@@ -190,16 +255,19 @@ const GenModel = forwardRef((props, ref) => {
   const colorType: ColorType = colorType2;
 
   return (
-    <group
-    // onPointerOver={(e) => {
-    //   e.stopPropagation();
-    //   console.log("hovered Mesh", e.intersections[0].object);
-    // }}
+    <Select
+      name='GenModel'
+      enabled
+      // onPointerOver={(e) => {
+      //   e.stopPropagation();
+      //   console.log("hovered Mesh", e.intersections[0].object);
+      // }}
     >
+      {/* <CreateBuilding type='Tower' flag={true} /> */}
       {buildingTypeList.map((type, index) => (
         <CreateBuilding type={type!} key={index} />
       ))}
-    </group>
+    </Select>
   );
 });
 
