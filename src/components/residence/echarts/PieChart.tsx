@@ -1,6 +1,6 @@
 import * as echarts from "echarts";
 import { useEffect } from "react";
-import "@/components/theme/vintage.js";
+import "../../../components/theme/vintage.js";
 
 type EChartsOption = echarts.EChartsOption;
 

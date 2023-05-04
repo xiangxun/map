@@ -18,7 +18,7 @@ const InputNumber = dynamic(
   }
 );
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   const spinnerRef = useRef(null);
 
   useEffect(() => {
@@ -32,6 +32,17 @@ const LoadingSpinner = () => {
         cx='12'
         cy='12'
         r='10'
+        fill='none'
+        strokeWidth='2'
+        stroke='#29d'
+      />
+      <rect
+        x='3'
+        y='3'
+        width='18'
+        height='18'
+        rx='2'
+        ry='2'
         fill='none'
         strokeWidth='2'
         stroke='#29d'
@@ -101,7 +112,11 @@ const ParameterInputs: React.FC = () => {
 
   return (
     <div className='flex items-left justify-left '>
-      {loading && <LoadingSpinner />}
+      {loading && (
+        <div className=' w-12 h-12 bg-black absolute top-0 left-0'>
+          <LoadingSpinner />
+        </div>
+      )}
       {/* {loading && <div className='progress-bar' />} */}
       <div className='max-w-lg'>
         <div className='p-4 bg-white'>

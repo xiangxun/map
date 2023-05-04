@@ -40,12 +40,12 @@ import {
   SwitcherOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import Solution from "./components/Solution";
+// import Solution from "./components/Solution";
 
 import SaveSolution from "@/components/SaveSolution";
 import { GenModel, ParkModel00 } from "@/components/importModels";
-import Lights from "./components/Lights";
-import ParameterInputs from "./components/ParameterInputs";
+import Lights from "@/components/park/Lights";
+import ParameterInputs from "@/components/park/ParameterInputs";
 import RenderMode from "@/components/RanderMode";
 import levaTheme from "@/assets/json/levaTheme.json";
 import { useDispatch } from "react-redux";

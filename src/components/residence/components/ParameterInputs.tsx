@@ -2,8 +2,6 @@ import dynamic from "next/dynamic";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Row, Space, Divider, Button } from "antd";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 const Select = dynamic(() => import("antd").then((antd) => antd.Select), {
   ssr: false,
 });
@@ -13,18 +11,17 @@ const InputNumber = dynamic(
 );
 const ParameterInputs: React.FC = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
 
   const [mod, setMod] = useState(4);
   const [gfa, setGfa] = useState(6.0);
   const [bcr, setBcr] = useState(0.25);
   const [limitHeight, setLimitHeight] = useState(100);
   const [standardHeight, setStandardHeight] = useState(2.92);
-  const [unit, setUnit] = useState(4);
-  const [gridTyp, setGridTyp] = useState(0);
-  const [recTyp, setRecTyp] = useState(0);
+  const [unit, setUnit] = useState(8);
+  const [gridTyp, setGridTyp] = useState(1);
+  const [recTyp, setRecTyp] = useState(1);
   const [randomGenerate, setRandomGenerate] = useState("True");
-  const [BOUND, setBOUND] = useState("LEB");
+  const [BOUND, setBOUND] = useState("SVB");
 
   // const [isMounted, setIsMounted] = useState(false);
   const jsonData = {
@@ -41,45 +38,19 @@ const ParameterInputs: React.FC = () => {
   };
 
   const submit = async () => {
-    try {
-      // 显示进度条和禁用按钮
-      NProgress.start();
-      setLoading(true);
+    // 发送 POST 请求并获取数据
+    const response = await fetch("http://192.168.1.63:5002/residence", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonData), // 用你的请求数据替换
+    });
+    const data = await response.json();
 
-      // 发送 POST 请求并获取数据
-      const response = await fetch("http://192.168.1.63:5002/residence", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jsonData), // 用你的请求数据替换
-      });
-      const data = await response.json();
-
-      // 分发 action，将数据作为 payload
-      dispatch({ type: "SET_DATA", payload: data });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      // 隐藏进度条和启用按钮
-      setLoading(false);
-      NProgress.done();
-    }
+    // 分发 action，将数据作为 payload
+    dispatch({ type: "SET_DATA", payload: data });
   };
-  // const submit = async () => {
-  //   // 发送 POST 请求并获取数据
-  //   const response = await fetch("http://192.168.1.63:5002/residence", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(jsonData), // 用你的请求数据替换
-  //   });
-  //   const data = await response.json();
-
-  //   // 分发 action，将数据作为 payload
-  //   dispatch({ type: "SET_DATA", payload: data });
-  // };
 
   return (
     <div className='flex items-left justify-left '>

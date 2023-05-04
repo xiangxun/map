@@ -1,7 +1,15 @@
 /* eslint-disable react/jsx-key */
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense, useRef, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import {
+  Suspense,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  createContext,
+} from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   Bounds,
@@ -11,6 +19,7 @@ import {
   GizmoViewport,
   Environment,
   ContactShadows,
+  GizmoViewcube,
 } from "@react-three/drei";
 import {
   EffectComposer,
@@ -18,33 +27,50 @@ import {
   SMAA,
   Selection,
   Outline,
+  Bloom,
+  Select,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 //
-import Lights from "./components/Lights";
 // import { Leva } from "leva";
 import {
   CloudDownloadOutlined,
-  UnorderedListOutlined,
-  SwitcherOutlined,
   FormatPainterOutlined,
+  MenuUnfoldOutlined,
+  SwitcherOutlined,
+  UnorderedListOutlined,
 } from "@ant-design/icons";
-import { File3dm, Mesh } from "rhino3dm";
-import { CityModel03 } from "@/components/importModels";
-import ParameterInputs from "./components/ParameterInputs";
+import Solution from "./components/Solution";
+
 import SaveSolution from "@/components/SaveSolution";
+import { GenModel, ParkModel00 } from "@/components/importModels";
+import Lights from "./Lights";
+import ParameterInputs from "./components/ParameterInputs";
 import RenderMode from "@/components/RanderMode";
+import levaTheme from "@/assets/json/levaTheme.json";
+import { useDispatch } from "react-redux";
 import { logo } from "@/assets";
 
-const City = () => {
+// export const CanvasContext = createContext(null);
+const Park = () => {
+  // const [canvasRef, setCanvasRef] =
+  //   useState<React.RefObject<HTMLCanvasElement> | null>(null);
+
+  const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const cityRef = useRef<any>(null);
+  const parkRef = useRef<any>(null);
   const [activeTab, setActiveTab] = useState(0);
   console.log("activeTab", activeTab);
 
+  // useEffect(() => {
+  //   // dispatch setCanvasRef action on component mount
+  //   // setCanvasRef(canvasRef);
+  //   dispatch({ type: "SET_CANVAS_REF", payload: canvasRef });
+  // }, [dispatch]);
+
   const handlerExportModels = () => {
     console.log("exportModels");
-    cityRef.current.exportGLB();
+    parkRef.current.exportGLB();
     // parkRef.current.sayHello();
   };
 
@@ -57,7 +83,7 @@ const City = () => {
             <Image src={logo} alt='logo' className='w-5 h-5' />
           </Link>
           <div className='text-white text-xs ml-2'>
-            智慧园区规划方案生成 Smart Park Planning
+            智慧园区单地块方案生成 Smart Park Planning
           </div>
         </div>
       </div>
@@ -110,28 +136,35 @@ const City = () => {
         </div>
 
         {/* 主内容区 */}
-        <div className='relative flex-grow p-6 shadow-lg'>
+        <div className='relative flex-grow p-6 bg-gray-200 shadow-lg'>
           <div className='w-full h-full absolute top-0 left-0'>
+            {/* <CanvasContext.Provider value={canvasRef}> */}
             <Canvas
               gl={{ preserveDrawingBuffer: true }}
               ref={canvasRef}
               shadows
-              orthographic
-              camera={{ position: [4000, 4000, 0], far: 8000 }}
+              camera={{ position: [200, 200, 200], fov: 60, far: 2000 }}
             >
-              <OrbitControls maxDistance={2000} />
+              {/* <OrbitControls autoRotate maxDistance={350} /> */}
+              <OrbitControls />
               <Lights />
+              {/* <axesHelper args={[500]} />
+              <gridHelper
+                args={[500, 20, "yellow", "grey"]}
+                onClick={(e) => {
+                  console.log("gridHelper", e);
+                }}
+              /> */}
               {/* <Sky distance={4500} sunPosition={[200, 500, 200]} /> */}
               <Suspense>
                 {/* <Tree /> */}
-                <CityModel03 castShadow receiveShadow />
                 <Selection>
                   <EffectComposer multisampling={0} autoClear={false}>
                     <Outline
                       blendFunction={BlendFunction.ALPHA}
                       selectionLayer={1}
-                      visibleEdgeColor={0x000000}
-                      hiddenEdgeColor={0x000000}
+                      visibleEdgeColor={0x464646}
+                      hiddenEdgeColor={0x464646}
                       edgeStrength={10}
                     />
                     {/* <Bloom /> */}
@@ -147,12 +180,32 @@ const City = () => {
                       radius={20} // occlusion sampling radius
                       scale={0.5} // scale of the ambient occlusion
                       bias={0.1} // occlusion bias
-                      intensity={300}
+                      intensity={30}
                     />
+                    <SMAA />
                   </EffectComposer>
+                  <ParkModel00 ref={parkRef} position={[0, -40.1, 0]} />
+                  <GenModel ref={parkRef} />
                 </Selection>
               </Suspense>
+              <GizmoHelper
+                alignment='bottom-right'
+                margin={[80, 80]}
+                renderPriority={2}
+              >
+                <GizmoViewcube
+                  font='normal 40px Source Sans Pro '
+                  opacity={0.9}
+                  color='white'
+                  hoverColor='hotpink'
+                  textColor='black'
+                  strokeColor='black'
+                  onClick={(e) => null}
+                  faces={["右", "左", "上", "下", "前", "后"]}
+                />
+              </GizmoHelper>
             </Canvas>
+            {/* </CanvasContext.Provider> */}
           </div>
           <div className='absolute bottom-1 left-0 right-0 text-center'>
             <p className='text-xs mx-auto text-white'>Smart Park Planning</p>
@@ -162,10 +215,18 @@ const City = () => {
         <div className='relative bg-white w-[300px] p-2 hidden lg:block shadow-lg'>
           <div className='container z-10 w-auto  mx-auto '>
             <SaveSolution canvasRef={canvasRef} />
+            {/* <div className=' border'>
+              <div className='p-3 text-lg font-bold'>方案一</div>
+              <Solution canvasRef={canvasRef} />
+            </div>
+            <div className=' border'>
+              <div className='p-3 text-lg font-bold'>方案二</div>
+              <Solution canvasRef={canvasRef} />
+            </div> */}
           </div>
         </div>
       </div>
     </div>
   );
 };
-export default City;
+export default Park;

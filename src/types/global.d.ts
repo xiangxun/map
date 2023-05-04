@@ -22,3 +22,12 @@ declare type CreateMeshProps = {
   opacity: number;
   flag?: boolean;
 };
+type CardProps = {
+  data: {
+    image1: StaticImageData;
+    image2: StaticImageData;
+    link: string;
+    title: string;
+    description: string;
+  };
+};

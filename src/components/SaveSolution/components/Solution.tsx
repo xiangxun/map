@@ -35,7 +35,7 @@ const data: DataType[] = [
   {
     key: "2",
     name: "容积率",
-    value: 3,
+    value: 5,
   },
   {
     key: "3",
@@ -67,7 +67,7 @@ const Solution: React.FC<SolutionProps> = ({ canvasRef }) => {
     <div className='p-2 bg-white'>
       {/* <div className='p-1 text-lg font-bold'>方案</div> */}
       <Image
-        src={image ? image : "/images/residence01.jpg"}
+        src={image ? image : "/images/residence01.png"}
         // src={image}
         alt={"save image"}
         width={250}

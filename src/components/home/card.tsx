@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
-interface CardProps {
+type CardProps = {
   data: {
     image1: StaticImageData;
     image2: StaticImageData;
@@ -10,7 +10,7 @@ interface CardProps {
     title: string;
     description: string;
   };
-}
+};
 
 const Card: React.FC<CardProps> = ({ data }) => {
   const { image1, image2, link, title, description } = data;

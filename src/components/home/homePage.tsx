@@ -1,11 +1,9 @@
 import React from "react";
 import {
-  city,
   city01,
   city02,
   facade01,
   facade02,
-  park,
   park01,
   park02,
   residence01,
