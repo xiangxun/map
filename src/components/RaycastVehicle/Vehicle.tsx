@@ -1,23 +1,25 @@
-import type { BoxProps, WheelInfoOptions } from '@react-three/cannon'
-import { useBox, useRaycastVehicle } from '@react-three/cannon'
-import { useFrame } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
-import type { Group, Mesh } from 'three'
+import type { BoxProps, WheelInfoOptions } from "@react-three/cannon";
+import { useBox, useRaycastVehicle } from "@react-three/cannon";
+import { useFrame } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import type { Group, Mesh } from "three";
 
-import { Chassis } from './Chassis'
-import { useControls } from './use-controls'
-import { Wheel } from './Wheel'
+import { Chassis } from "./Chassis";
+import { useControls } from "./use-controls";
+import { Wheel } from "./Wheel";
 
-export type VehicleProps = Required<Pick<BoxProps, 'angularVelocity' | 'position' | 'rotation'>> & {
-  back?: number
-  force?: number
-  front?: number
-  height?: number
-  maxBrake?: number
-  radius?: number
-  steer?: number
-  width?: number
-}
+export type VehicleProps = Required<
+  Pick<BoxProps, "angularVelocity" | "position" | "rotation">
+> & {
+  back?: number;
+  force?: number;
+  front?: number;
+  height?: number;
+  maxBrake?: number;
+  radius?: number;
+  steer?: number;
+  width?: number;
+};
 
 function Vehicle({
   angularVelocity,
@@ -32,9 +34,14 @@ function Vehicle({
   steer = 0.5,
   width = 1.2,
 }: VehicleProps) {
-  const wheels = [useRef<Group>(null), useRef<Group>(null), useRef<Group>(null), useRef<Group>(null)]
+  const wheels = [
+    useRef<Group>(null),
+    useRef<Group>(null),
+    useRef<Group>(null),
+    useRef<Group>(null),
+  ];
 
-  const controls = useControls()
+  const controls = useControls();
 
   const wheelInfo: WheelInfoOptions = {
     axleLocal: [-1, 0, 0], // This is inverted for asymmetrical wheel models (left v. right sided)
@@ -49,28 +56,28 @@ function Vehicle({
     suspensionRestLength: 0.3,
     suspensionStiffness: 30,
     useCustomSlidingRotationalSpeed: true,
-  }
+  };
 
   const wheelInfo1: WheelInfoOptions = {
     ...wheelInfo,
     chassisConnectionPointLocal: [-width / 2, height, front],
     isFrontWheel: true,
-  }
+  };
   const wheelInfo2: WheelInfoOptions = {
     ...wheelInfo,
     chassisConnectionPointLocal: [width / 2, height, front],
     isFrontWheel: true,
-  }
+  };
   const wheelInfo3: WheelInfoOptions = {
     ...wheelInfo,
     chassisConnectionPointLocal: [-width / 2, height, back],
     isFrontWheel: false,
-  }
+  };
   const wheelInfo4: WheelInfoOptions = {
     ...wheelInfo,
     chassisConnectionPointLocal: [width / 2, height, back],
     isFrontWheel: false,
-  }
+  };
 
   const [chassisBody, chassisApi] = useBox(
     () => ({
@@ -78,12 +85,12 @@ function Vehicle({
       angularVelocity,
       args: [1.7, 1, 4],
       mass: 500,
-      onCollide: (e) => console.log('bonk', e.body.userData),
+      onCollide: (e) => console.log("bonk", e.body.userData),
       position,
       rotation,
     }),
-    useRef<Mesh>(null),
-  )
+    useRef<Mesh>(null)
+  );
 
   const [vehicle, vehicleApi] = useRaycastVehicle(
     () => ({
@@ -91,33 +98,42 @@ function Vehicle({
       wheelInfos: [wheelInfo1, wheelInfo2, wheelInfo3, wheelInfo4],
       wheels,
     }),
-    useRef<Group>(null),
-  )
+    useRef<Group>(null)
+  );
 
-  useEffect(() => vehicleApi.sliding.subscribe((v) => console.log('sliding', v)), [])
+  useEffect(
+    () => vehicleApi.sliding.subscribe((v) => console.log("sliding", v)),
+    [vehicleApi.sliding]
+  );
 
   useFrame(() => {
-    const { backward, brake, forward, left, reset, right } = controls.current
+    const { backward, brake, forward, left, reset, right } = controls.current;
 
     for (let e = 2; e < 4; e++) {
-      vehicleApi.applyEngineForce(forward || backward ? force * (forward && !backward ? -1 : 1) : 0, 2)
+      vehicleApi.applyEngineForce(
+        forward || backward ? force * (forward && !backward ? -1 : 1) : 0,
+        2
+      );
     }
 
     for (let s = 0; s < 2; s++) {
-      vehicleApi.setSteeringValue(left || right ? steer * (left && !right ? 1 : -1) : 0, s)
+      vehicleApi.setSteeringValue(
+        left || right ? steer * (left && !right ? 1 : -1) : 0,
+        s
+      );
     }
 
     for (let b = 2; b < 4; b++) {
-      vehicleApi.setBrake(brake ? maxBrake : 0, b)
+      vehicleApi.setBrake(brake ? maxBrake : 0, b);
     }
 
     if (reset) {
-      chassisApi.position.set(...position)
-      chassisApi.velocity.set(0, 0, 0)
-      chassisApi.angularVelocity.set(...angularVelocity)
-      chassisApi.rotation.set(...rotation)
+      chassisApi.position.set(...position);
+      chassisApi.velocity.set(0, 0, 0);
+      chassisApi.angularVelocity.set(...angularVelocity);
+      chassisApi.rotation.set(...rotation);
     }
-  })
+  });
 
   return (
     <group ref={vehicle} position={[0, -0.4, 0]}>
@@ -127,7 +143,7 @@ function Vehicle({
       <Wheel ref={wheels[2]} radius={radius} leftSide />
       <Wheel ref={wheels[3]} radius={radius} />
     </group>
-  )
+  );
 }
 
-export default Vehicle
+export default Vehicle;

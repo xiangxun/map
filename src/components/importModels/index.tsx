@@ -12,6 +12,7 @@ const ResidenceModel00 = dynamic(() => import("./ResidenceModel00"));
 const ResidenceModel01 = dynamic(() => import("./ResidenceModel01"));
 const ResidenceModel02 = dynamic(() => import("./ResidenceModel02"));
 const FacadeModel = dynamic(() => import("./FacadeModel"));
+const FacadeModel00 = dynamic(() => import("./FacadeModel00"));
 const GenModel = dynamic(() => import("./GenModel"));
 // import GenModel from "./GenModel";
 
@@ -28,6 +29,7 @@ export {
   ResidenceModel01,
   ResidenceModel02,
   FacadeModel,
+  FacadeModel00,
 };
 // 从后端数据生成模型，通用
 export { GenModel };

@@ -133,7 +133,7 @@ const CreateMesh: FC<CreateMeshProps> = ({
   );
 };
 
-const GenModel = forwardRef((props, ref) => {
+const GenModel = React.forwardRef((props, ref) => {
   // 导出模型
   const { scene } = useThree();
   console.log("scene in GenModel", scene);

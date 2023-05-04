@@ -3,12 +3,16 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectComposer, SMAA, SSAO } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import { FacadeModel, GenModel, ParkModel00 } from "@/components/importModels";
+import {
+  FacadeModel00,
+  GenModel,
+  ParkModel00,
+} from "@/components/importModels";
 
 const FacadeCanvas = () => {
   return (
     <Canvas shadows camera={{ position: [100, 200, 100], fov: 45, far: 2000 }}>
-      <OrbitControls />
+      <OrbitControls autoRotate />
       {/* 坏境光 */}
       <ambientLight intensity={0.8} />
       {/* 平行光 */}
@@ -26,12 +30,10 @@ const FacadeCanvas = () => {
         />
       </directionalLight>
       <axesHelper args={[10]} />
-      <gridHelper args={[80, 20]} />
+      <gridHelper args={[150, 20]} />
       <Suspense>
-        {/* <FacadeModel /> */}
-        {/* <ParkModel00 position={[0, -40.1, 0]} /> */}
+        {/* <FacadeModel00 /> */}
         <GenModel />
-        {/* <ResidenceModel00 /> */}
       </Suspense>
       <EffectComposer>
         <SSAO

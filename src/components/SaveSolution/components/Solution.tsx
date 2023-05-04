@@ -5,7 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import { saveAs } from "file-saver";
 // import { park, parkImage } from "@/assets";
 import park from "public/images/park.png";
-import { A, B, C, logo, parkImage } from "@/assets";
+import { A, B, C, logo, residence01 } from "@/assets";
 interface DataType {
   key: React.Key;
   name: string;
@@ -67,7 +67,7 @@ const Solution: React.FC<SolutionProps> = ({ canvasRef }) => {
     <div className='p-2 bg-white'>
       {/* <div className='p-1 text-lg font-bold'>方案</div> */}
       <Image
-        src={image ? image : "/images/park.png"}
+        src={image ? image : "/images/residence01.jpg"}
         // src={image}
         alt={"save image"}
         width={250}

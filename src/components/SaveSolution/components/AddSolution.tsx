@@ -15,7 +15,7 @@ const AddSolution: React.FC<AddSolutionProps> = ({ canvasRef }) => {
   const handleAddSolution = () => {
     console.log("canvasRef", canvasRef);
     const newSolutions = [...solutions];
-    newSolutions.push(
+    newSolutions.unshift(
       <Solution canvasRef={canvasRef} key={newSolutions.length} />
     );
     setSolutions(newSolutions);

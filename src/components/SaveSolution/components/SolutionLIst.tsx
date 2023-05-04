@@ -5,7 +5,7 @@ const SolutionLIst = (
   solutions: { [s: string]: React.ReactNode } | ArrayLike<React.ReactNode>
 ) => {
   return (
-    <div className='h-[800px] overflow-y-scroll'>
+    <div className='h-[1000px] overflow-y-scroll'>
       <div className=''>{Object.values(solutions)}</div>
     </div>
   );

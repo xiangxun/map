@@ -23,7 +23,7 @@ function Plane(props) {
     <group ref={ref}>
       <mesh receiveShadow>
         <planeGeometry args={[100, 100]} />
-        <meshStandardMaterial color='#303030' />
+        <meshStandardMaterial color='#ffffff' />
       </mesh>
     </group>
   );
@@ -32,7 +32,7 @@ function Plane(props) {
 const ResidenceCanvas00 = () => {
   return (
     <Canvas shadows camera={{ position: [100, 200, 100], fov: 45, far: 2000 }}>
-      <OrbitControls />
+      <OrbitControls autoRotate />
 
       {/* 坏境光 */}
       <ambientLight intensity={0.8} />

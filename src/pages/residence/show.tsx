@@ -3,6 +3,7 @@ import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import {
   CloudDownloadOutlined,
   FormatPainterOutlined,
+  LeftCircleOutlined,
   MenuUnfoldOutlined,
   StarOutlined,
   SwitcherOutlined,
@@ -42,8 +43,14 @@ const Residence = () => {
     <div className='flex flex-col h-screen'>
       {/* 顶栏 */}
       <div className=' bg-blue-600 py-3 shadow-xl border-gray-900 z-20 '>
-        <div className='px-4 mx-auto sm:px-6 lg:px-12 text-white text-xs '>
-          智慧住宅方案生成 Smart Residence Planning
+        <div className='flex flex-row items-center px-4 mx-auto sm:px-6 lg:px-12'>
+          <Link href='/residence'>
+            <LeftCircleOutlined style={{ fontSize: "32px", color: "#fff" }} />
+            {/* <Image src={logo} alt='logo' className='w-5 h-5' /> */}
+          </Link>
+          <div className='text-white text-xs ml-2'>
+            智慧住宅模型展示 Smart Residence Model Display
+          </div>
         </div>
       </div>
       <div className=' flex-grow flex'>
@@ -87,9 +94,9 @@ const Residence = () => {
               <Image src={Single} alt='单层' priority />
               <div className='grid grid-cols-2 grid-rows-2 gap-2 p-2'>
                 <div className='p-1'>室内面积</div>
-                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m²</div>
                 <div className='p-1'>绿色阳台面积</div>
-                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+                <div className='p-1 rounded-md shadow-md'>60.24m²</div>
               </div>
               <div className='flex justify-center mb-2'>
                 <div className='p-1'>奇数层平面</div>
@@ -99,9 +106,9 @@ const Residence = () => {
               <Image src={Double} alt='双层' priority />
               <div className='grid grid-cols-2 grid-rows-2 gap-2 p-4'>
                 <div className='p-1'>室内面积</div>
-                <div className='p-1 rounded-md shadow-md'>106.93m2</div>
+                <div className='p-1 rounded-md shadow-md'>106.93m²</div>
                 <div className='p-1'>绿色阳台面积</div>
-                <div className='p-1 rounded-md shadow-md'>54.87m2</div>
+                <div className='p-1 rounded-md shadow-md'>54.87m²</div>
               </div>
               <div className='flex justify-center mb-2'>
                 <div className='p-1'>偶数层平面</div>

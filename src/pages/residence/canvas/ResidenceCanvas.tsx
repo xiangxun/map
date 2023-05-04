@@ -22,6 +22,7 @@ function OrbitControlsComponent() {
 
   return (
     <OrbitControls
+      autoRotate
       camera={camera}
       domElement={domElement}
       target={[0, 0, 0]} // 设置相机要指向的位置
@@ -47,8 +48,8 @@ function Scene() {
 const ResidenceCanvas = () => {
   return (
     <Canvas shadows camera={{ position: [200, 200, 200], fov: 45, far: 2000 }}>
-      {/* <OrbitControls /> */}
-      <OrbitControlsComponent />
+      <OrbitControls />
+      {/* <OrbitControlsComponent /> */}
       {/* 坏境光 */}
       <ambientLight intensity={0.8} />
       {/* 平行光 */}

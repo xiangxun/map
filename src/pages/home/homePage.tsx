@@ -42,7 +42,7 @@ const CardList = [
     image1: residence01,
     image2: residence02,
     link: "/residence",
-    title: "住宅小区方案快速生成",
+    title: "智慧住宅方案生成",
     description:
       "基于传入系统的场地红线及规划信息，使用四代住宅库中的模型，根据算法快速生成合理的四代住宅布局。",
   },

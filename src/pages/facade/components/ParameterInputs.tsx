@@ -48,7 +48,7 @@ const ParameterInputs: React.FC = () => {
   const [modelIndex, setModelIndex] = useState(0);
   const [firstHeight, setFirstHeight] = useState(6.0);
   const [standardHeight, setStandardHeight] = useState(4.0);
-  const [unit, setUnit] = useState(4.0);
+  const [unit, setUnit] = useState(6.0);
 
   const jsonData = {
     random_choice: randomChoice,
